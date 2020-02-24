@@ -4,7 +4,7 @@ import { Search, Close } from 'ui/components/Icon';
 import { IconButton, SHAPE } from 'ui/components/IconButton';
 import './SearchBar.scss';
 
-export function SearchBar({ initialTerm, onSearch }) {
+export function SearchBar({ initialTerm, onSearch, focusOnMount }) {
   const inputRef = React.useRef();
 
   const [term, setTerm] = React.useState(initialTerm);
@@ -28,6 +28,12 @@ export function SearchBar({ initialTerm, onSearch }) {
     clearTerm();
     inputRef.current.focus();
   };
+
+  React.useEffect(() => {
+    if (focusOnMount) {
+      inputRef.current.focus();
+    }
+  }, [focusOnMount]);
 
   return (
     <form onSubmit={handleFormSubmit} className="SearchBar">
@@ -65,6 +71,7 @@ export function SearchBar({ initialTerm, onSearch }) {
 SearchBar.defaultProps = { initialTerm: '' };
 
 SearchBar.propTypes = {
+  focusOnMount: propTypes.bool,
   initialTerm: propTypes.string,
   onSearch: propTypes.func.isRequired,
 };
