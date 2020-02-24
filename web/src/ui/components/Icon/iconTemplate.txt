@@ -1,0 +1,10 @@
+import React from 'react';
+import { Icon } from '../Icon';
+
+export function %%ICON_NAME%%(props) {
+  return %%ICON_SVG%%;
+}
+
+%%ICON_NAME%%.defaultProps = Icon.defaultProps;
+
+%%ICON_NAME%%.propTypes = Icon.propTypes;
