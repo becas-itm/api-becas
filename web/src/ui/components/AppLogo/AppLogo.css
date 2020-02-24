@@ -7,5 +7,6 @@
   margin-left: .75rem;
   padding: .5rem 0 .5rem .75rem;
   color: var(--text-emphasis-high);
+  font-size: 1.25rem;
   border-left: 1px solid var(--line-separator);
 }
