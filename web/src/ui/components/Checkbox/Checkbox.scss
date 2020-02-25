@@ -1,0 +1,63 @@
+.a-visuallyHidden {
+  border: 0px;
+  clip: rect(0px, 0px, 0px, 0px);
+  height: 1px;
+  width: 1px;
+  margin: -1px;
+  padding: 0px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  overflow-wrap: normal;
+}
+
+.Checkbox {
+  display: inline-flex;
+  align-items: center;
+
+  &__checkMark {
+    align-self: flex-start;
+    min-width: 20px;
+    min-height: 20px;
+    position: relative;
+    border-radius: 0.125rem;
+    border: 1px solid var(--line-separator);
+    background: var(--white);
+  }
+
+  &__input:focus + &__checkMark {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px #bbdefb;
+  }
+
+  &__input:checked + &__checkMark {
+    background: var(--primary);
+
+    &::after {
+      box-sizing: border-box;
+      position: absolute;
+      content: '';
+      top: 4px;
+      left: 3px;
+      border-left: 2px solid;
+      border-bottom: 2px solid;
+      border-color: var(--white);
+      height: 6px;
+      width: 13px;
+      transform: rotate(-45deg);
+    }
+  }
+
+  &__input[disabled] + &__checkMark {
+    background: var(--line-separator);
+
+    &::after {
+      border-color: var(--text-emphasis-disabled);
+    }
+  }
+
+  &__label {
+    font-size: 1rem;
+    margin-left: .5rem;
+  }
+}
