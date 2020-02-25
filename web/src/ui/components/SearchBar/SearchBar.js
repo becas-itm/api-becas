@@ -4,7 +4,13 @@ import { Search, Close } from 'ui/components/Icon';
 import { IconButton, SHAPE } from 'ui/components/IconButton';
 import './SearchBar.scss';
 
-export function SearchBar({ initialTerm, onSearch, focusOnMount }) {
+export function SearchBar({
+  initialTerm,
+  onSearch,
+  focusOnMount,
+  className = '',
+  ...restProps
+}) {
   const inputRef = React.useRef();
 
   const [term, setTerm] = React.useState(initialTerm);
@@ -36,7 +42,11 @@ export function SearchBar({ initialTerm, onSearch, focusOnMount }) {
   }, [focusOnMount]);
 
   return (
-    <form onSubmit={handleFormSubmit} className="SearchBar">
+    <form
+      {...restProps}
+      onSubmit={handleFormSubmit}
+      className={`SearchBar ${className}`}
+    >
       <IconButton
         onClick={triggerSearch}
         icon={Search}
@@ -71,6 +81,7 @@ export function SearchBar({ initialTerm, onSearch, focusOnMount }) {
 SearchBar.defaultProps = { initialTerm: '' };
 
 SearchBar.propTypes = {
+  className: propTypes.string,
   focusOnMount: propTypes.bool,
   initialTerm: propTypes.string,
   onSearch: propTypes.func.isRequired,
