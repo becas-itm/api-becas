@@ -1,0 +1,79 @@
+$primary: hsl(213, 83%, 44%);
+
+.Button {
+  // Resets
+  border: 0;
+  background: transparent;
+  user-select: none;
+  text-decoration: none;
+  padding: 0;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  // firefox: remove inner border on focus
+  &::-moz-focus-inner {
+    border: none;
+  }
+
+  // Base styles
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: var(--weight-medium);
+  border-radius: .25rem;
+  min-width: 88px;
+
+  &:focus {
+    box-shadow: 0 0 0 3px #d4e6f7;
+  }
+
+  // Size
+  font-size: 1.125rem;
+  padding: .75rem 1.125rem;
+
+  &.-kindPrimary {
+    color: var(--white);
+    background: var(--primary);
+
+    &:hover {
+      background: rgba($primary, .85);
+    }
+    &:active {
+      background: var(--primary);
+    }
+  }
+
+  &.-kindSecondary {
+    color: var(--text-emphasis-high);
+    background: var(--gray-100);
+
+    &:hover {
+      background: var(--gray-200);
+    }
+    &:active {
+      background: var(--gray-100);
+    }
+  }
+
+  &.-kindTertiary {
+    color: var(--primary);
+
+    &:hover,
+    &:focus {
+      background: rgba($primary, 0.05);
+    }
+    &:active {
+      background: rgba($primary, 0.08);
+    }
+  }
+
+  &.-wide {
+    width: 100%;
+  }
+
+  &[disabled] {
+    cursor: not-allowed;
+    background: var(--gray-300) !important;
+    color: var(--text-emphasis-medium);
+  }
+}
