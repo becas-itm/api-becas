@@ -1,7 +1,10 @@
 :root {
   --primary: hsl(213, 83%, 44%);
+
   --text-emphasis-high: hsl(0, 0%, 13%);
   --text-emphasis-medium: hsl(0, 0%, 40%);
+  --text-emphasis-disabled: hsl(0, 0%, 62%);
+
   --line-separator: hsl(0, 0%, 88%);
 
   --font-base: 16px;
