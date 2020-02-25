@@ -1,0 +1,32 @@
+.NotFoundGhost {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  align-self: flex-start;
+
+  > img {
+    height: auto;
+    width: 100%;
+    max-width: 364px;
+  }
+
+  > h1 {
+    margin-top: .5rem;
+    font-size: 1.25rem;
+    color: var(--text-emphasis-high);
+    font-weight: var(--weight-medium);
+  }
+
+  > p {
+    margin: 0;
+    padding-top: .5rem;
+    color: var(--emphasis-medium);
+  }
+
+  &__action {
+    margin-top: .5rem;
+  }
+}
