@@ -1,7 +1,10 @@
-import elasticsearch_dsl as dsl
+import os
+
+from elasticsearch_dsl.connections import create_connection
+from elasticsearch_dsl import Document, Text, Date, Object, Keyword
 
 
-class Scholarship(dsl.Document):
+class Scholarship(Document):
     class Index:
         name = 'scholarships'
 
@@ -9,30 +12,93 @@ class Scholarship(dsl.Document):
     def id(self):
         return self.meta.id
 
-    name = dsl.Text(required=True)
+    name = Text(required=True)
 
-    description = dsl.Text()
+    description = Text()
 
-    deadline = dsl.Date()
+    deadline = Date()
 
-    state = dsl.Keyword(required=True)
+    state = Keyword(required=True)
 
-    createdAt = dsl.Date(required=True)
+    createdAt = Date(required=True)
 
-    approval = dsl.Object(
+    fundingType = Keyword()
+
+    entity = Object(
+        required=True,
         properties={
-            'approvedAt': dsl.Date(required=True),
+            'fullName': Text(required=True),
         },
     )
 
-    denial = dsl.Object(
+    approval = Object(
         properties={
-            'deniedAt': dsl.Date(required=True),
-            'reason': dsl.Text(required=True),
+            'approvedAt': Date(required=True),
         },
     )
 
-    def to_dict(self):
-        doc = super().to_dict()
+    denial = Object(
+        properties={
+            'deniedAt': Date(required=True),
+            'reason': Text(required=True),
+        },
+    )
+
+    spider = Object(
+        properties={
+            'name': Keyword(required=True),
+            'extractedAt': Date(required=True),
+        },
+    )
+
+    def serialize(self):
+        doc = self.to_dict()
         doc.update({'id': self.id})
         return doc
+
+    @staticmethod
+    def create(item):
+        item_id = item.pop('id')
+        scholarship = Scholarship(meta={'id': item_id}, **item)
+        scholarship.save()
+
+
+class RawScholarship(Document):
+    class Index:
+        name = 'raw_scholarships'
+
+    name = Text(required=True)
+
+    description = Text()
+
+    deadline = Text()
+
+    fundingType = Text()
+
+    spider = Object(
+        required=True,
+        properties={
+            'name': Keyword(required=True),
+            'extractedAt': Date(required=True),
+        },
+    )
+
+    @staticmethod
+    def create(item):
+        scholarship = RawScholarship(**item)
+        scholarship.save()
+
+
+def connect_db():
+    host = os.getenv('ELASTIC_HOST', '127.0.0.1')
+    return create_connection(alias='default', hosts=[host])
+
+
+def init_indexes():
+    connect_db()
+    Scholarship.init()
+    RawScholarship.init()
+
+
+if __name__ == '__main__':
+    init_indexes()
