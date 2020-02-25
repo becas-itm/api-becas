@@ -1,0 +1,1 @@
+export { ThreeRowTemplate } from './ThreeRowTemplate';
