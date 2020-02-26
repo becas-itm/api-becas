@@ -19,4 +19,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('api/publishing/', include('itm.publishing.infrastructure.api.urls')),
+    path('api/search/', include('itm.search.urls')),
 ]
