@@ -10,9 +10,11 @@ export function SearchHeader({ searchBar, onBackClick, onFilterClick }) {
         Ir atrás
       </IconButton>
       <div className="SearchHeader__searchBar">{searchBar}</div>
-      <IconButton onClick={onFilterClick} icon={Tune}>
-        Ver filtros de búsqueda
-      </IconButton>
+      {!!onFilterClick && (
+        <IconButton onClick={onFilterClick} icon={Tune}>
+          Ver filtros de búsqueda
+        </IconButton>
+      )}
     </div>
   );
 }
