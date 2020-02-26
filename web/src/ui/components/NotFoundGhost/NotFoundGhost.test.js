@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { NotFoundGhost } from './not-found-ghost';
+import { NotFoundGhost } from './index';
 
 test('should render component', () => {
   const title = 'foo';
