@@ -10,3 +10,14 @@
   font-size: 1.25rem;
   border-left: 1px solid var(--line-separator);
 }
+
+@media (max-width: 512px) {
+  .AppLogo > img {
+    height: 48px;
+  }
+
+  .AppLogo > span {
+    padding-top: .25rem;
+    padding-bottom: .25rem;
+  }
+}
