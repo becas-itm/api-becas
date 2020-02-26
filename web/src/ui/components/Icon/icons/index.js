@@ -8,6 +8,8 @@ export { Event } from './Event';
 
 export { Money } from './Money';
 
+export { School } from './School';
+
 export { Search } from './Search';
 
 export { Tune } from './Tune';
