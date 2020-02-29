@@ -2,7 +2,6 @@ import React from 'react';
 import propTypes from 'prop-types';
 import classNames from 'classnames';
 import VisuallyHidden from '@reach/visually-hidden';
-import { SIZE as IconSize } from 'ui/components/Icon';
 import './IconButton.scss';
 
 export const SHAPE = {
@@ -27,7 +26,7 @@ export function IconButton({
   const classes = classNames('IconButton', shape, size, className);
   return (
     <button {...restProps} className={classes}>
-      <Icon size={IconSize.regular} />
+      <Icon regular />
       <VisuallyHidden>{children}</VisuallyHidden>
     </button>
   );

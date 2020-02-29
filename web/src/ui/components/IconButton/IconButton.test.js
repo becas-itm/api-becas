@@ -3,7 +3,9 @@ import { render } from '@testing-library/react';
 
 import { IconButton, SHAPE, SIZE } from './index';
 
-const TestIcon = props => <div data-testid="icon" {...props} />;
+const TestIcon = ({ regular, ...restProps }) => (
+  <div data-testid="icon" {...restProps} />
+);
 
 describe('IconButton component', () => {
   test('renders correctly', () => {

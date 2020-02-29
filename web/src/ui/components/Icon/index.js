@@ -1,3 +1,3 @@
 export * from './icons';
 
-export { Icon, SIZE } from './Icon';
+export { default, default as Icon } from './Icon';

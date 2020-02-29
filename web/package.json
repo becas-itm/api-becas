@@ -29,7 +29,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "build:styles": "tailwindcss build src/tailwind.css -o src/styles.css",
-    "icons:generate": "node src/ui/components/Icon/buildIcons"
+    "build:icons": "node src/ui/components/Icon/buildIcons"
   },
   "eslintConfig": {
     "extends": [
