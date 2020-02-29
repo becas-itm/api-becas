@@ -7,9 +7,6 @@ module.exports = {
       ...theme('colors'),
       default: 'hsl(0, 0%, 88%)',
     }),
-    boxShadow: {
-      xs: '0 0 0 1px rgba(0, 0, 0, .12)',
-    },
     extend: {
       colors: {
         primary: 'hsl(213, 83%, 44%)',
@@ -19,6 +16,9 @@ module.exports = {
       },
       textColor: {
         current: 'currentColor',
+      },
+      boxShadow: {
+        xs: '0 0 0 1px rgba(0, 0, 0, .12)',
       },
     },
   },
