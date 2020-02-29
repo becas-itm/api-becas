@@ -1,5 +1,6 @@
-from django.views.decorators.http import require_GET
-from django.http import JsonResponse, HttpResponseForbidden
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework.exceptions import PermissionDenied
 
 from itm.shared.utils import SimplePaginator
 from itm.publishing.domain.scholarship import State
@@ -8,13 +9,13 @@ from .search import SearchBuilder
 from .service import SearchService
 
 
-@require_GET
+@api_view(['GET'])
 def search(request):
     try:
         page = int(request.GET.get('page', 1))
         assert(page >= 1)
     except (ValueError, AssertionError):
-        return HttpResponseForbidden('Invalid page')
+        raise PermissionDenied('Invalid page number')
 
     paginator = SimplePaginator(page)
 
@@ -27,4 +28,4 @@ def search(request):
     if 'q' in request.GET:
         builder.add_term(request.GET['q'])
 
-    return JsonResponse(paginator.paginate(SearchService.execute(builder)))
+    return Response(paginator.paginate(SearchService.execute(builder)))
