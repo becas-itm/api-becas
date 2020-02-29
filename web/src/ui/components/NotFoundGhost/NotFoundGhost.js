@@ -1,15 +1,14 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import ghostShocked from './ghostShocked.svg';
-import './NotFoundGhost.scss';
 
-export function NotFoundGhost({ title, description, action = null }) {
+function NotFoundGhost({ title, description, children: action }) {
   return (
-    <div className="NotFoundGhost">
-      <img src={ghostShocked} alt="" />
-      <h1>{title}</h1>
-      {description && <p>{description}</p>}
-      {action && <div className="NotFoundGhost__action">{action}</div>}
+    <div className="flex flex-col items-center">
+      <img src={ghostShocked} alt="" className="max-w-sm" />
+      <h1 className="mt-2 text-xl font-semibold text-black">{title}</h1>
+      {description && <p className="mt-2 text-gray-700">{description}</p>}
+      {action && <div className="mt-2">{action}</div>}
     </div>
   );
 }
@@ -17,5 +16,7 @@ export function NotFoundGhost({ title, description, action = null }) {
 NotFoundGhost.propTypes = {
   title: propTypes.string.isRequired,
   description: propTypes.string,
-  action: propTypes.node,
+  children: propTypes.node,
 };
+
+export default NotFoundGhost;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import { NotFoundGhost } from './index';
+import NotFoundGhost from './index';
 
 test('should render component', () => {
   const title = 'foo';
@@ -19,7 +19,9 @@ test('should render description when passed ', () => {
 test('should render action when passed ', () => {
   const action = 'foo';
   const { getByText } = render(
-    <NotFoundGhost action={action} description="bar" title="buz" />,
+    <NotFoundGhost description="bar" title="buz">
+      {action}
+    </NotFoundGhost>,
   );
   expect(getByText('foo')).toBeInTheDocument();
 });
