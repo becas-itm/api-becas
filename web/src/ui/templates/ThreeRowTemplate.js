@@ -1,13 +1,12 @@
 import React from 'react';
 import propTypes from 'prop-types';
 import { AppFooter } from 'ui/components/AppFooter';
-import './ThreeRowTemplate.scss';
 
 export function ThreeRowTemplate({ header, className = '', ...restProps }) {
   return (
-    <div className="ThreeRowTemplate">
+    <div className="min-h-screen flex flex-col">
       <div>{header}</div>
-      <div {...restProps} className={`ThreeRowTemplate__main ${className}`} />
+      <div {...restProps} className={`h-full flex-1 ${className}`} />
       <div>
         <AppFooter />
       </div>
