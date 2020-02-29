@@ -1,7 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-
-import { IconButton, SHAPE, SIZE } from './index';
+import { IconButton, SHAPE } from './index';
 
 const TestIcon = ({ regular, ...restProps }) => (
   <div data-testid="icon" {...restProps} />
@@ -15,10 +14,7 @@ describe('IconButton component', () => {
       </IconButton>,
     );
     const iconButton = getByTestId('icon-button');
-
     expect(iconButton).toBeInTheDocument();
-    expect(iconButton).toHaveClass('IconButton');
-
     expect(getByTestId('icon')).toBeInTheDocument();
   });
 
@@ -33,12 +29,7 @@ describe('IconButton component', () => {
 
   it('text children should be visually hidden', () => {
     const { getByText } = render(<IconButton icon={TestIcon}>Foo</IconButton>);
-    expect(getByText('Foo')).toHaveStyle(`
-        width: 1px;
-        height: 1px;
-        clip: rect(0 0 0 0);
-        position: absolute;
-      `);
+    expect(getByText('Foo')).toHaveClass('sr-only');
   });
 
   describe('button shape', () => {
@@ -75,30 +66,6 @@ describe('IconButton component', () => {
         </IconButton>,
       );
       expect(getByTestId('icon-button')).toHaveClass(SHAPE.simple);
-    });
-  });
-
-  describe('button size', () => {
-    it('should be regular by default', () => {
-      const { getByTestId } = render(
-        <IconButton data-testid="icon-button" icon={TestIcon}>
-          Foo
-        </IconButton>,
-      );
-      expect(getByTestId('icon-button')).toHaveClass(SIZE.regular);
-    });
-
-    test('compact size', () => {
-      const { getByTestId } = render(
-        <IconButton
-          size={SIZE.compact}
-          data-testid="icon-button"
-          icon={TestIcon}
-        >
-          Foo
-        </IconButton>,
-      );
-      expect(getByTestId('icon-button')).toHaveClass(SIZE.compact);
     });
   });
 });
