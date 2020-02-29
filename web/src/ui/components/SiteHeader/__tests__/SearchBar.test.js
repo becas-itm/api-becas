@@ -1,37 +1,24 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
-import { SearchBar } from './index';
+import SearchBar from '../SearchBar';
 
 const renderSearch = ({ onSearch = jest.fn(), ...restProps } = {}) => {
   const result = render(<SearchBar onSearch={onSearch} {...restProps} />);
   return {
     ...result,
     input: result.getByPlaceholderText('Buscar'),
-    searchBtn: result.getByText('Buscar'),
   };
 };
 
 describe('Search bar', () => {
   it('should render correctly', () => {
-    const { container, input } = renderSearch();
-    expect(container.querySelector('.SearchBar')).toBeInTheDocument();
+    const { input } = renderSearch();
     expect(input).toBeInTheDocument();
   });
 
   it('should pass initial value to input', () => {
     const { input } = renderSearch({ initialTerm: 'foo' });
     expect(input.value).toBe('foo');
-  });
-
-  it('should fire `onSearch` on search icon click', () => {
-    const onSearch = jest.fn();
-    const { input, searchBtn } = renderSearch({ onSearch });
-
-    fireEvent.change(input, { target: { value: 'bar' } });
-    fireEvent.click(searchBtn);
-
-    expect(onSearch).toHaveBeenCalledTimes(1);
-    expect(onSearch).toHaveBeenCalledWith('bar');
   });
 
   it('should fire `onSearch` on form submit', () => {

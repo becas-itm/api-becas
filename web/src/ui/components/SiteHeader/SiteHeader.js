@@ -1,68 +1,64 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import AppLogo from 'ui/components/AppLogo';
 import { isBrowser } from 'react-device-detect';
+import { Search, Tune } from 'ui/components/Icon';
+import IconButton from 'ui/components/IconButton';
+import SearchBar from './SearchBar';
 
-import { useToggle } from 'utils/hooks';
-import { IconButton } from 'ui/components';
-import { Search } from 'ui/components/Icon';
-import { SearchBar } from 'ui/components/SearchBar';
-import { SearchHeader } from 'ui/components/SearchHeader';
-import { AppHeader, Bar, Actions } from 'ui/components/AppHeader';
-
-import './SiteHeader.scss';
-
-export function SiteHeader({
+function SiteHeader({
   onSearch,
   initialTerm,
   onFilterClick,
   isInitiallySearching = false,
 }) {
-  const [isSearching, toggleSearch] = useToggle(isInitiallySearching);
+  const [isSearching, setSearch] = React.useState(isInitiallySearching);
+  const toggleSearch = () => setSearch(!isSearching);
+
+  const searchBar = <SearchBar onSearch={onSearch} initialTerm={initialTerm} />;
 
   if (isBrowser) {
     return (
-      <AppHeader>
-        <Bar>
-          <SearchBar
-            onSearch={onSearch}
-            initialTerm={initialTerm}
-            className="SiteHeader__SearchBar"
-          />
-        </Bar>
-      </AppHeader>
+      <header className="bg-white border-b">
+        <div className="container h-20 flex items-center mx-auto px-4">
+          <AppLogo />
+          <div className="ml-4 sm:ml-16 flex-grow max-w-screen-sm">
+            {searchBar}
+          </div>
+        </div>
+      </header>
     );
   }
 
-  if (isSearching) {
+  if (!isSearching) {
     return (
-      <SearchHeader
-        onBackClick={toggleSearch}
-        onFilterClick={onFilterClick}
-        searchBar={
-          <SearchBar
-            focusOnMount
-            onSearch={onSearch}
-            initialTerm={initialTerm}
-          />
-        }
-      />
+      <header className="bg-white border-b">
+        <div className="container h-16 flex items-center justify-between mx-auto px-4">
+          <AppLogo />
+          <IconButton onClick={toggleSearch} icon={Search}>
+            Search
+          </IconButton>
+        </div>
+      </header>
     );
   }
 
   return (
-    <AppHeader>
-      <Actions>
-        <IconButton onClick={toggleSearch} icon={Search}>
-          Buscar
+    <header className="bg-white border-b">
+      <div className="container h-16 flex items-center justify-between mx-auto px-4">
+        {React.cloneElement(searchBar, { focusOnMount: true })}
+        <IconButton onClick={onFilterClick} icon={Tune} className="ml-2">
+          Filtrar
         </IconButton>
-      </Actions>
-    </AppHeader>
+        <button
+          onClick={toggleSearch}
+          type="button"
+          className="ml-2 p-2 text-primary hover:text-blue-700 select-none"
+        >
+          Cancelar
+        </button>
+      </div>
+    </header>
   );
 }
 
-SiteHeader.propTypes = {
-  onSearch: propTypes.func.isRequired,
-  initialTerm: propTypes.string,
-  onFilterClick: propTypes.func,
-  isInitiallySearching: propTypes.bool,
-};
+export default SiteHeader;
