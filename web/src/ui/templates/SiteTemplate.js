@@ -15,13 +15,13 @@ export function SiteTemplate(props) {
 
   return (
     <ThreeRowTemplate
-      {...props}
       header={
         <SiteHeader
           onSearch={handleSearch}
           isInitiallySearching={location.state?.isSearching}
         />
       }
+      {...props}
     />
   );
 }
