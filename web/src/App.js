@@ -1,17 +1,17 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-const HomePage = lazy(() => import('pages/HomePage'));
+import HomePage from 'pages/HomePage';
+import SearchPage from 'pages/SearchPage';
 
 function App() {
   return (
     <BrowserRouter>
-      <Suspense fallback={null}>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="*" redirectTo="/" />
-        </Routes>
-      </Suspense>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/buscar" element={<SearchPage />} />
+        <Route path="*" redirectTo="/" />
+      </Routes>
     </BrowserRouter>
   );
 }
