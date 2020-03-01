@@ -1,6 +1,5 @@
 import qs from 'qs';
 import useFetch from 'use-http';
-import { useMount } from 'react-use';
 import { useState, useEffect } from 'react';
 
 function query_params(payload) {
@@ -21,8 +20,6 @@ export default function useSearch() {
     _setTerm(searchTerm);
     setPage(1);
   };
-
-  useMount(() => searchScholarships());
 
   async function searchScholarships(payload) {
     const results = await request.get(query_params(payload));
