@@ -7,14 +7,14 @@ class SearchBuilder:
         return self
 
     def with_state(self, state):
-        self._add_must({'term': {'state': state}})
+        self._must({'term': {'state': state}})
         return self
 
     def add_term(self, term):
         if term == '':
             return self
 
-        self._add_must({
+        self._should({
             'multi_match': {
                 'query': term,
                 'fields': ['name', 'description'],
@@ -34,13 +34,13 @@ class SearchBuilder:
     def build(self):
         return self.body
 
-    def _add_must(self, query):
-        self._add_bool('must', query)
+    def _must(self, query):
+        self._bool('must', query)
 
-    def _add_should(self, query):
-        self._add_bool('should', query)
+    def _should(self, query):
+        self._bool('should', query)
 
-    def _add_bool(self, bool_type, query):
+    def _bool(self, bool_type, query):
         if 'bool' not in self.body['query']:
             self.body['query']['bool'] = {}
 
