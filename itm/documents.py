@@ -3,6 +3,8 @@ import os
 from elasticsearch_dsl.connections import create_connection
 from elasticsearch_dsl import Document, Text, Date, Object, Keyword
 
+from itm.publishing.domain.scholarship import Id
+
 
 class Scholarship(Document):
     class Index:
@@ -85,7 +87,7 @@ class RawScholarship(Document):
 
     @staticmethod
     def create(item):
-        scholarship = RawScholarship(**item)
+        scholarship = RawScholarship(meta={'id': Id.generate().value}, **item)
         scholarship.save()
 
 
