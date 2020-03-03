@@ -31,6 +31,10 @@ class SearchBuilder:
         self.body['from'] = value
         return self
 
+    def with_academic_level(self, level):
+        self._must({'term': {'academicLevel': level}})
+        return self
+
     def build(self):
         return self.body
 

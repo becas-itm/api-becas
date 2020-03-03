@@ -29,6 +29,9 @@ def search(request):
     if 'term' in request.query_params:
         builder.add_term(request.query_params['term'])
 
+    if 'academicLevel' in request.query_params:
+        builder.with_academic_level(request.query_params['academicLevel'])
+
     return Response(paginator.paginate(SearchService.execute(builder)))
 
 
