@@ -6,6 +6,7 @@ from .scholarship import (
     Description,
     Scholarship,
     DenialReason,
+    AcademicLevel,
 )
 
 from .errors import ScholarshipError, IncompleteError, StateError, ExpiredError
@@ -27,4 +28,5 @@ __all__ = [
     'ExpiredError',
     'ScholarshipApproved',
     'ScholarshipDenied',
+    'AcademicLevel',
 ]

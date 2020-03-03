@@ -14,12 +14,14 @@ class Scholarship:
         description=None,
         state=None,
         deadline=None,
+        academic_level=None,
     ):
         self.id = id
         self.name = name
         self.description = description
         self.state = state
         self.deadline = deadline
+        self.academic_level = academic_level
 
     def approve(self):
         self._check_for_approval()
@@ -38,7 +40,7 @@ class Scholarship:
 
     @property
     def is_complete(self):
-        fields = [self.description]
+        fields = [self.description, self.academic_level]
         for field in fields:
             if field is None:
                 return False
@@ -68,6 +70,8 @@ class Scholarship:
             description=Description(document.description) if 'description' in document else None,
             state=State(document.state),
             deadline=Date(document.deadline.date()) if 'deadline' in document else None,
+            academic_level=AcademicLevel(
+                document.academicLevel) if 'academicLevel' in document else None,
         )
 
 
@@ -156,3 +160,12 @@ class Date:
 
 class DenialReason(StringValueObject):
     MAX_CHARACTERS = 120
+
+
+@enum.unique
+class AcademicLevel(enum.Enum):
+    UNDERGRADUATE = 'UNDERGRADUATE'
+
+    POSTGRADUATE = 'POSTGRADUATE'
+
+    OTHERS = 'OTHERS'

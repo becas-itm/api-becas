@@ -26,6 +26,8 @@ class Scholarship(Document):
 
     fundingType = Keyword()
 
+    academicLevel = Keyword()
+
     entity = Object(
         required=True,
         properties={
