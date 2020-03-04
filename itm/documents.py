@@ -55,6 +55,13 @@ class Scholarship(Document):
         },
     )
 
+    country = Object(
+        properties={
+            'name': Text(required=True),
+            'code': Keyword(required=True),
+        },
+    )
+
     def serialize(self):
         doc = self.to_dict()
         doc.update({'id': self.id})
@@ -86,6 +93,8 @@ class RawScholarship(Document):
             'extractedAt': Date(required=True),
         },
     )
+
+    country = Text()
 
     @staticmethod
     def create(item):
