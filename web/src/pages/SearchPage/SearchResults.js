@@ -17,7 +17,7 @@ export default function SearchResults({ results, onPage }) {
   }
 
   return (
-    <div className="max-w-screen-md mx-auto mt-4">
+    <div className="w-full">
       <h2 className="text-base text-gray-700 mb-4 px-4">
         <span>Resultados de búsqueda</span>
         <span> — Página {pagination.currentPage}</span>

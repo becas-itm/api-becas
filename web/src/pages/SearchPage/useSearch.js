@@ -2,11 +2,15 @@ import qs from 'qs';
 import useFetch from 'use-http';
 import { useState, useEffect } from 'react';
 
+import useFilters from './useFilters';
+import { DEFAULT_FILTERS } from './SiteFilters/SiteFilters';
+
 function query_params(payload) {
   return qs.stringify(payload, {
     encode: false,
     skipNulls: true,
     addQueryPrefix: true,
+    arrayFormat: 'comma',
   });
 }
 
@@ -15,6 +19,9 @@ export default function useSearch() {
   const [page, setPage] = useState(1);
   const [results, setResults] = useState({ results: [] });
   const [request, response] = useFetch('/api/search/scholarships/');
+
+  const filter = useFilters(DEFAULT_FILTERS);
+  const { values } = filter;
 
   const setTerm = searchTerm => {
     _setTerm(searchTerm);
@@ -29,8 +36,16 @@ export default function useSearch() {
   }
 
   useEffect(() => {
-    searchScholarships({ term, page });
-  }, [term, page]); // eslint-disable-line react-hooks/exhaustive-deps
+    searchScholarships({ term, page, ...values });
+  }, [term, page, values]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  return { term, page, setTerm, setPage, results, isLoading: request.loading };
+  return {
+    term,
+    page,
+    setTerm,
+    setPage,
+    results,
+    filter,
+    isLoading: request.loading,
+  };
 }

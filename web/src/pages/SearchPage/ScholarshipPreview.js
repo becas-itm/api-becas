@@ -26,7 +26,7 @@ export default function ScholarshipPreview({
         <EntityAvatar
           spiderName={spider.name}
           size={60}
-          className="shadow-xs hidden sm:block absolute top-0 right-full mr-8"
+          className="shadow-xs hidden sm:block absolute top-0 right-full mr-4 md:mr-8"
         />
         <header>
           {deadline && (

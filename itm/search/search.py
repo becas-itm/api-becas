@@ -32,7 +32,7 @@ class SearchBuilder:
         return self
 
     def with_academic_level(self, level):
-        self._must({'term': {'academicLevel': level}})
+        self._must({'terms': {'academicLevel': level}})
         return self
 
     def build(self):

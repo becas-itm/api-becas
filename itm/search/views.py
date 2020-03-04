@@ -4,7 +4,7 @@ from rest_framework.exceptions import PermissionDenied, NotFound
 
 from itm.documents import Scholarship
 from itm.shared.utils import SimplePaginator
-from itm.publishing.domain.scholarship import State
+from itm.publishing.domain.scholarship import State, AcademicLevel
 
 from .search import SearchBuilder
 from .service import SearchService
@@ -30,7 +30,14 @@ def search(request):
         builder.add_term(request.query_params['term'])
 
     if 'academicLevel' in request.query_params:
-        builder.with_academic_level(request.query_params['academicLevel'])
+        levels = []
+        academicLevels = request.query_params['academicLevel'].split(',')
+        for level in list(AcademicLevel):
+            if level.value in academicLevels:
+                levels.append(level.value)
+
+        if len(levels) > 0:
+            builder.with_academic_level(levels)
 
     return Response(paginator.paginate(SearchService.execute(builder)))
 

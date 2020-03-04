@@ -5,9 +5,19 @@ import { SiteTemplate } from 'ui/templates/SiteTemplate';
 
 import useSearch from './useSearch';
 import SearchResults from './SearchResults';
+import SiteFilters from './SiteFilters/SiteFilters';
+import FiltersDialog from './SiteFilters/FiltersDialog';
 
 function SearchPage() {
-  const { results, term, setTerm, setPage, isLoading } = useSearch();
+  const { results, term, setTerm, setPage, isLoading, filter } = useSearch();
+
+  const searchFilters = (
+    <SiteFilters
+      filters={filter.values}
+      onSubmit={filter.onSubmit}
+      onReset={filter.onReset}
+    />
+  );
 
   return (
     <SiteTemplate
@@ -16,17 +26,32 @@ function SearchPage() {
           initialTerm={term}
           onSearch={setTerm}
           isInitiallySearching={false}
+          onFilterClick={filter.toggleFilters}
         />
       }
     >
       <div className="h-full flex-1 mb-6">
-        {isLoading ? (
-          <div className="text-center mt-8">
-            <Spinner />
+        <div className="container mx-auto flex mt-4">
+          <aside className="hidden lg:block lg:mx-4 xl:mx-0 self-start w-64">
+            <h2 className="mb-5 text-base text-gray-700">Filtrar búsqueda</h2>
+            {searchFilters}
+          </aside>
+          <div className="flex-1 max-w-screen-md mx-auto">
+            {isLoading ? (
+              <div className="text-center mt-4">
+                <Spinner />
+              </div>
+            ) : (
+              <SearchResults onPage={setPage} results={results} />
+            )}
           </div>
-        ) : (
-          <SearchResults onPage={setPage} results={results} />
-        )}
+        </div>
+        <FiltersDialog
+          isOpen={filter.isFiltering}
+          onDismiss={filter.toggleFilters}
+        >
+          {searchFilters}
+        </FiltersDialog>
       </div>
     </SiteTemplate>
   );

@@ -24,6 +24,15 @@ function SiteHeader({
           <div className="ml-4 sm:ml-16 flex-grow max-w-screen-sm">
             {searchBar}
           </div>
+          {onFilterClick && (
+            <IconButton
+              onClick={onFilterClick}
+              icon={Tune}
+              className="lg:hidden ml-2"
+            >
+              Filtrar
+            </IconButton>
+          )}
         </div>
       </header>
     );
@@ -46,9 +55,11 @@ function SiteHeader({
     <header className="bg-white border-b">
       <div className="container h-16 flex items-center justify-between mx-auto px-4">
         {React.cloneElement(searchBar, { focusOnMount: true })}
-        <IconButton onClick={onFilterClick} icon={Tune} className="ml-2">
-          Filtrar
-        </IconButton>
+        {onFilterClick && (
+          <IconButton onClick={onFilterClick} icon={Tune} className="ml-2">
+            Filtrar
+          </IconButton>
+        )}
         <button
           onClick={toggleSearch}
           type="button"
