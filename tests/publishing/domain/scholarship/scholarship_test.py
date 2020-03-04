@@ -13,12 +13,14 @@ from itm.publishing.domain.scholarship import (
     ScholarshipApproved,
     ScholarshipDenied,
     AcademicLevel,
+    Country,
 )
 
 
 def get_scholarship(id=None, name='foo', description='bar',
                     state=State.PENDING, deadline='9999-01-01',
-                    academic_level=AcademicLevel.UNDERGRADUATE):
+                    academic_level=AcademicLevel.UNDERGRADUATE,
+                    country='COL'):
     return Scholarship(
         id=Id.from_string(id) if id else Id.generate(),
         name=Name(name),
@@ -26,11 +28,12 @@ def get_scholarship(id=None, name='foo', description='bar',
         state=state,
         deadline=Date.from_string(deadline) if deadline else None,
         academic_level=academic_level,
+        country=Country(country) if country else None,
     )
 
 
 class TestApproveScholarship:
-    @pytest.mark.parametrize('field', ['description', 'academic_level'])
+    @pytest.mark.parametrize('field', ['description', 'academic_level', 'country'])
     def test_missing_field_should_throw(self, field):
         scholarship = get_scholarship(**{field: None})
         with pytest.raises(IncompleteError):
