@@ -1,14 +1,16 @@
+import '@reach/combobox/styles.css';
 import './styles.css';
-import React, { lazy, Suspense } from 'react';
-import ReactDOM from 'react-dom';
 import './index.css';
+
+import React from 'react';
+import ReactDOM from 'react-dom';
 import SplashScreen from 'ui/components/SplashScreen';
 
-const App = lazy(() => import('./App'));
+const App = React.lazy(() => import('./App'));
 
 ReactDOM.render(
-  <Suspense fallback={<SplashScreen />}>
+  <React.Suspense fallback={<SplashScreen />}>
     <App />
-  </Suspense>,
+  </React.Suspense>,
   document.getElementById('root'),
 );
