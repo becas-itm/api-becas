@@ -3,10 +3,13 @@ import propTypes from 'prop-types';
 
 import { Checkbox } from 'ui/components/Checkbox';
 import { Button, KIND } from 'ui/components/Button';
+import CountryCombobox from 'ui/components/CountryCombobox';
+import countries from 'ui/components/CountryCombobox/countries';
 
 import { collectFilters } from './collectFilters';
 
 export const DEFAULT_FILTERS = {
+  country: '',
   fundingType: ['COMPLETE', 'PARTIAL'],
   academicLevel: ['UNDERGRADUATE', 'POSTGRADUATE', 'OTHERS'],
 };
@@ -55,7 +58,7 @@ function SiteFilters({ filters, onSubmit, onReset }) {
       <h4 className="text-sm font-semibold color-gray-500 uppercase">
         Tipo de financiamiento
       </h4>
-      <div className="flex flex-wrap">
+      <div className="flex flex-wrap mb-2">
         <Checkbox
           value="COMPLETE"
           name="fundingType[]"
@@ -75,6 +78,16 @@ function SiteFilters({ filters, onSubmit, onReset }) {
           Parcial
         </Checkbox>
       </div>
+
+      <h4 className="text-sm font-semibold color-gray-500 uppercase pb-3">
+        País
+      </h4>
+      <CountryCombobox
+        htmlFor=""
+        name="country"
+        defaultCountry={filters.country}
+        countries={countries}
+      />
 
       <div className="mt-8">
         <Button wide type="submit">
