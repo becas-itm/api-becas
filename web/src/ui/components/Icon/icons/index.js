@@ -6,6 +6,8 @@ export { Close } from './Close';
 
 export { Event } from './Event';
 
+export { KeyboardArrowDown } from './KeyboardArrowDown';
+
 export { Money } from './Money';
 
 export { School } from './School';
