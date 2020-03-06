@@ -1,5 +1,49 @@
 export default [
   {
+    name: 'Alemania',
+    code: 'DEU',
+  },
+  {
+    name: 'Brasil',
+    code: 'BRA',
+  },
+  {
+    name: 'Colombia',
+    code: 'COL',
+  },
+  {
+    name: 'Chile',
+    code: 'CHL',
+  },
+  {
+    name: 'Brasil',
+    code: 'BRA',
+  },
+  {
+    name: 'España',
+    code: 'ESP',
+  },
+  {
+    name: 'Estados Unidos',
+    code: 'USA',
+  },
+  {
+    name: 'Francia',
+    code: 'FRA',
+  },
+  {
+    name: 'Japón',
+    code: 'JPN',
+  },
+  {
+    name: 'Reino Unido',
+    code: 'GBR',
+  },
+  {
+    name: 'Nueva Zelanda',
+    code: 'NZL',
+  },
+  {
     name: 'Afganistán',
     code: 'AFG',
   },
@@ -124,10 +168,6 @@ export default [
     code: 'BVT',
   },
   {
-    name: 'Brasil',
-    code: 'BRA',
-  },
-  {
     name: 'Territorio Británico del Océano Índico',
     code: 'IOT',
   },
@@ -188,10 +228,6 @@ export default [
     code: 'TCD',
   },
   {
-    name: 'Chile',
-    code: 'CHL',
-  },
-  {
     name: 'China',
     code: 'CHN',
   },
@@ -202,10 +238,6 @@ export default [
   {
     name: 'Islas Cocos o Islas Keeling',
     code: 'CCK',
-  },
-  {
-    name: 'Colombia',
-    code: 'COL',
   },
   {
     name: 'Comoras',
@@ -308,10 +340,6 @@ export default [
     code: 'FIN',
   },
   {
-    name: 'Francia',
-    code: 'FRA',
-  },
-  {
     name: 'Guayana Francesa',
     code: 'GUF',
   },
@@ -334,10 +362,6 @@ export default [
   {
     name: 'Georgia',
     code: 'GEO',
-  },
-  {
-    name: 'Alemania',
-    code: 'DEU',
   },
   {
     name: 'Ghana',
@@ -636,10 +660,6 @@ export default [
     code: 'NCL',
   },
   {
-    name: 'Nueva Zelanda',
-    code: 'NZL',
-  },
-  {
     name: 'Nicaragua',
     code: 'NIC',
   },
@@ -846,10 +866,6 @@ export default [
   {
     name: 'Sudán del Sur',
     code: 'SSD',
-  },
-  {
-    name: 'España',
-    code: 'ESP',
   },
   {
     name: 'Sri Lanka',
