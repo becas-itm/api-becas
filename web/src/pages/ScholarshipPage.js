@@ -5,6 +5,7 @@ import locale from 'date-fns/locale/es';
 import { useParams } from 'react-router';
 
 import Spinner from 'ui/components/Spinner';
+import CountryFlag from 'ui/components/CountryFlag';
 import EntityAvatar from 'ui/components/EntityAvatar';
 import { LinkButton } from 'ui/components/LinkButton';
 import NotFoundGhost from 'ui/components/NotFoundGhost';
@@ -107,6 +108,18 @@ function ScholarshipPage() {
               <div>
                 <div className="text-sm text-gray-600">Financiamiento</div>
                 <div>{getFundingType(data.fundingType)}</div>
+              </div>
+            </div>
+
+            <div className="flex mt-4">
+              <CountryFlag
+                code={data.country.code}
+                style={{ width: 24, height: 24 }}
+                className="shadow-xs rounded-full mr-2 object-cover"
+              />
+              <div>
+                <div className="text-sm text-gray-600">País</div>
+                <div>{data.country.name}</div>
               </div>
             </div>
 

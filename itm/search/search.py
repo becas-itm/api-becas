@@ -35,6 +35,14 @@ class SearchBuilder:
         self._must({'terms': {'academicLevel': level}})
         return self
 
+    def with_country(self, country):
+        if country == '':
+            return self
+
+        self._must({'match': {'country.name': country}})
+
+        return self
+
     def build(self):
         return self.body
 

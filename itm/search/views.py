@@ -39,6 +39,9 @@ def search(request):
         if len(levels) > 0:
             builder.with_academic_level(levels)
 
+    if 'country' in request.query_params:
+        builder.with_country(request.query_params['country'])
+
     return Response(paginator.paginate(SearchService.execute(builder)))
 
 
@@ -56,6 +59,8 @@ def search_detail(request, scholarship_id):
             'academicLevel',
             'entity.fullName',
             'spider.name',
+            'country.name',
+            'country.code',
         ],
     )
 
