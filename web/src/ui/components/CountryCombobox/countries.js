@@ -40,10 +40,6 @@ export default [
     code: 'RUS',
   },
   {
-    name: 'Nueva Zelanda',
-    code: 'NZL',
-  },
-  {
     name: 'Afganistán',
     code: 'AFG',
   },
@@ -480,10 +476,6 @@ export default [
     code: 'JAM',
   },
   {
-    name: 'Japón',
-    code: 'JPN',
-  },
-  {
     name: 'Jersey',
     code: 'JEY',
   },
@@ -658,6 +650,10 @@ export default [
   {
     name: 'Nueva Caledonia',
     code: 'NCL',
+  },
+  {
+    name: 'Nueva Zelanda',
+    code: 'NZL',
   },
   {
     name: 'Nicaragua',
@@ -962,14 +958,6 @@ export default [
   {
     name: 'Emiratos Árabes Unidos',
     code: 'ARE',
-  },
-  {
-    name: 'Reino Unido',
-    code: 'GBR',
-  },
-  {
-    name: 'Estados Unidos',
-    code: 'USA',
   },
   {
     name: 'Uruguay',
