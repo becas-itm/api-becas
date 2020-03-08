@@ -21,7 +21,7 @@ function SiteFilters({ filters, onSubmit, onReset }) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} id="filters">
       <h4 className="text-sm font-semibold color-gray-500 uppercase">
         Tipo de beca
       </h4>

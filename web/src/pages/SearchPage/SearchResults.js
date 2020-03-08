@@ -15,7 +15,12 @@ export default function SearchResults({ results, onPage, onResetFilters }) {
         title="Sin resultados de búsqueda"
         description="Prueba usando un término más general, o bien"
       >
-        <Button onClick={onResetFilters} kind={KIND.tertiary}>
+        <Button
+          onClick={onResetFilters}
+          kind={KIND.tertiary}
+          type="reset"
+          form="filters"
+        >
           Restablece los filtros <SettingsBackupRestore className="ml-2" />
         </Button>
       </NotFoundGhost>
