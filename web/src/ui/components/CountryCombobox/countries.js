@@ -8,16 +8,12 @@ export default [
     code: 'BRA',
   },
   {
-    name: 'Colombia',
-    code: 'COL',
-  },
-  {
     name: 'Chile',
     code: 'CHL',
   },
   {
-    name: 'Brasil',
-    code: 'BRA',
+    name: 'Colombia',
+    code: 'COL',
   },
   {
     name: 'España',
@@ -38,6 +34,10 @@ export default [
   {
     name: 'Reino Unido',
     code: 'GBR',
+  },
+  {
+    name: 'Rusia',
+    code: 'RUS',
   },
   {
     name: 'Nueva Zelanda',
@@ -758,10 +758,6 @@ export default [
   {
     name: 'Rumania',
     code: 'ROU',
-  },
-  {
-    name: 'Rusia',
-    code: 'RUS',
   },
   {
     name: 'Ruanda',
