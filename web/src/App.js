@@ -5,6 +5,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import HomePage from 'pages/HomePage';
 import SearchPage from 'pages/SearchPage';
 import ScholarshipPage from 'pages/ScholarshipPage';
+import NotFoundPage from 'pages/NotFoundPage';
 
 function App() {
   return (
@@ -14,7 +15,11 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/buscar" element={<SearchPage />} />
           <Route path="/convocatoria/:id" element={<ScholarshipPage />} />
-          <Route path="*" redirectTo="/" />
+          <Route
+            path="*"
+            redirectTo="/notFoundPage"
+            element={<NotFoundPage />}
+          />
         </Routes>
       </BrowserRouter>
     </Provider>
