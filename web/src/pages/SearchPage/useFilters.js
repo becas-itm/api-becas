@@ -11,7 +11,7 @@ function mergeValues(defaultValues, initialValues) {
   for (const [field, defaultValue] of Object.entries(defaultValues)) {
     const value = initialValues[field];
 
-    if (value !== null || value !== undefined) {
+    if (value || value === '') {
       if (shouldArrifyFilter(field) && !Array.isArray(value)) {
         values[field] = value === '' ? [] : [value];
       } else {
@@ -21,8 +21,6 @@ function mergeValues(defaultValues, initialValues) {
       values[field] = defaultValue;
     }
   }
-
-  console.log('merged values', JSON.stringify(values, null, 4));
 
   return values;
 }
