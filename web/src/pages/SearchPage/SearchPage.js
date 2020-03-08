@@ -31,7 +31,7 @@ function SearchPage() {
       }
     >
       <div className="h-full flex-1 mb-6">
-        <div className="container mx-auto flex mt-4">
+        <div className="container mx-auto flex mt-4 xl:px-8">
           <aside className="hidden lg:block lg:mx-4 xl:mx-0 self-start w-64">
             <h2 className="mb-5 text-base text-gray-700">Filtrar búsqueda</h2>
             {searchFilters}
