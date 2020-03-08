@@ -16,6 +16,7 @@ class Scholarship:
         deadline=None,
         academic_level=None,
         country=None,
+        funding_type=None,
     ):
         self.id = id
         self.name = name
@@ -24,6 +25,7 @@ class Scholarship:
         self.deadline = deadline
         self.academic_level = academic_level
         self.country = country
+        self.funding_type = funding_type
 
     def approve(self):
         self._check_for_approval()
@@ -42,7 +44,7 @@ class Scholarship:
 
     @property
     def is_complete(self):
-        fields = [self.description, self.academic_level, self.country]
+        fields = [self.description, self.academic_level, self.country, self.funding_type]
         for field in fields:
             if field is None:
                 return False
@@ -75,6 +77,7 @@ class Scholarship:
             academic_level=AcademicLevel(
                 document.academicLevel) if 'academicLevel' in document else None,
             country=Country(document.country.code) if 'country' in document else None,
+            funding_type=FundingType(document.fundingType) if 'fundingType' in document else None,
         )
 
 
@@ -176,3 +179,10 @@ class AcademicLevel(enum.Enum):
 
 class Country(StringValueObject):
     MAX_CHARACTERS = 3
+
+
+@enum.unique
+class FundingType(enum.Enum):
+    COMPLETE = 'COMPLETE'
+
+    PARTIAL = 'PARTIAL'

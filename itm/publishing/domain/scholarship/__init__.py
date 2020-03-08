@@ -8,6 +8,7 @@ from .scholarship import (
     DenialReason,
     AcademicLevel,
     Country,
+    FundingType,
 )
 
 from .errors import ScholarshipError, IncompleteError, StateError, ExpiredError
@@ -31,4 +32,5 @@ __all__ = [
     'ScholarshipDenied',
     'AcademicLevel',
     'Country',
+    'FundingType',
 ]
