@@ -35,6 +35,10 @@ class SearchBuilder:
         self._must({'terms': {'academicLevel': level}})
         return self
 
+    def with_funding_type(self, type):
+        self._must({'terms': {'fundingType': type}})
+        return self
+
     def with_country(self, country):
         if country == '':
             return self

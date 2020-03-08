@@ -4,7 +4,7 @@ from rest_framework.exceptions import PermissionDenied, NotFound
 
 from itm.documents import Scholarship
 from itm.shared.utils import SimplePaginator
-from itm.publishing.domain.scholarship import State, AcademicLevel
+from itm.publishing.domain.scholarship import State, AcademicLevel, FundingType
 
 from .search import SearchBuilder
 from .service import SearchService
@@ -32,12 +32,24 @@ def search(request):
     if 'academicLevel' in request.query_params:
         levels = []
         academicLevels = request.query_params['academicLevel'].split(',')
+
         for level in list(AcademicLevel):
             if level.value in academicLevels:
                 levels.append(level.value)
 
         if len(levels) > 0:
             builder.with_academic_level(levels)
+
+    if 'fundingType' in request.query_params:
+        types = []
+        fundingTypes = request.query_params['fundingType'].split(',')
+
+        for funding in list(FundingType):
+            if funding.value in fundingTypes:
+                types.append(funding.value)
+
+        if len(types) > 0:
+            builder.with_funding_type(types)
 
     if 'country' in request.query_params:
         builder.with_country(request.query_params['country'])
