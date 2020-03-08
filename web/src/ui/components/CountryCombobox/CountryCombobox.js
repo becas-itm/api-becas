@@ -24,6 +24,9 @@ function CountryCombobox({
   ...restProps
 }) {
   const [country, setCountry] = React.useState(defaultCountry);
+  React.useEffect(() => {
+    setCountry(defaultCountry);
+  }, [defaultCountry, setCountry]);
 
   const results = useCountryMatch(country, countries);
 
