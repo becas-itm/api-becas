@@ -42,7 +42,11 @@ function SearchPage() {
                 <Spinner />
               </div>
             ) : (
-              <SearchResults onPage={setPage} results={results} />
+              <SearchResults
+                onPage={setPage}
+                results={results}
+                onResetFilters={filter.onReset}
+              />
             )}
           </div>
         </div>
