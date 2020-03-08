@@ -76,7 +76,13 @@ function ScholarshipPage() {
 
   return (
     <SiteTemplate>
-      <main className="max-w-screen-md mx-auto border-t border-b p-4 bg-white md:border rounded sm:py-10 md:py-16 my-8">
+      <main
+        className="max-w-screen-md mx-auto p-4 bg-white rounded sm:py-10 md:py-16 my-8"
+        style={{
+          boxShadow:
+            '0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24)',
+        }}
+      >
         <div className="max-w-xl mx-auto">
           <h1 className="text-xl sm:text-2xl font-semibold mb-2">
             {data.name}
