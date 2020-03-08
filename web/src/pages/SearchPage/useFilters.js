@@ -1,8 +1,36 @@
 import { useState } from 'react';
 import { useToggle } from 'utils/hooks';
 
-export function useFilters(defaultFilters) {
-  const [values, setValues] = useState(defaultFilters);
+function shouldArrifyFilter(name) {
+  return ['academicLevel', 'fundingType'].includes(name);
+}
+
+function mergeValues(defaultValues, initialValues) {
+  const values = {};
+
+  for (const [field, defaultValue] of Object.entries(defaultValues)) {
+    const value = initialValues[field];
+
+    if (value !== null || value !== undefined) {
+      if (shouldArrifyFilter(field) && !Array.isArray(value)) {
+        values[field] = value === '' ? [] : [value];
+      } else {
+        values[field] = value;
+      }
+    } else {
+      values[field] = defaultValue;
+    }
+  }
+
+  console.log('merged values', JSON.stringify(values, null, 4));
+
+  return values;
+}
+
+export function useFilters(defaultFilters, initialFilters = {}) {
+  const [values, setValues] = useState(
+    mergeValues(defaultFilters, initialFilters),
+  );
   const onReset = () => setValues(defaultFilters);
   const onSubmit = newValues => setValues(newValues);
 

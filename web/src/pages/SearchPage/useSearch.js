@@ -1,27 +1,25 @@
-import qs from 'qs';
 import useFetch from 'use-http';
 import { useState, useEffect } from 'react';
 
 import useFilters from './useFilters';
 import { DEFAULT_FILTERS } from './SiteFilters/SiteFilters';
-
-function query_params(payload) {
-  return qs.stringify(payload, {
-    encode: false,
-    skipNulls: true,
-    addQueryPrefix: true,
-    arrayFormat: 'comma',
-  });
-}
+import useQueryParamsFilters, { query_params } from './useQueryParamsFilters';
 
 export default function useSearch() {
-  const [term, _setTerm] = useState('');
-  const [page, setPage] = useState(1);
+  const { values: initial, replaceFilters } = useQueryParamsFilters();
+
+  const [term, _setTerm] = useState(initial.q || '');
+  const [page, setPage] = useState(initial.page || 1);
   const [results, setResults] = useState({ results: [] });
   const [request, response] = useFetch('/api/search/scholarships/');
 
-  const filter = useFilters(DEFAULT_FILTERS);
+  const filter = useFilters(DEFAULT_FILTERS, initial);
   const { values } = filter;
+
+  const resetFilters = () => {
+    setPage(1);
+    filter.onReset();
+  };
 
   const setTerm = searchTerm => {
     _setTerm(searchTerm);
@@ -37,6 +35,7 @@ export default function useSearch() {
 
   useEffect(() => {
     searchScholarships({ term, page, ...values });
+    replaceFilters({ ...values, q: term, page });
   }, [term, page, values]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return {
@@ -45,7 +44,10 @@ export default function useSearch() {
     setTerm,
     setPage,
     results,
-    filter,
     isLoading: request.loading,
+    filter: {
+      ...filter,
+      onReset: resetFilters,
+    },
   };
 }
