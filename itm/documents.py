@@ -62,6 +62,8 @@ class Scholarship(Document):
         },
     )
 
+    language = Keyword()
+
     def serialize(self):
         doc = self.to_dict()
         doc.update({'id': self.id})
@@ -95,6 +97,8 @@ class RawScholarship(Document):
     )
 
     country = Text()
+
+    language = Keyword()
 
     @staticmethod
     def create(item):
