@@ -47,6 +47,10 @@ class SearchBuilder:
 
         return self
 
+    def with_language(self, language):
+        self._must({'terms': {'language': language}})
+        return self
+
     def build(self):
         return self.body
 

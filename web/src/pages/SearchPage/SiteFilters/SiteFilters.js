@@ -12,6 +12,7 @@ export const DEFAULT_FILTERS = {
   country: '',
   fundingType: ['COMPLETE', 'PARTIAL'],
   academicLevel: ['UNDERGRADUATE', 'POSTGRADUATE', 'OTHERS'],
+  language: ['en', 'es'],
 };
 
 function SiteFilters({ filters, onSubmit, onReset }) {
@@ -76,6 +77,28 @@ function SiteFilters({ filters, onSubmit, onReset }) {
           data-testid="fundingType.partial"
         >
           Parcial
+        </Checkbox>
+      </div>
+
+      <h4 className="text-sm font-semibold color-gray-500 uppercase">Idioma</h4>
+      <div className="flex flex-wrap mb-2">
+        <Checkbox
+          value="es"
+          name="language[]"
+          defaultChecked={filters.language.includes('es')}
+          className="p-3 flex-grow"
+          data-testid="language.es"
+        >
+          Español
+        </Checkbox>
+        <Checkbox
+          value="en"
+          name="language[]"
+          defaultChecked={filters.language.includes('en')}
+          className="p-3 flex-grow"
+          data-testid="language.en"
+        >
+          Inglés
         </Checkbox>
       </div>
 

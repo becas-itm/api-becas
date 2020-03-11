@@ -54,6 +54,9 @@ def search(request):
     if 'country' in request.query_params:
         builder.with_country(request.query_params['country'])
 
+    if 'language' in request.query_params:
+        builder.with_language(request.query_params['language'])
+
     return Response(paginator.paginate(SearchService.execute(builder)))
 
 
