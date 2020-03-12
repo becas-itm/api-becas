@@ -13,6 +13,7 @@ function FiltersDialog({ isOpen, onDismiss, children }) {
       size={SIZE.full}
       aria-labelledby="filter-search-title"
       renderClose={false}
+      className="overflow-y-auto"
     >
       <div className="relative w-full max-w-sm mx-auto">
         <IconButton

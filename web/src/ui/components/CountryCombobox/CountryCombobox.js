@@ -59,8 +59,10 @@ function CountryCombobox({
       </div>
       {results && (
         <ComboboxPopover
-          className="rounded py-2 border-none"
+          className="rounded py-2 border-none w-full"
+          portal={false}
           style={{
+            position: 'absolute',
             boxShadow:
               '0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24)',
           }}
@@ -71,7 +73,7 @@ function CountryCombobox({
                 <ComboboxOption
                   key={country.code}
                   value={country.name}
-                  className="rounded py-2 duration-100 ease-in-out"
+                  className="rounded py-2 text-base duration-100 ease-in-out"
                 >
                   <CountryFlag code={country.code} className="mr-1" />{' '}
                   {country.name}
