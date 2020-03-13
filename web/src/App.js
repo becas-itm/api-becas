@@ -6,6 +6,7 @@ import HomePage from 'pages/HomePage';
 import SearchPage from 'pages/SearchPage';
 import ScholarshipPage from 'pages/ScholarshipPage';
 import NotFoundPage from 'pages/NotFoundPage';
+import DisclaimerPage from 'pages/DisclaimerPage';
 
 function App() {
   return (
@@ -14,12 +15,9 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/buscar" element={<SearchPage />} />
+          <Route path="/terminos" element={<DisclaimerPage />} />
           <Route path="/convocatoria/:id" element={<ScholarshipPage />} />
-          <Route
-            path="*"
-            redirectTo="/notFoundPage"
-            element={<NotFoundPage />}
-          />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
     </Provider>
