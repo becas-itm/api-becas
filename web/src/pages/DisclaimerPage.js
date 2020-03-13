@@ -5,16 +5,16 @@ export default function DisclaimerPage() {
   return (
     <SiteTemplate>
       <main
-        className="max-w-screen-sm px-4 py-6 my-6 bg-white rounded sm:mx-auto sm:px-16 sm:pt-8 sm:pb-12"
+        className="max-w-screen-sm px-4 pt-6 py-10 my-6 bg-white rounded sm:mx-auto sm:px-16 sm:pt-8 sm:pb-12"
         style={{
           boxShadow:
             '0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24)',
         }}
       >
-        <h1 className="text-xl font-semibold mb-4 sm:text-2xl">
+        <h1 className="text-2xl font-semibold mb-4 sm:text-3xl">
           Convocatorias y Becas Externas
         </h1>
-        <p className="text-base text-justify">
+        <p className="text-base text-justify leading-relaxed">
           Ésta sección tiene el fin de dar a conocer a la comunidad académica,
           las Convocatorias y Becas Externas de diferentes instituciones,
           organizaciones, fundaciones, países, entre otros. El ITM, a través de
