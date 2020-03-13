@@ -31,6 +31,7 @@ class SimplePaginator:
             'prevPage': self.get_prev_page(total_pages),
             'currentPage': self.current_page,
             'nextPage': self.get_next_page(total_pages),
+            'totalPages': total_pages,
         }
 
     def calc_total_pages(self, total_results):
