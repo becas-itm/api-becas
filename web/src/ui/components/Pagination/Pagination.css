@@ -1,0 +1,13 @@
+.Pagination__pageBtn:nth-child(even) {
+  margin: 0 .5rem;
+}
+
+@media (min-width: 420px) {
+  .Pagination__buttons {
+    display: flex;
+  }
+
+  .Pagination__currentPage {
+    display: none;
+  }
+}
