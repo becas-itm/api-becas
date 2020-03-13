@@ -47,7 +47,7 @@ function CountryCombobox({
           disabled={isLoading}
           aria-labelledby={htmlFor}
           placeholder={isLoading ? 'Cargando...' : 'Cualquier país'}
-          className="w-full h-10 pl-3 pr-12 outline-none rounded border border-transparent bg-gray-200 focus:bg-white focus:border-gray-300 duration-100 ease-in-out appearance-none cursor-pointer placeholder-gray-800"
+          className="w-full h-10 pl-3 pr-12 outline-none rounded border border-transparent bg-gray-300 focus:bg-white focus:border-gray-300 duration-100 ease-in-out appearance-none cursor-pointer placeholder-gray-800"
         />
         <div className="absolute right-0 mr-3 inset-y-0 flex items-center pointer-events-none">
           {isLoading ? (
@@ -60,16 +60,14 @@ function CountryCombobox({
       {results && (
         <ComboboxPopover
           className="rounded py-2 border-none w-full"
-          portal={false}
           style={{
-            position: 'absolute',
             boxShadow:
               '0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24)',
           }}
         >
           {results.length > 0 ? (
             <ComboboxList aria-labelledby={htmlFor} className="px-2">
-              {results.slice(0, 10).map(country => (
+              {results.slice(0, 7).map(country => (
                 <ComboboxOption
                   key={country.code}
                   value={country.name}
