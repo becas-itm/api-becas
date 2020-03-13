@@ -1,10 +1,10 @@
 import React from 'react';
+import Pagination from 'ui/components/Pagination';
 import { Button, KIND } from 'ui/components/Button';
 import NotFoundGhost from 'ui/components/NotFoundGhost';
 import { SettingsBackupRestore } from 'ui/components/Icon';
 
 import ScholarshipPreview from './ScholarshipPreview';
-import PaginationControls from './PaginationControls';
 
 export default function SearchResults({ results, onPage, onResetFilters }) {
   const { results: scholarships, ...pagination } = results;
@@ -36,7 +36,13 @@ export default function SearchResults({ results, onPage, onResetFilters }) {
       {scholarships.map(scholarship => (
         <ScholarshipPreview {...scholarship} key={scholarship.id} />
       ))}
-      <PaginationControls {...pagination} onPrev={onPage} onNext={onPage} />
+      <div className="max-w-lg mx-auto mt-4 px-4 md:px-0">
+        <Pagination
+          page={pagination.currentPage}
+          totalPages={pagination.totalPages}
+          onPage={onPage}
+        />
+      </div>
     </div>
   );
 }
