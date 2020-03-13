@@ -7,12 +7,13 @@ import CountryCombobox from 'ui/components/CountryCombobox';
 import countries from 'ui/components/CountryCombobox/countries';
 
 import { collectFilters } from './collectFilters';
+import LanguageFilter from './LanguageFilter';
 
 export const DEFAULT_FILTERS = {
   country: '',
   fundingType: ['COMPLETE', 'PARTIAL'],
   academicLevel: ['UNDERGRADUATE', 'POSTGRADUATE', 'OTHERS'],
-  language: ['en', 'es'],
+  language: '*',
 };
 
 function SiteFilters({ filters, onSubmit, onReset }) {
@@ -80,29 +81,9 @@ function SiteFilters({ filters, onSubmit, onReset }) {
         </Checkbox>
       </div>
 
-      <h4 className="text-sm font-semibold color-gray-500 uppercase">Idioma</h4>
-      <div className="flex flex-wrap mb-2">
-        <Checkbox
-          value="es"
-          name="language[]"
-          defaultChecked={filters.language.includes('es')}
-          className="p-3 flex-grow"
-          data-testid="language.es"
-        >
-          Español
-        </Checkbox>
-        <Checkbox
-          value="en"
-          name="language[]"
-          defaultChecked={filters.language.includes('en')}
-          className="p-3 flex-grow"
-          data-testid="language.en"
-        >
-          Inglés
-        </Checkbox>
-      </div>
+      <LanguageFilter value={filters.language} />
 
-      <h4 className="text-sm font-semibold color-gray-500 uppercase pb-3">
+      <h4 className="text-sm font-semibold color-gray-500 uppercase pb-1">
         País
       </h4>
       <CountryCombobox

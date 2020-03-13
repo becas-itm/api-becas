@@ -48,7 +48,10 @@ class SearchBuilder:
         return self
 
     def with_language(self, language):
-        self._must({'terms': {'language': language}})
+        if language == '' or language == '*':
+            return self
+
+        self._must({'match': {'language': language}})
         return self
 
     def build(self):
