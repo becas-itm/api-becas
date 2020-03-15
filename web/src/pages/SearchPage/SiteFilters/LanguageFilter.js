@@ -31,7 +31,7 @@ export default function LanguageFilter({ value: initialValue }) {
           aria-labelledby="filter-language"
           className="relative w-full"
         >
-          <ListboxButton className="w-full" />
+          <ListboxButton className="w-full text-gray-800" />
           <ListboxPopover className="w-full">
             <ListboxList>
               <ListboxOption value="*">Cualquiera</ListboxOption>
