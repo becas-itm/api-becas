@@ -24,7 +24,7 @@ def search(request):
         .select(['name', 'description', 'deadline', 'spider.name', 'entity.fullName']) \
         .size(paginator.per_page) \
         .skip(paginator.skip) \
-        .with_state(State.PENDING.value)
+        .with_state(State.PUBLISHED.value)
 
     if 'term' in request.query_params:
         builder.add_term(request.query_params['term'])
@@ -83,7 +83,7 @@ def search_detail(request, scholarship_id):
     if not document:
         raise NotFound
 
-    if document['state'] != State.PENDING.value:
+    if document['state'] != State.PUBLISHED.value:
         raise PermissionDenied
     else:
         del document['state']
