@@ -62,6 +62,13 @@ class Scholarship(Document):
         },
     )
 
+    sourceDetails = Object(
+        properties={
+            'id': Text(),
+            'url': Keyword(required=True),
+        },
+    )
+
     language = Keyword()
 
     def serialize(self):
@@ -93,6 +100,13 @@ class RawScholarship(Document):
         properties={
             'name': Keyword(required=True),
             'extractedAt': Date(required=True),
+        },
+    )
+
+    sourceDetails = Object(
+        properties={
+            'id': Text(),
+            'url': Keyword(required=True),
         },
     )
 
