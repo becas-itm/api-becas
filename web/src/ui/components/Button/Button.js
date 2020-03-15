@@ -9,16 +9,12 @@ export const KIND = {
   tertiary: '-kindTertiary',
 };
 
-export function Button({
-  kind,
-  wide,
-  className,
-  renderAs: Component,
-  ...restProps
-}) {
-  const classes = classNames('Button', kind, wide && '-wide', className);
-  return <Component {...restProps} className={classes} />;
-}
+export const Button = React.forwardRef(
+  ({ kind, wide, className, renderAs: Component, ...restProps }, ref) => {
+    const classes = classNames('Button', kind, wide && '-wide', className);
+    return <Component {...restProps} className={classes} ref={ref} />;
+  },
+);
 
 Button.defaultProps = {
   wide: false,
