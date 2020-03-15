@@ -7,6 +7,8 @@ import { LinkButton } from 'ui/components/LinkButton';
 import EntityAvatar from 'ui/components/EntityAvatar';
 import { Event, ArrowForward } from 'ui/components/Icon';
 
+import './ScholarshipPreview.css';
+
 function formatDeadline(date) {
   const FORMAT = `d 'de' MMMM 'de' yyyy`;
   return format(new Date(date), FORMAT, { locale });
@@ -39,8 +41,12 @@ export default function ScholarshipPreview({
         </header>
         <p className="mt-1">{description}</p>
 
-        <LinkButton to={`/convocatoria/${id}`} className="mt-4">
-          Ver convocatoria <ArrowForward className="ml-2" />
+        <LinkButton
+          to={`/convocatoria/${id}`}
+          className="ScholarshipPreview__linkBtn mt-4"
+        >
+          Ver convocatoria{' '}
+          <ArrowForward className="ScholarshipPreview__linkBtnIcon ml-2" />
         </LinkButton>
       </div>
       <footer className="px-4 sm:rounded-b bg-gray-200">
