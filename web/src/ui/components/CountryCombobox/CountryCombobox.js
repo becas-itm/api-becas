@@ -46,7 +46,7 @@ function CountryCombobox({
           onChange={handleChange}
           disabled={isLoading}
           aria-labelledby={htmlFor}
-          placeholder={isLoading ? 'Cargando...' : 'Cualquier país'}
+          placeholder={isLoading ? 'Cargando...' : 'Todos'}
           className="w-full h-10 pl-3 pr-12 outline-none rounded border border-transparent bg-gray-300 focus:bg-white focus:border-gray-300 duration-100 ease-in-out appearance-none cursor-pointer placeholder-gray-800"
         />
         <div className="absolute right-0 mr-3 inset-y-0 flex items-center pointer-events-none">
