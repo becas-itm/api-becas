@@ -4,7 +4,10 @@ import itmLogo from './itmLogo.png';
 
 function AppLogo({ children }) {
   return (
-    <div className="inline-flex items-center" data-testid="AppLogo">
+    <div
+      className="inline-flex items-center flex-shrink-0"
+      data-testid="AppLogo"
+    >
       <img
         src={itmLogo}
         alt="ITM"
