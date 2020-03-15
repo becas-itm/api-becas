@@ -36,7 +36,7 @@ function SearchBar({ initialTerm, onSearch, focusOnMount }) {
   }, [focusOnMount]);
 
   const inputStyles = classNames(
-    'w-full h-12 outline-none rounded-md',
+    'w-full h-12 outline-none rounded',
     ' border border-transparent bg-gray-200 focus:bg-white focus:border-gray-300',
     'duration-100 ease-in-out appearance-none',
     term ? 'px-12' : 'pl-12',
