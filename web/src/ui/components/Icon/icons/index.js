@@ -18,6 +18,8 @@ export { LastPage } from './LastPage';
 
 export { Money } from './Money';
 
+export { OpenInNew } from './OpenInNew';
+
 export { School } from './School';
 
 export { Search } from './Search';
