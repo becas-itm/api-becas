@@ -71,6 +71,8 @@ class Scholarship(Document):
 
     language = Keyword()
 
+    fillStatus = Keyword()
+
     def serialize(self):
         doc = self.to_dict()
         doc.update({'id': self.id})
