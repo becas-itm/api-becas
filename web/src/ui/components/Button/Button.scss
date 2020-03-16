@@ -67,6 +67,30 @@ $primary: hsl(213, 83%, 44%);
     }
   }
 
+  &.-kindDanger {
+    color: var(--white);
+    background: #D32F2F;
+
+    &:hover {
+      background: rgba(#D32F2F, .85);
+    }
+    &:active {
+      background: #D32F2F;
+    }
+  }
+
+  &.-kindDangerTertiary {
+    color: #D32F2F;
+
+    &:hover,
+    &:focus {
+      background: rgba(#D32F2F, .05);
+    }
+    &:active {
+      background: rgba(#D32F2F, .08);
+    }
+  }
+
   &.-wide {
     width: 100%;
   }

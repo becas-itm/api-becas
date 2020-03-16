@@ -32,6 +32,18 @@ describe('Button component', () => {
       expect(getByText('foo')).toHaveClass(KIND.tertiary);
     });
 
+    test('type `danger`', () => {
+      const { getByText } = render(<Button kind={KIND.danger}>foo</Button>);
+      expect(getByText('foo')).toHaveClass(KIND.danger);
+    });
+
+    test('type `danger tertiary`', () => {
+      const { getByText } = render(
+        <Button kind={KIND.dangerTertiary}>foo</Button>,
+      );
+      expect(getByText('foo')).toHaveClass(KIND.dangerTertiary);
+    });
+
     it('should be `primary` by default', () => {
       const { getByText } = render(<Button>foo</Button>);
       expect(getByText('foo')).toHaveClass(KIND.primary);

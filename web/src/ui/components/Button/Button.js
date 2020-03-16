@@ -7,6 +7,8 @@ export const KIND = {
   primary: '-kindPrimary',
   secondary: '-kindSecondary',
   tertiary: '-kindTertiary',
+  danger: '-kindDanger',
+  dangerTertiary: '-kindDangerTertiary',
 };
 
 export const Button = React.forwardRef(
