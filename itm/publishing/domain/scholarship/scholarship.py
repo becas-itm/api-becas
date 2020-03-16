@@ -67,17 +67,16 @@ class Scholarship:
         return ScholarshipDenied.fire(self.id, DenialReason(reason))
 
     @classmethod
-    def from_document(cls, document):
+    def from_document(cls, doc):
         return Scholarship(
-            Id.from_string(document.id),
-            name=Name(document.name),
-            description=Description(document.description) if 'description' in document else None,
-            state=State(document.state),
-            deadline=Date(document.deadline.date()) if 'deadline' in document else None,
-            academic_level=AcademicLevel(
-                document.academicLevel) if 'academicLevel' in document else None,
-            country=Country(document.country.code) if 'country' in document else None,
-            funding_type=FundingType(document.fundingType) if 'fundingType' in document else None,
+            Id.from_string(doc['id']),
+            name=Name(doc['name']),
+            description=Description(doc['description']) if 'description' in doc else None,
+            state=State(doc['state']),
+            deadline=Date(doc['deadline'].date()) if 'deadline' in doc else None,
+            academic_level=AcademicLevel(doc['academicLevel']) if 'academicLevel' in doc else None,
+            country=Country(doc['country'].code) if 'country' in doc else None,
+            funding_type=FundingType(doc['fundingType']) if 'fundingType' in doc else None,
         )
 
 
