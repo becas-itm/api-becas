@@ -7,6 +7,7 @@ export const COLOR = {
   green: 'text-green-800 bg-green-100 border-green-200',
   yellow: 'text-yellow-900 bg-yellow-100 border-yellow-300',
   red: 'text-red-800 bg-red-100 border-red-200',
+  gray: 'text-gray-800 bg-gray-200',
 };
 
 function Pill({ color, className, ...restProps }) {
