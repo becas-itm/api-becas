@@ -185,3 +185,10 @@ class FundingType(enum.Enum):
     COMPLETE = 'COMPLETE'
 
     PARTIAL = 'PARTIAL'
+
+
+@enum.unique
+class FillStatus(enum.Enum):
+    COMPLETE = 'COMPLETE'
+
+    INCOMPLETE = 'INCOMPLETE'

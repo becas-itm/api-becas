@@ -9,6 +9,7 @@ from .scholarship import (
     AcademicLevel,
     Country,
     FundingType,
+    FillStatus,
 )
 
 from .errors import ScholarshipError, IncompleteError, StateError, ExpiredError
@@ -33,4 +34,5 @@ __all__ = [
     'AcademicLevel',
     'Country',
     'FundingType',
+    'FillStatus',
 ]
