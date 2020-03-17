@@ -75,7 +75,7 @@ class Scholarship:
             state=State(doc['state']),
             deadline=Date(doc['deadline'].date()) if 'deadline' in doc else None,
             academic_level=AcademicLevel(doc['academicLevel']) if 'academicLevel' in doc else None,
-            country=Country(doc['country'].code) if 'country' in doc else None,
+            country=Country(doc['country']['code']) if 'country' in doc else None,
             funding_type=FundingType(doc['fundingType']) if 'fundingType' in doc else None,
         )
 
