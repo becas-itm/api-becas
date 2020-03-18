@@ -11,8 +11,13 @@ class ScholarshipRepository:
             id=scholarship_id,
             ignore=404,
             _source=[
-                'name', 'description',
-                'state', 'deadline',
+                'name',
+                'description',
+                'state',
+                'deadline',
+                'academicLevel',
+                'country.code',
+                'fundingType',
             ],
         )
 

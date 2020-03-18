@@ -69,7 +69,7 @@ class Scholarship:
     @classmethod
     def from_document(cls, doc):
         return Scholarship(
-            Id.from_string(doc['id']),
+            Id.from_string(doc['id'] if 'id' in doc else doc.id),
             name=Name(doc['name']),
             description=Description(doc['description']) if 'description' in doc else None,
             state=State(doc['state']),
