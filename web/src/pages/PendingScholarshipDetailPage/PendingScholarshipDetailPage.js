@@ -27,9 +27,7 @@ function PendingScholarshipDetailPage() {
 
   const [data, setData] = React.useState(null);
 
-  const [request, response] = useFetch(`/api/publishing/scholarships/${id}/`, {
-    suspense: true,
-  });
+  const [request, response] = useFetch(`/api/publishing/scholarships/${id}/`);
 
   useMount(() => {
     async function fetchScholarship() {
