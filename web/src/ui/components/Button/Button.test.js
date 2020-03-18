@@ -8,7 +8,7 @@ describe('Button component', () => {
     const { container } = render(<Button>foo</Button>);
     const button = container.querySelector('button');
     expect(button).toBeInTheDocument();
-    expect(button).toHaveClass('Button');
+    expect(button).toHaveClass('Button__content');
   });
 
   test('button type should be `button` by default', () => {
@@ -51,8 +51,10 @@ describe('Button component', () => {
   });
 
   test('wide button', () => {
-    const { getByText } = render(<Button wide>foo</Button>);
-    expect(getByText('foo')).toHaveClass('-wide');
+    const { container } = render(<Button wide>foo</Button>);
+    const button = container.querySelector('.Button');
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveClass('-wide');
   });
 
   test('Disabled button', () => {
