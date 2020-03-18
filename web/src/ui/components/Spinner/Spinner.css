@@ -13,6 +13,11 @@
   will-change: transform;
 }
 
+.Spinner--color-white::before {
+  border-color: rgba(0, 0, 0, .12);
+  border-top-color: #fff;
+}
+
 @keyframes Spinner-rotate {
   to {
     transform: rotate(360deg);
