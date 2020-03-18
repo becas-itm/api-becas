@@ -27,3 +27,5 @@ export { Search } from './Search';
 export { SettingsBackupRestore } from './SettingsBackupRestore';
 
 export { Tune } from './Tune';
+
+export { Warning } from './Warning';
