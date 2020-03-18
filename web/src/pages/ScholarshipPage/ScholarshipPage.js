@@ -1,7 +1,5 @@
 import React from 'react';
 import useFetch from 'use-http';
-import { format } from 'date-fns';
-import locale from 'date-fns/locale/es';
 import { useParams } from 'react-router';
 
 import Spinner from 'ui/components/Spinner';
@@ -12,38 +10,13 @@ import NotFoundGhost from 'ui/components/NotFoundGhost';
 import { SiteTemplate } from 'ui/templates/SiteTemplate';
 import { Event, School, Money } from 'ui/components/Icon';
 
+import {
+  formatDeadline,
+  getFundingType,
+  getAcademicLevel,
+} from 'utils/scholarship';
+
 import { ScholarshipDetails } from './ScholarshipDetails';
-
-function formatDeadline(date) {
-  const FORMAT = `d 'de' MMMM 'de' yyyy`;
-  return format(new Date(date), FORMAT, { locale });
-}
-
-function getFundingType(type) {
-  switch (type) {
-    case 'COMPLETE':
-      return 'Completo';
-
-    case 'PARTIAL':
-      return 'Parcial';
-
-    default:
-      return 'No disponible';
-  }
-}
-
-function getAcademicLevel(level) {
-  switch (level) {
-    case 'UNDERGRADUATE':
-      return 'Pregrado';
-
-    case 'POSTGRADUATE':
-      return 'Posgrado';
-
-    default:
-      return 'Otros';
-  }
-}
 
 function ScholarshipPage() {
   const { id } = useParams();
