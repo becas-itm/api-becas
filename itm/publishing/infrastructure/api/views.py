@@ -70,3 +70,36 @@ def list_pendings(request):
         .with_state(State.PENDING.value)
 
     return Response(paginator.paginate(SearchService.execute(builder)))
+
+
+@api_view(['GET'])
+def pending_detail(request, scholarship_id):
+    document = Scholarship.get(
+        id=scholarship_id,
+        ignore=404,
+        _source=[
+            'name',
+            'description',
+            'deadline',
+            'fundingType',
+            'state',
+            'academicLevel',
+            'entity.fullName',
+            'spider.name',
+            'country.name',
+            'country.code',
+            'sourceDetails.url',
+            'sourceDetails.id',
+            'fillStatus',
+        ],
+    )
+
+    if not document:
+        raise NotFound
+
+    if document['state'] != State.PENDING.value:
+        raise PermissionDenied
+    else:
+        del document['state']
+
+    return Response(document.serialize())
