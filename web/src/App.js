@@ -7,6 +7,7 @@ import SearchPage from 'pages/SearchPage';
 import ScholarshipPage from 'pages/ScholarshipPage';
 import NotFoundPage from 'pages/NotFoundPage';
 import DisclaimerPage from 'pages/DisclaimerPage';
+import PendingScholarshipsPage from 'pages/PendingScholarshipsPage';
 
 function App() {
   return (
@@ -17,6 +18,10 @@ function App() {
           <Route path="/buscar" element={<SearchPage />} />
           <Route path="/terminos" element={<DisclaimerPage />} />
           <Route path="/convocatoria/:id" element={<ScholarshipPage />} />
+          <Route
+            path="/admin/pendientes"
+            element={<PendingScholarshipsPage />}
+          />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
