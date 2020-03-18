@@ -8,6 +8,7 @@ import ScholarshipPage from 'pages/ScholarshipPage';
 import NotFoundPage from 'pages/NotFoundPage';
 import DisclaimerPage from 'pages/DisclaimerPage';
 import PendingScholarshipsPage from 'pages/PendingScholarshipsPage';
+import PendingScholarshipDetailPage from 'pages/PendingScholarshipDetailPage';
 
 function App() {
   return (
@@ -21,6 +22,10 @@ function App() {
           <Route
             path="/admin/pendientes"
             element={<PendingScholarshipsPage />}
+          />
+          <Route
+            path="/admin/pendientes/:id"
+            element={<PendingScholarshipDetailPage />}
           />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
