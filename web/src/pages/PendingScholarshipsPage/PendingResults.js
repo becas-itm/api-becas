@@ -1,25 +1,8 @@
 import React from 'react';
-import useSWR from 'swr';
-
 import Pagination from 'ui/components/Pagination';
-import { query_params } from 'pages/SearchPage/useQueryParamsFilters';
-
 import { ScholarshipPreview } from './ScholarshipPreview';
 
-const fetcher = url => fetch(url).then(res => res.json());
-
-export function PendingResults() {
-  const [page, setPage] = React.useState(1);
-  const { data } = useSWR(
-    `/api/publishing/scholarships/${query_params({ page })}`,
-    fetcher,
-    {
-      suspense: true,
-      initialData: { results: [] },
-    },
-  );
-  const { results: scholarships, ...pagination } = data;
-
+export function PendingResults({ scholarships, pagination, onPage }) {
   if (scholarships.length === 0) {
     return null;
   }
@@ -43,7 +26,7 @@ export function PendingResults() {
         <Pagination
           page={pagination.currentPage}
           totalPages={pagination.totalPages}
-          onPage={setPage}
+          onPage={onPage}
         />
       </div>
     </div>
