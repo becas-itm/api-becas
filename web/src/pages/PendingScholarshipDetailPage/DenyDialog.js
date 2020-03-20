@@ -1,9 +1,9 @@
 import React from 'react';
-import useFetch from 'use-http';
-import { DialogOverlay, DialogContent } from '@reach/dialog';
-
 import Textarea from 'ui/components/Textarea';
 import { Button, KIND } from 'ui/components/Button';
+import { DialogOverlay, DialogContent } from '@reach/dialog';
+
+import { useDeny } from './useScholarship';
 
 export function DenyDialog({ scholarshipId, onCancel, onDeny }) {
   const cancelButtonRef = React.useRef(null);
@@ -11,22 +11,17 @@ export function DenyDialog({ scholarshipId, onCancel, onDeny }) {
   const [reason, setReason] = React.useState('');
   const onChange = event => setReason(event.target.value);
 
-  const url = `/api/publishing/scholarships/${scholarshipId}/deny/`;
-  const [request, response] = useFetch(url);
-  const isLoading = request.loading;
+  const { deny, isDenying } = useDeny(scholarshipId);
 
   const handleSubmit = async event => {
     event.preventDefault();
-    await request.post({ reason });
-    if (response.ok) {
-      onDeny();
-    }
+    deny(reason).then(onDeny);
   };
 
   return (
     <DialogOverlay
       isOpen
-      onDismiss={isLoading ? () => {} : onCancel}
+      onDismiss={isDenying ? () => {} : onCancel}
       className="fixed inset-0 overflow-auto p-4"
       style={{ background: 'hsla(0, 0%, 0%, .5)' }}
       initialFocusRef={cancelButtonRef}
@@ -51,7 +46,7 @@ export function DenyDialog({ scholarshipId, onCancel, onDeny }) {
           <Textarea
             value={reason}
             onChange={onChange}
-            readOnly={isLoading}
+            readOnly={isDenying}
             placeholder="Placeholder"
             rows="2"
           />
@@ -61,12 +56,12 @@ export function DenyDialog({ scholarshipId, onCancel, onDeny }) {
               onClick={onCancel}
               ref={cancelButtonRef}
               kind={KIND.secondary}
-              disabled={isLoading}
+              disabled={isDenying}
             >
               Cancelar
             </Button>
             <Button
-              isLoading={isLoading}
+              isLoading={isDenying}
               type="submit"
               kind={KIND.danger}
               className="ml-3"
