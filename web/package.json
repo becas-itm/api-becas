@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@reach/combobox": "^0.8.5",
-    "@reach/dialog": "^0.8.5",
-    "@reach/listbox": "^0.8.7",
+    "@reach/combobox": "^0.9.1",
+    "@reach/dialog": "^0.9.1",
+    "@reach/listbox": "^0.9.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
