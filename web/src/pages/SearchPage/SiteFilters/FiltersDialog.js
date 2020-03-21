@@ -1,32 +1,20 @@
 import React from 'react';
 import propTypes from 'prop-types';
-
-import { Close } from 'ui/components/Icon';
-import { Dialog, SIZE } from 'ui/components/Dialog';
-import { IconButton, SHAPE } from 'ui/components/IconButton';
+import Dialog, { CloseBtn, Title, KIND } from 'ui/components/Dialog';
 
 function FiltersDialog({ isOpen, onDismiss, children }) {
   return (
     <Dialog
       isOpen={isOpen}
       onDismiss={onDismiss}
-      size={SIZE.full}
       aria-labelledby="filter-search-title"
-      renderClose={false}
-      className="overflow-y-auto"
+      kind={KIND.full}
     >
       <div className="relative w-full max-w-sm mx-auto">
-        <IconButton
-          icon={Close}
-          onClick={onDismiss}
-          shape={SHAPE.square}
-          className="absolute top-0 right-0"
-        >
-          Cerrar filtros
-        </IconButton>
-        <h3 id="filter-search-title" className="mb-6 text-xl font-semibold">
+        <CloseBtn onClick={onDismiss}>Cerrar filtros</CloseBtn>
+        <Title id="filter-search-title" className="mb-6">
           Filtrar búsqueda
-        </h3>
+        </Title>
         {children}
       </div>
     </Dialog>

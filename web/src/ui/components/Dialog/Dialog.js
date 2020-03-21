@@ -1,67 +1,61 @@
 import React from 'react';
 import propTypes from 'prop-types';
+import classNames from 'classnames';
 import { DialogOverlay, DialogContent } from '@reach/dialog';
 
-import { Close } from 'ui/components/Icon';
-import { IconButton, SHAPE } from 'ui/components/IconButton';
+const noop = () => {};
 
-import './Dialog.scss';
-
-export const SIZE = {
-  regular: '-sizeRegular',
-  full: '-sizeFull',
+export const KIND = {
+  normal: 'normal',
+  full: 'full',
 };
 
-export function Dialog({
-  isOpen,
-  onDismiss,
-  renderClose,
-  size,
-  children,
-  className,
-  ...restProps
-}) {
-  return (
-    <DialogOverlay
-      isOpen={isOpen}
-      onClick={onDismiss}
-      onDismiss={onDismiss}
-      className={`Dialog__overlay ${size}`}
-      data-testid="dialog-overlay"
-    >
-      <DialogContent
-        data-testid="dialog-content"
-        {...restProps}
-        className={`Dialog__content ${className || ''}`}
-      >
-        {renderClose && (
-          <IconButton
-            onClick={onDismiss}
-            icon={Close}
-            shape={SHAPE.square}
-            className="Dialog__close"
-            data-testid="dialog-close"
-          >
-            Cerrar ventana de díalogo
-          </IconButton>
-        )}
-        {children}
-      </DialogContent>
-    </DialogOverlay>
+function overlayStyles(kind) {
+  switch (kind) {
+    case KIND.normal:
+      return 'p-4';
+    default:
+      return '';
+  }
+}
+
+function contentStyles(kind, { className }) {
+  return classNames(
+    kind === KIND.full && 'w-full h-full m-0 rounded-none',
+    className,
   );
 }
 
+const Dialog = React.forwardRef(function Dialog(
+  { isOpen, onDismiss, initialFocusRef, kind = KIND.normal, ...restProps },
+  forwardedRef,
+) {
+  return (
+    <DialogOverlay
+      initialFocusRef={initialFocusRef}
+      isOpen={isOpen}
+      onDismiss={onDismiss}
+      className={overlayStyles(kind)}
+    >
+      <DialogContent
+        ref={forwardedRef}
+        {...restProps}
+        className={contentStyles(kind, restProps)}
+      />
+    </DialogOverlay>
+  );
+});
+
 Dialog.defaultProps = {
   isOpen: false,
-  renderClose: true,
-  size: SIZE.regular,
+  onDismiss: noop,
+  kind: KIND.normal,
 };
 
 Dialog.propTypes = {
   isOpen: propTypes.bool,
   onDismiss: propTypes.func,
-  size: propTypes.oneOf(Object.values(SIZE)),
-  children: propTypes.node,
-  renderClose: propTypes.bool,
-  className: propTypes.string,
+  kind: propTypes.oneOf(Object.values(KIND)),
 };
+
+export default Dialog;
