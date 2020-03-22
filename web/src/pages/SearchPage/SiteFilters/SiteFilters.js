@@ -1,12 +1,11 @@
 import React from 'react';
-import propTypes from 'prop-types';
+import { useFormik } from 'formik';
+import { checkboxGroup } from 'utils/forms';
 
 import { Checkbox } from 'ui/components/Checkbox';
 import { Button, KIND } from 'ui/components/Button';
 import CountryCombobox from 'ui/components/CountryCombobox';
-import countries from 'ui/components/CountryCombobox/countries';
 
-import { collectFilters } from './collectFilters';
 import LanguageFilter from './LanguageFilter';
 
 export const DEFAULT_FILTERS = {
@@ -16,40 +15,38 @@ export const DEFAULT_FILTERS = {
   language: '*',
 };
 
-function SiteFilters({ filters, onSubmit, onReset }) {
-  const handleSubmit = event => {
-    event.preventDefault();
-    onSubmit(collectFilters(event.target));
-  };
+export default function SiteFilters({ initialValues, onSubmit, onReset }) {
+  const formik = useFormik({
+    initialValues,
+    enableReinitialize: true,
+    onSubmit: values => onSubmit(values),
+  });
+
+  const academicLevelProps = checkboxGroup('academicLevel', formik);
+  const fundingTypeProps = checkboxGroup('fundingType', formik);
 
   return (
-    <form onSubmit={handleSubmit} id="filters">
+    <form onSubmit={formik.handleSubmit} onReset={onReset} id="filters">
       <h4 className="text-sm font-semibold color-gray-500 uppercase">
         Tipo de beca
       </h4>
       <div className="flex flex-col mb-2">
         <Checkbox
-          value="UNDERGRADUATE"
-          name="academicLevel[]"
-          defaultChecked={filters.academicLevel.includes('UNDERGRADUATE')}
+          {...academicLevelProps('UNDERGRADUATE')}
           className="p-3 flex-grow"
           data-testid="academicLevel.undergraduate"
         >
           Pregrado
         </Checkbox>
         <Checkbox
-          value="POSTGRADUATE"
-          name="academicLevel[]"
-          defaultChecked={filters.academicLevel.includes('POSTGRADUATE')}
+          {...academicLevelProps('POSTGRADUATE')}
           className="p-3 flex-grow"
           data-testid="academicLevel.postgraduate"
         >
           Posgrado
         </Checkbox>
         <Checkbox
-          value="OTHERS"
-          name="academicLevel[]"
-          defaultChecked={filters.academicLevel.includes('OTHERS')}
+          {...academicLevelProps('OTHERS')}
           className="p-3 flex-grow"
           data-testid="academicLevel.others"
         >
@@ -62,18 +59,14 @@ function SiteFilters({ filters, onSubmit, onReset }) {
       </h4>
       <div className="flex flex-wrap mb-2">
         <Checkbox
-          value="COMPLETE"
-          name="fundingType[]"
-          defaultChecked={filters.fundingType.includes('COMPLETE')}
+          {...fundingTypeProps('COMPLETE')}
           className="p-3 flex-grow"
           data-testid="fundingType.complete"
         >
           Total
         </Checkbox>
         <Checkbox
-          value="PARTIAL"
-          name="fundingType[]"
-          defaultChecked={filters.fundingType.includes('PARTIAL')}
+          {...fundingTypeProps('PARTIAL')}
           className="p-3 flex-grow"
           data-testid="fundingType.partial"
         >
@@ -81,40 +74,36 @@ function SiteFilters({ filters, onSubmit, onReset }) {
         </Checkbox>
       </div>
 
-      <LanguageFilter value={filters.language} />
+      <label
+        id="filter-language"
+        className="text-sm font-semibold color-gray-500 uppercase pb-1"
+      >
+        Idioma
+      </label>
+      <div className="flex flex-wrap mb-4">
+        <LanguageFilter
+          value={formik.values.language}
+          onChange={language => formik.setFieldValue('language', language)}
+        />
+      </div>
 
       <h4 className="text-sm font-semibold color-gray-500 uppercase pb-1">
         País
       </h4>
       <CountryCombobox
-        htmlFor=""
-        name="country"
-        defaultCountry={filters.country}
-        countries={countries}
+        value={formik.values.country}
+        onSelect={country => formik.setFieldValue('country', country)}
+        onChange={event => formik.setFieldValue('country', event.target.value)}
       />
 
       <div className="mt-8">
         <Button wide type="submit">
           Listo
         </Button>
-        <Button
-          onClick={onReset}
-          kind={KIND.secondary}
-          wide
-          type="reset"
-          className="mt-3"
-        >
+        <Button kind={KIND.secondary} wide type="reset" className="mt-3">
           Restablecer
         </Button>
       </div>
     </form>
   );
 }
-
-SiteFilters.propTypes = {
-  filters: propTypes.object.isRequired,
-  onSubmit: propTypes.func.isRequired,
-  onReset: propTypes.func.isRequired,
-};
-
-export default SiteFilters;

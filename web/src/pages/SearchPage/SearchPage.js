@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Spinner from 'ui/components/Spinner';
 import SiteHeader from 'ui/components/SiteHeader';
 import { SiteTemplate } from 'ui/templates/SiteTemplate';
@@ -13,7 +14,7 @@ function SearchPage() {
 
   const searchFilters = (
     <SiteFilters
-      filters={filter.values}
+      initialValues={filter.values}
       onSubmit={filter.onSubmit}
       onReset={filter.onReset}
     />

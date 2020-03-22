@@ -11,7 +11,9 @@ function FiltersDialog({ isOpen, onDismiss, children }) {
       kind={KIND.full}
     >
       <div className="relative w-full max-w-sm mx-auto">
-        <CloseBtn onClick={onDismiss}>Cerrar filtros</CloseBtn>
+        <CloseBtn onClick={onDismiss} className="right-0 top-0">
+          Cerrar filtros
+        </CloseBtn>
         <Title id="filter-search-title" className="mb-6">
           Filtrar búsqueda
         </Title>
