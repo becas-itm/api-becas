@@ -81,7 +81,7 @@ class Scholarship:
 
 
 @enum.unique
-class State(enum.Enum):
+class State(str, enum.Enum):
     PENDING = 'PENDING'
 
     PUBLISHED = 'PUBLISHED'
@@ -168,7 +168,7 @@ class DenialReason(StringValueObject):
 
 
 @enum.unique
-class AcademicLevel(enum.Enum):
+class AcademicLevel(str, enum.Enum):
     UNDERGRADUATE = 'UNDERGRADUATE'
 
     POSTGRADUATE = 'POSTGRADUATE'
@@ -181,14 +181,14 @@ class Country(StringValueObject):
 
 
 @enum.unique
-class FundingType(enum.Enum):
+class FundingType(str, enum.Enum):
     COMPLETE = 'COMPLETE'
 
     PARTIAL = 'PARTIAL'
 
 
 @enum.unique
-class FillStatus(enum.Enum):
+class FillStatus(str, enum.Enum):
     COMPLETE = 'COMPLETE'
 
     INCOMPLETE = 'INCOMPLETE'

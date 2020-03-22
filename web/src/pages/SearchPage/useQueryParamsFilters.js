@@ -6,7 +6,7 @@ export function query_params(payload) {
     encode: false,
     skipNulls: true,
     addQueryPrefix: true,
-    arrayFormat: 'comma',
+    arrayFormat: 'repeat',
   });
 }
 
