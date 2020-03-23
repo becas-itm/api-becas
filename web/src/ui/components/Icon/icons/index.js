@@ -12,6 +12,8 @@ export { Edit } from './Edit';
 
 export { Event } from './Event';
 
+export { ExitToApp } from './ExitToApp';
+
 export { FirstPage } from './FirstPage';
 
 export { KeyboardArrowDown } from './KeyboardArrowDown';
