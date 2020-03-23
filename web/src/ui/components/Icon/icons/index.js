@@ -8,6 +8,8 @@ export { ChevronRight } from './ChevronRight';
 
 export { Close } from './Close';
 
+export { Edit } from './Edit';
+
 export { Event } from './Event';
 
 export { FirstPage } from './FirstPage';
