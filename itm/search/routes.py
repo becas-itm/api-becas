@@ -31,7 +31,7 @@ def index(page: int = 1,
         .add_term(term) \
         .with_country(country) \
         .with_language(language) \
-        .with_state(State.PENDING.value) \
+        .with_state(State.PUBLISHED.value) \
         .size(paginator.per_page) \
         .skip(paginator.skip) \
         .select(['name', 'description', 'deadline', 'spider.name', 'entity.fullName'])
@@ -71,7 +71,7 @@ def show(scholarship_id):
     if not scholarship:
         raise NotFound
 
-    if scholarship['state'] != State.PENDING.value:
+    if scholarship['state'] != State.PUBLISHED.value:
         raise Forbidden
     else:
         del scholarship['state']
