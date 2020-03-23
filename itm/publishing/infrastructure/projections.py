@@ -1,5 +1,5 @@
 from itm.documents import Scholarship
-from itm.publishing.domain.scholarship import State, FillStatus, PendingEdited, ScholarshipApproved
+from itm.publishing.domain.scholarship import State, FillStatus, PendingEdited, ScholarshipApproved, ScholarshipDenied
 
 from itm.shared.utils.countries import get_country_name
 
@@ -36,4 +36,19 @@ class PublishScholarshipOnApproved:
             refresh=True,
             state=State.PUBLISHED.value,
             approval={'approvedAt': event.timestamp},
+        )
+
+
+class ArchiveScholarshipOnDenied:
+    @classmethod
+    def handle(cls, event: ScholarshipDenied):
+        scholarship = Scholarship.get(event.scholarship_id)
+
+        scholarship.update(
+            refresh=True,
+            state=State.DENIED.value,
+            denial={
+                'reason': event.reason,
+                'deniedAt': event.timestamp,
+            },
         )

@@ -64,7 +64,7 @@ class Scholarship:
             raise StateError(self.id)
 
         self.state = State.DENIED
-        return ScholarshipDenied.fire(self.id, DenialReason(reason))
+        return ScholarshipDenied.fire(self.id.value, DenialReason(reason).value)
 
     def edit_draft(self, fields):
         if self.state != State.PENDING:
