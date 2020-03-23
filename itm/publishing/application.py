@@ -19,3 +19,15 @@ class DenyScholarship:
         return self.repository \
             .get_by_id(self.id) \
             .deny(self.reason)
+
+
+class EditDraft:
+    def __init__(self, repository, id, fields):
+        self.repository = repository
+        self.id = id
+        self.fields = fields
+
+    def execute(self):
+        return self.repository \
+            .get_by_id(self.id) \
+            .edit_draft(self.fields)

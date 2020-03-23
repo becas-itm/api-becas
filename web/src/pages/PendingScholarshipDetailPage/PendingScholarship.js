@@ -2,16 +2,22 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useToggle } from 'utils/hooks';
-import { ArrowBack } from 'ui/components/Icon';
 import IconButton from 'ui/components/IconButton';
 import { Button, KIND } from 'ui/components/Button';
+import { ArrowBack, Edit } from 'ui/components/Icon';
 import { ScholarshipDetails } from 'pages/ScholarshipPage/ScholarshipDetails';
 
 import { DenyDialog } from './DenyDialog';
 import { useApprove } from './useScholarship';
-import ScholarshipFields from './fields/ScholarshipFields';
 
-export default function PendingScholarship({ scholarship }) {
+import { BaseField } from './fields/BaseField';
+import { EntityField } from './fields/EntityField';
+import { CountryField } from './fields/CountryField';
+import { DeadlineField } from './fields/DeadlineField';
+import { FundingTypeField } from './fields/FundingTypeField';
+import { AcademicLevelField } from './fields/AcademicLevelField';
+
+export default function PendingScholarship({ scholarship, onEdit }) {
   const { approve, isApproving, isApproved } = useApprove(scholarship.id);
 
   const navigate = useNavigate();
@@ -29,7 +35,48 @@ export default function PendingScholarship({ scholarship }) {
         Atrás
       </IconButton>
 
-      <ScholarshipFields fields={scholarship} />
+      <IconButton
+        icon={Edit}
+        onClick={onEdit}
+        className="hidden sm:block absolute left-full ml-2"
+      >
+        Editar convocatoria
+      </IconButton>
+
+      <div className="mb-2">
+        <h1 className="text-xl sm:text-2xl font-semibold">
+          {scholarship.name}
+        </h1>
+      </div>
+
+      <BaseField isMissing={!scholarship.description} name="Descripción">
+        {scholarship.description || null}
+      </BaseField>
+
+      <div className="pl-8 mt-6">
+        <DeadlineField value={scholarship.deadline} />
+
+        <div className="mt-4">
+          <AcademicLevelField value={scholarship.academicLevel} />
+        </div>
+
+        <div className="mt-4">
+          <FundingTypeField value={scholarship.fundingType} />
+        </div>
+
+        <div className="mt-4">
+          <CountryField value={scholarship.country} />
+        </div>
+
+        <div className="mt-4 -ml-8">
+          <EntityField
+            value={{
+              ...(scholarship.entity || {}),
+              code: (scholarship.spider || {}).name,
+            }}
+          />
+        </div>
+      </div>
 
       <ScholarshipDetails
         {...scholarship.sourceDetails}

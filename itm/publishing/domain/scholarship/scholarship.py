@@ -2,8 +2,8 @@ import enum
 import uuid
 import datetime
 
-from .events import ScholarshipApproved, ScholarshipDenied
 from .errors import IncompleteError, StateError, ExpiredError
+from .events import ScholarshipApproved, ScholarshipDenied, PendingEdited
 
 
 class Scholarship:
@@ -65,6 +65,32 @@ class Scholarship:
 
         self.state = State.DENIED
         return ScholarshipDenied.fire(self.id, DenialReason(reason))
+
+    def edit_draft(self, fields):
+        if self.state != State.PENDING:
+            raise StateError(self.id)
+
+        if 'name' in fields:
+            self.name = Name(fields['name'])
+
+        if 'description' in fields:
+            self.description = Description(fields['description'])
+
+        if 'deadline' in fields:
+            self.deadline = Date.from_string(fields['deadline'])
+
+        if 'academicLevel' in fields:
+            self.academic_level = AcademicLevel(fields['academicLevel'])
+
+        if 'country' in fields:
+            self.country = Country(fields['country'])
+
+        if 'fundingType' in fields:
+            self.funding_type = FundingType(fields['fundingType'])
+
+        return PendingEdited.fire(scholarship_id=self.id.value,
+                                  is_complete=self.is_complete,
+                                  fields=fields)
 
     @classmethod
     def from_document(cls, doc):

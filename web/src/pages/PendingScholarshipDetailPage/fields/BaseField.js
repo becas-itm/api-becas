@@ -14,7 +14,7 @@ export function BaseField({ icon: Icon, name, children, isMissing }) {
   return (
     <div className="flex">
       {Icon && <Icon className="text-gray-500 mr-2" />}
-      <div>
+      <div className="w-full">
         {name && <div className="text-sm text-gray-600">{name}</div>}
         {isMissing ? <span className="italic">Desconocido</span> : children}
       </div>

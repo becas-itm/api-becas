@@ -5,7 +5,7 @@ from itm.documents import Scholarship
 
 from itm.publishing.domain.scholarship import State, ScholarshipError
 from itm.publishing.infrastructure.repository import ScholarshipRepository
-from itm.publishing.application import ApproveScholarship, DenyScholarship
+from itm.publishing.application import ApproveScholarship, DenyScholarship, EditDraft
 
 from itm.search.search import SearchBuilder
 from itm.search.service import SearchService
@@ -13,6 +13,8 @@ from itm.search.service import SearchService
 from itm.shared.utils import SimplePaginator
 from itm.shared.http import NotFound, Forbidden
 from itm.shared.domain.errors import EntityNotFoundError
+
+from ..projections import UpdateDraft
 
 router = APIRouter()
 
@@ -98,3 +100,39 @@ def deny(scholarship_id, data: DenyItem):
         raise NotFound
     except ScholarshipError as error:
         raise Forbidden(error.code)
+
+
+class UpdateItem(BaseModel):
+    name: str = None
+    description: str = None
+    deadline: str = None
+    academicLevel: str = None
+    fundingType: str = None
+    country: str = None
+
+
+@router.put('/{scholarship_id}/')
+def edit(scholarship_id, data: UpdateItem):
+    if data.fundingType == '*':
+        del data.fundingType
+
+    if data.academicLevel == '*':
+        del data.academicLevel
+
+    if data.country == '*':
+        del data.country
+
+    command = EditDraft(
+        ScholarshipRepository(Scholarship),
+        scholarship_id,
+        data.dict(),
+    )
+
+    try:
+        event = command.execute()
+    except EntityNotFoundError:
+        raise NotFound
+    except ScholarshipError as error:
+        raise Forbidden(error.code)
+    else:
+        UpdateDraft.handle(event)
