@@ -16,15 +16,13 @@ router = APIRouter()
 
 
 @router.get('/')
-def index(page: int = 1,
+def index(page: int = Query(1, ge=1),
           term: str = '',
           country: str = '',
           language: str = '',
           academicLevel: List[AcademicLevel] = Query(None),
           fundingType: List[FundingType] = Query(None),
           ):
-    assert(page >= 1)
-
     paginator = SimplePaginator(page)
 
     builder = SearchBuilder() \

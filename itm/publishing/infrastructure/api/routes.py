@@ -1,5 +1,5 @@
-from fastapi import APIRouter
 from pydantic import BaseModel
+from fastapi import APIRouter, Query
 
 from itm.documents import Scholarship
 
@@ -20,9 +20,7 @@ router = APIRouter()
 
 
 @router.get('/')
-def list_pendings(page: int = 1):
-    assert(page >= 1)
-
+def list_pendings(page: int = Query(1, ge=1)):
     paginator = SimplePaginator(page)
 
     builder = SearchBuilder() \
