@@ -30,7 +30,7 @@ class Scholarship:
     def approve(self):
         self._check_for_approval()
         self.state = State.PUBLISHED
-        return ScholarshipApproved.fire(self.id)
+        return ScholarshipApproved.fire(self.id.value)
 
     def _check_for_approval(self):
         if not self.is_complete:

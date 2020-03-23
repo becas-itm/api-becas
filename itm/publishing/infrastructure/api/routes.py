@@ -14,7 +14,7 @@ from itm.shared.utils import SimplePaginator
 from itm.shared.http import NotFound, Forbidden
 from itm.shared.domain.errors import EntityNotFoundError
 
-from ..projections import UpdateDraft
+from ..projections import UpdateDraft, PublishScholarshipOnApproved
 
 router = APIRouter()
 
@@ -75,11 +75,13 @@ def approve(scholarship_id):
     )
 
     try:
-        command.execute()
+        event = command.execute()
     except EntityNotFoundError:
         raise NotFound
     except ScholarshipError as error:
         raise Forbidden(error.code)
+    else:
+        PublishScholarshipOnApproved.handle(event)
 
 
 class DenyItem(BaseModel):

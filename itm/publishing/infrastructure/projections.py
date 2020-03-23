@@ -1,5 +1,5 @@
 from itm.documents import Scholarship
-from itm.publishing.domain.scholarship import FillStatus, PendingEdited
+from itm.publishing.domain.scholarship import State, FillStatus, PendingEdited, ScholarshipApproved
 
 from itm.shared.utils.countries import get_country_name
 
@@ -25,3 +25,15 @@ class UpdateDraft:
             'code': code,
             'name': get_country_name(code),
         }
+
+
+class PublishScholarshipOnApproved:
+    @classmethod
+    def handle(cls, event: ScholarshipApproved):
+        scholarship = Scholarship.get(event.scholarship_id)
+
+        scholarship.update(
+            refresh=True,
+            state=State.PUBLISHED.value,
+            approval={'approvedAt': event.timestamp},
+        )
