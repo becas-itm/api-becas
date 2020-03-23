@@ -33,3 +33,16 @@ export function post(url, body = undefined, options = {}) {
     },
   }).then(checkStatus);
 }
+
+export function put(url, body = undefined, options = {}) {
+  return fetch(url, {
+    ...options,
+    method: 'PUT',
+    body: body === undefined ? undefined : JSON.stringify(body),
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      ...(options.headers || {}),
+    },
+  }).then(checkStatus);
+}
