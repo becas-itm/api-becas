@@ -13,3 +13,10 @@ class Forbidden(HTTPException):
 
     def __init__(self, detail=None, headers=None):
         super().__init__(self.code, detail, headers)
+
+
+class Unauthorized(HTTPException):
+    code = 401
+
+    def __init__(self, detail=None, headers=None):
+        super().__init__(self.code, detail, headers)
