@@ -1,3 +1,17 @@
+function loadAuthorizationHeader() {
+  const token = localStorage.getItem('token');
+  return token ? { Authorization: `Bearer ${token.replace(/"/g, '')}` } : {};
+}
+
+function mergeHeaders(headers = {}) {
+  return {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+    ...loadAuthorizationHeader(),
+    ...headers,
+  };
+}
+
 export function checkStatus(response) {
   if (response.ok) {
     return response;
@@ -11,11 +25,7 @@ export function checkStatus(response) {
 export function get(url, options = {}) {
   return fetch(url, {
     ...options,
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      ...(options.headers || {}),
-    },
+    headers: mergeHeaders(options.header || {}),
   })
     .then(checkStatus)
     .then(res => res.json());
@@ -26,11 +36,7 @@ export function post(url, body = undefined, options = {}) {
     ...options,
     method: 'POST',
     body: body === undefined ? undefined : JSON.stringify(body),
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      ...(options.headers || {}),
-    },
+    headers: mergeHeaders(options.header || {}),
   }).then(checkStatus);
 }
 
@@ -39,10 +45,6 @@ export function put(url, body = undefined, options = {}) {
     ...options,
     method: 'PUT',
     body: body === undefined ? undefined : JSON.stringify(body),
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-      ...(options.headers || {}),
-    },
+    headers: mergeHeaders(options.header || {}),
   }).then(checkStatus);
 }
