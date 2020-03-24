@@ -1,5 +1,9 @@
 from itm.documents import Scholarship
-from itm.publishing.domain.scholarship import State, FillStatus, PendingEdited, ScholarshipApproved, ScholarshipDenied
+from itm.publishing.domain.scholarship import State, \
+    FillStatus, \
+    PendingEdited, \
+    ScholarshipApproved, \
+    ScholarshipDenied
 
 from itm.shared.utils.countries import get_country_name
 
