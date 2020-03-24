@@ -39,12 +39,8 @@ function PendingScholarshipDetailPage() {
       </header>
 
       <main
-        className="max-w-screen-md mx-auto p-4 bg-white rounded sm:py-10 md:py-16 my-8"
-        style={{
-          maxWidth: 840,
-          boxShadow:
-            '0 1px 3px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .24)',
-        }}
+        style={{ maxWidth: 840 }}
+        className="max-w-screen-md mx-auto p-4 bg-white shadow rounded sm:py-10 md:py-16 my-8"
       >
         {isFetching ? (
           <div className="text-center">

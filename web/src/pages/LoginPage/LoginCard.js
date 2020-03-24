@@ -44,7 +44,7 @@ export default function LoginCard({ onLogin, isLoading, hasErrors = false }) {
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="w-full max-w-sm pt-6 px-8 pb-8 bg-white rounded shadow-md"
+      className="w-full max-w-sm pt-6 px-8 pb-8 bg-white rounded shadow"
     >
       <header className="flex flex-col items-center mb-6">
         <AppLogo children={null} />
