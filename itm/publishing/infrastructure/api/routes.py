@@ -1,5 +1,5 @@
 from pydantic import BaseModel
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query, status
 
 from itm.documents import Scholarship
 
@@ -24,7 +24,7 @@ def list_pendings(page: int = Query(1, ge=1)):
     paginator = SimplePaginator(page)
 
     builder = SearchBuilder() \
-        .size(paginator._per_page) \
+        .size(paginator.per_page) \
         .skip(paginator.skip) \
         .with_state(State.PENDING.value) \
         .select(['name', 'deadline', 'spider.name', 'entity.fullName', 'fillStatus'])
@@ -65,7 +65,7 @@ def pending_detail(scholarship_id):
     return scholarship.serialize()
 
 
-@router.post('/{scholarship_id}/approve/')
+@router.post('/{scholarship_id}/approve/', status_code=status.HTTP_204_NO_CONTENT)
 def approve(scholarship_id):
     command = ApproveScholarship(
         ScholarshipRepository(Scholarship),
@@ -86,7 +86,7 @@ class DenyItem(BaseModel):
     reason: str
 
 
-@router.post('/{scholarship_id}/deny/')
+@router.post('/{scholarship_id}/deny/', status_code=status.HTTP_204_NO_CONTENT)
 def deny(scholarship_id, data: DenyItem):
     command = DenyScholarship(
         ScholarshipRepository(Scholarship),
@@ -113,7 +113,7 @@ class UpdateItem(BaseModel):
     country: str = None
 
 
-@router.put('/{scholarship_id}/')
+@router.put('/{scholarship_id}/', status_code=status.HTTP_204_NO_CONTENT)
 def edit(scholarship_id, data: UpdateItem):
     if data.fundingType == '*':
         del data.fundingType
