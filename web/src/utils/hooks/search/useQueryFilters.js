@@ -10,12 +10,12 @@ export function useQueryFilters() {
 
   return {
     replace,
-    filters: parseQueryParamsFilters(location.search),
+    filters: parseFilters(location.search),
   };
 }
 
-function parseQueryParamsFilters(queryString) {
-  return qs.parse(queryString, { comma: true, ignoreQueryPrefix: true });
+function parseFilters(queryFilters) {
+  return qs.parse(queryFilters, { ignoreQueryPrefix: true });
 }
 
 export function stringifyFilters(filters) {
