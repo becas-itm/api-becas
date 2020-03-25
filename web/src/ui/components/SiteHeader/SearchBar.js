@@ -11,6 +11,8 @@ function SearchBar({ initialTerm, onSearch, focusOnMount }) {
   const clearTerm = () => setTerm('');
   const triggerSearch = () => onSearch(term);
 
+  React.useEffect(() => void setTerm(initialTerm), [initialTerm]);
+
   const handleFormSubmit = event => {
     event.preventDefault();
     triggerSearch();

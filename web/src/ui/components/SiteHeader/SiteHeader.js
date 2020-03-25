@@ -19,7 +19,10 @@ function SiteHeader({
   if (isBrowser) {
     return (
       <header className="bg-white border-b">
-        <div className="container h-20 flex items-center mx-auto px-4">
+        <div
+          style={{ height: '4.5rem' }}
+          className="container flex items-center mx-auto px-4"
+        >
           <AppLogo />
           <div className="ml-4 sm:ml-16 flex-grow max-w-screen-sm">
             {searchBar}
@@ -43,9 +46,16 @@ function SiteHeader({
       <header className="bg-white border-b">
         <div className="container h-16 flex items-center justify-between mx-auto px-4">
           <AppLogo />
-          <IconButton onClick={toggleSearch} icon={Search}>
-            Search
-          </IconButton>
+          <div>
+            <IconButton onClick={toggleSearch} icon={Search}>
+              Search
+            </IconButton>
+            {onFilterClick && (
+              <IconButton onClick={onFilterClick} icon={Tune} className="ml-4">
+                Filtrar
+              </IconButton>
+            )}
+          </div>
         </div>
       </header>
     );
@@ -55,11 +65,6 @@ function SiteHeader({
     <header className="bg-white border-b">
       <div className="container h-16 flex items-center justify-between mx-auto px-4">
         {React.cloneElement(searchBar, { focusOnMount: true })}
-        {onFilterClick && (
-          <IconButton onClick={onFilterClick} icon={Tune} className="ml-2">
-            Filtrar
-          </IconButton>
-        )}
         <button
           onClick={toggleSearch}
           type="button"
