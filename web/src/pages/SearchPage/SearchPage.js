@@ -4,19 +4,24 @@ import Spinner from 'ui/components/Spinner';
 import SiteHeader from 'ui/components/SiteHeader';
 import { SiteTemplate } from 'ui/templates/SiteTemplate';
 
-import useSearch from './useSearch';
+import { useToggle } from 'utils/hooks';
+import { useSearchPage } from 'utils/hooks/search';
+
 import SearchResults from './SearchResults';
-import SiteFilters from './SiteFilters/SiteFilters';
 import FiltersDialog from './SiteFilters/FiltersDialog';
+import SiteFilters, { DEFAULT_FILTERS } from './SiteFilters/SiteFilters';
 
 function SearchPage() {
-  const { results, term, setTerm, setPage, isLoading, filter } = useSearch();
+  const url = '/api/search/scholarships/';
+  const { search, filter } = useSearchPage(url, DEFAULT_FILTERS);
+
+  const [isFiltering, toggleFilters] = useToggle();
 
   const searchFilters = (
     <SiteFilters
-      initialValues={filter.values}
-      onSubmit={filter.onSubmit}
-      onReset={filter.onReset}
+      filters={filter.filters}
+      onSubmit={filter.setFilters}
+      onReset={filter.reset}
     />
   );
 
@@ -24,10 +29,10 @@ function SearchPage() {
     <SiteTemplate
       header={
         <SiteHeader
-          initialTerm={term}
-          onSearch={setTerm}
+          initialTerm={filter.filters.term}
+          onSearch={filter.setTerm}
           isInitiallySearching={false}
-          onFilterClick={filter.toggleFilters}
+          onFilterClick={toggleFilters}
         />
       }
     >
@@ -38,23 +43,20 @@ function SearchPage() {
             {searchFilters}
           </aside>
           <div className="flex-1 max-w-screen-md mx-auto">
-            {isLoading ? (
+            {search.isLoading ? (
               <div className="text-center mt-4">
                 <Spinner />
               </div>
             ) : (
               <SearchResults
-                onPage={setPage}
-                results={results}
-                onResetFilters={filter.onReset}
+                onPage={filter.setPage}
+                results={search.results}
+                onResetFilters={filter.reset}
               />
             )}
           </div>
         </div>
-        <FiltersDialog
-          isOpen={filter.isFiltering}
-          onDismiss={filter.toggleFilters}
-        >
+        <FiltersDialog isOpen={isFiltering} onDismiss={toggleFilters}>
           {searchFilters}
         </FiltersDialog>
       </div>

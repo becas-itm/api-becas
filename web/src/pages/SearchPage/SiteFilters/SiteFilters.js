@@ -9,24 +9,35 @@ import CountryCombobox from 'ui/components/CountryCombobox';
 import LanguageFilter from './LanguageFilter';
 
 export const DEFAULT_FILTERS = {
+  page: 1,
+  term: '',
   country: '',
+  language: '*',
   fundingType: ['COMPLETE', 'PARTIAL'],
   academicLevel: ['UNDERGRADUATE', 'POSTGRADUATE', 'OTHERS'],
-  language: '*',
 };
 
-export default function SiteFilters({ initialValues, onSubmit, onReset }) {
-  const formik = useFormik({
-    initialValues,
-    enableReinitialize: true,
-    onSubmit: values => onSubmit(values),
-  });
+/**
+ * Picks only the filter values Formik uses.
+ *
+ * Since `enableReinitialize` is set to `true`, it will reset
+ * the form if any filter changes, causing unnecessary re-renders.
+ * By hand-picking those values we avoid them.
+ */
+function pickValues(values) {
+  const { country, language, fundingType, academicLevel } = values;
+  return { country, language, fundingType, academicLevel };
+}
 
-  const academicLevelProps = checkboxGroup('academicLevel', formik);
-  const fundingTypeProps = checkboxGroup('fundingType', formik);
+export default function SiteFilters({ filters, onSubmit, onReset }) {
+  const initialValues = pickValues(filters);
+  const form = useFormik({ onSubmit, initialValues, enableReinitialize: true });
+
+  const academicLevelProps = checkboxGroup('academicLevel', form);
+  const fundingTypeProps = checkboxGroup('fundingType', form);
 
   return (
-    <form onSubmit={formik.handleSubmit} onReset={onReset} id="filters">
+    <form onSubmit={form.handleSubmit} onReset={onReset} id="filters">
       <h4 className="text-sm font-semibold color-gray-500 uppercase">
         Tipo de beca
       </h4>
@@ -82,8 +93,8 @@ export default function SiteFilters({ initialValues, onSubmit, onReset }) {
       </label>
       <div className="flex flex-wrap mb-4">
         <LanguageFilter
-          value={formik.values.language}
-          onChange={language => formik.setFieldValue('language', language)}
+          value={form.values.language}
+          onChange={language => form.setFieldValue('language', language)}
         />
       </div>
 
@@ -91,9 +102,9 @@ export default function SiteFilters({ initialValues, onSubmit, onReset }) {
         País
       </h4>
       <CountryCombobox
-        value={formik.values.country}
-        onSelect={country => formik.setFieldValue('country', country)}
-        onChange={event => formik.setFieldValue('country', event.target.value)}
+        value={form.values.country}
+        onSelect={country => form.setFieldValue('country', country)}
+        onChange={event => form.setFieldValue('country', event.target.value)}
       />
 
       <div className="mt-8">

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Provider } from 'use-http';
+import { ReactQueryConfigProvider } from 'react-query';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { useAppToken } from 'utils/hooks';
@@ -14,10 +14,12 @@ import DisclaimerPage from 'pages/DisclaimerPage';
 import PendingScholarshipsPage from 'pages/PendingScholarshipsPage';
 import PendingScholarshipDetailPage from 'pages/PendingScholarshipDetailPage';
 
+const queryConfig = { refetchAllOnWindowFocus: false };
+
 function App() {
   useAppToken();
   return (
-    <Provider options={{ cachePolicy: 'no-cache' }}>
+    <ReactQueryConfigProvider config={queryConfig}>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -36,7 +38,7 @@ function App() {
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
-    </Provider>
+    </ReactQueryConfigProvider>
   );
 }
 

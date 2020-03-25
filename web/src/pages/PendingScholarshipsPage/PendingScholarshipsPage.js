@@ -1,26 +1,28 @@
 import React from 'react';
 import Spinner from 'ui/components/Spinner';
+import { useSearchPage } from 'utils/hooks/search';
 import AdminTemplate from 'ui/templates/AdminTemplate';
-
 import { PendingResults } from './PendingResults';
-import { usePendingScholarships } from './usePendingScholarships';
+
+const DEFAULT_FILTERS = { page: 1 };
 
 function PendingScholarshipsPage() {
-  const [page, setPage] = React.useState(1);
-  const { scholarships, pagination, isFetching } = usePendingScholarships(page);
+  const url = '/api/publishing/scholarships/';
+  const { search, filter } = useSearchPage(url, DEFAULT_FILTERS);
+  const { results, ...pagination } = search.results;
 
   return (
     <AdminTemplate>
       <div className="max-w-2xl mx-auto">
-        {isFetching ? (
+        {search.isLoading ? (
           <div className="text-center mt-4">
             <Spinner />
           </div>
         ) : (
           <PendingResults
-            scholarships={scholarships}
+            scholarships={results}
             pagination={pagination}
-            onPage={setPage}
+            onPage={filter.setPage}
           />
         )}
       </div>

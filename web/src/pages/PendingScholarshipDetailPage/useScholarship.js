@@ -4,13 +4,7 @@ import { useQuery, useMutation } from 'react-query';
 
 export function useScholarship(id) {
   const baseUrl = `/api/publishing/scholarships/${id}/`;
-  const { data: scholarship, isFetching, refetch } = useQuery(
-    baseUrl,
-    api.get,
-    {
-      refetchOnWindowFocus: false,
-    },
-  );
+  const { data: scholarship, isFetching, refetch } = useQuery(baseUrl, api.get);
   return { isFetching, scholarship, refetch };
 }
 

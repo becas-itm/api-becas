@@ -9,7 +9,7 @@ export function SiteTemplate(props) {
 
   const handleSearch = term => {
     if (location.pathname !== '/buscar') {
-      navigate(`/buscar?q=${term}`, { state: { isSearching: true } });
+      navigate(`/buscar?term=${term}`, { state: { isSearching: true } });
     }
   };
 

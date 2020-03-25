@@ -1,5 +1,6 @@
 import React from 'react';
-import useFetch from 'use-http';
+import { get } from 'utils/api';
+import { useQuery } from 'react-query';
 import { useParams } from 'react-router';
 
 import Spinner from 'ui/components/Spinner';
@@ -20,13 +21,9 @@ import { ScholarshipDetails } from './ScholarshipDetails';
 
 function ScholarshipPage() {
   const { id } = useParams();
-  const {
-    data,
-    loading,
-    response,
-  } = useFetch(`/api/search/scholarships/${id}/`, [id]);
+  const { data, isFetching } = useQuery(`/api/search/scholarships/${id}/`, get);
 
-  if (loading) {
+  if (isFetching) {
     return (
       <SiteTemplate>
         <div className="text-center mt-8">
@@ -36,7 +33,7 @@ function ScholarshipPage() {
     );
   }
 
-  if (!response.ok) {
+  if (!data) {
     return (
       <SiteTemplate className="pt-6">
         <NotFoundGhost
