@@ -20,8 +20,8 @@ def index(page: int = Query(1, ge=1),
           term: str = '',
           country: str = '',
           language: str = '',
-          academicLevel: List[AcademicLevel] = Query(None),
-          fundingType: List[FundingType] = Query(None),
+          academicLevel: List[AcademicLevel] = Query([]),
+          fundingType: List[FundingType] = Query([]),
           ):
     paginator = SimplePaginator(page)
 
