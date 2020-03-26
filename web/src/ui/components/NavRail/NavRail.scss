@@ -1,0 +1,44 @@
+.NavRail-Item {
+  color: var(--text-emphasis-medium);
+
+  &__label {
+    opacity: 0;
+    display: none;
+    font-size: .875rem;
+    font-weight: 600;
+  }
+
+  &.-active,
+  &:hover,
+  &:focus {
+    color: var(--primary);
+  }
+
+  &.-active &__label,
+  &:hover &__label,
+  &:focus &__label {
+    opacity: 1;
+  }
+}
+
+@media (min-width: 426px) {
+  .NavRail {
+    display: block;
+  }
+
+  .NavRail-Item {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+@media (min-width: 769px) {
+  .NavRail-Item {
+    width: 72px;
+    height: 72px;
+
+    &__label {
+      display: block;
+    }
+  }
+}
