@@ -65,17 +65,12 @@ export default function EditableScholarship({ scholarship, onEdit, onCancel }) {
           </div>
 
           <div className="pl-8 -ml-8 mt-8">
-            <EntityField
-              value={{
-                ...(scholarship.entity || {}),
-                code: (scholarship.spider || {}).name,
-              }}
-            />
+            <EntityField value={scholarship.entity || {}} />
           </div>
 
           <ScholarshipDetails
             {...scholarship.sourceDetails}
-            spider={scholarship.spider.name}
+            entityName={scholarship.entity?.name}
           />
 
           <div className="flex justify-end mt-6">

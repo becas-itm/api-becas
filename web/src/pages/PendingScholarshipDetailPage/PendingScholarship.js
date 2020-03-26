@@ -69,18 +69,13 @@ export default function PendingScholarship({ scholarship, onEdit }) {
         </div>
 
         <div className="mt-4 -ml-8">
-          <EntityField
-            value={{
-              ...(scholarship.entity || {}),
-              code: (scholarship.spider || {}).name,
-            }}
-          />
+          <EntityField value={scholarship.entity || {}} />
         </div>
       </div>
 
       <ScholarshipDetails
         {...scholarship.sourceDetails}
-        spider={scholarship.spider.name}
+        entityName={scholarship.entity?.name}
       />
 
       <div className="flex justify-end mt-6">

@@ -98,7 +98,7 @@ function ScholarshipPage() {
             <div className="flex mt-4 -ml-8">
               <div className="text-gray-500 mr-4">
                 <EntityAvatar
-                  spiderName={data.spider.name}
+                  name={data.entity.name}
                   size={48}
                   className="shadow-xs"
                 />
@@ -112,7 +112,7 @@ function ScholarshipPage() {
 
           <ScholarshipDetails
             {...data.sourceDetails}
-            spider={data.spider.name}
+            entityName={data.entity.name}
           />
         </div>
       </main>

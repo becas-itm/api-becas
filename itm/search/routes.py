@@ -32,7 +32,7 @@ def index(page: int = Query(1, ge=1),
         .with_state(State.PUBLISHED.value) \
         .size(paginator.per_page) \
         .skip(paginator.skip) \
-        .select(['name', 'description', 'deadline', 'spider.name', 'entity.fullName'])
+        .select(['name', 'description', 'deadline', 'entity.name', 'entity.fullName'])
 
     if len(academicLevel) > 0:
         academicLevel = academicLevel[:3]
@@ -58,7 +58,7 @@ def show(scholarship_id):
             'state',
             'academicLevel',
             'entity.fullName',
-            'spider.name',
+            'entity.name',
             'country.name',
             'country.code',
             'sourceDetails.url',

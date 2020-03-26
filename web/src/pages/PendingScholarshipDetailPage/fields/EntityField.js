@@ -8,11 +8,7 @@ export function EntityField({ value }) {
       isMissing={!value}
       icon={() => (
         <div className="text-gray-500 mr-4">
-          <EntityAvatar
-            spiderName={value.code}
-            size={48}
-            className="shadow-xs"
-          />
+          <EntityAvatar name={value.name} size={48} className="shadow-xs" />
         </div>
       )}
       name="Publicada por"

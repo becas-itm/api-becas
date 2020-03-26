@@ -20,13 +20,12 @@ export default function ScholarshipPreview({
   description,
   deadline,
   entity,
-  spider,
 }) {
   return (
     <article className="bg-white border-t border-b sm:rounded sm:border mb-5">
       <div className="relative max-w-md mx-auto my-4 sm:my-10 px-4 sm:px-0">
         <EntityAvatar
-          spiderName={spider.name}
+          name={entity.name}
           size={60}
           className="shadow-xs hidden sm:block absolute top-0 right-full mr-4 md:mr-8"
         />
@@ -63,6 +62,8 @@ ScholarshipPreview.propTypes = {
   deadline: propTypes.string,
   name: propTypes.string.isRequired,
   description: propTypes.string.isRequired,
-  spider: propTypes.shape({ name: propTypes.string.isRequired }),
-  entity: propTypes.shape({ fullName: propTypes.string.isRequired }),
+  entity: propTypes.shape({
+    name: propTypes.string.isRequired,
+    fullName: propTypes.string.isRequired,
+  }),
 };

@@ -27,7 +27,7 @@ def list_pendings(page: int = Query(1, ge=1)):
         .size(paginator.per_page) \
         .skip(paginator.skip) \
         .with_state(State.PENDING.value) \
-        .select(['name', 'deadline', 'spider.name', 'entity.fullName', 'fillStatus'])
+        .select(['name', 'deadline', 'entity.name', 'entity.fullName', 'fillStatus'])
 
     return paginator.paginate(SearchService.execute(builder))
 
@@ -45,7 +45,7 @@ def pending_detail(scholarship_id):
             'state',
             'academicLevel',
             'entity.fullName',
-            'spider.name',
+            'entity.name',
             'country.name',
             'country.code',
             'sourceDetails.url',

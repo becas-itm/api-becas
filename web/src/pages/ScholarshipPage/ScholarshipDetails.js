@@ -3,8 +3,8 @@ import { OpenInNew } from 'ui/components/Icon';
 import { Button, KIND } from 'ui/components/Button';
 import { IcetexDialogDetails } from './IcetexDialogDetails';
 
-export function ScholarshipDetails({ spider, id, url }) {
-  if (spider === 'icetex') {
+export function ScholarshipDetails({ entityName, id, url }) {
+  if (entityName === 'icetex') {
     return <IcetexDialogDetails id={id} url={url} />;
   }
 
