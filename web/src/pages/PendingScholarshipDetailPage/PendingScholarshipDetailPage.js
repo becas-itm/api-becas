@@ -26,7 +26,7 @@ function PendingScholarshipDetailPage() {
 
   return (
     <AdminTemplate>
-      <header className="flex items-center sm:hidden h-12 px-2 border-b bg-white">
+      <header className="flex items-center md:hidden h-12 px-2 border-b bg-white">
         <IconButton icon={ArrowBack} onClick={() => navigate(-1)}>
           Atrás
         </IconButton>
@@ -40,7 +40,7 @@ function PendingScholarshipDetailPage() {
 
       <main
         style={{ maxWidth: 840 }}
-        className="max-w-screen-md mx-auto p-4 bg-white shadow rounded sm:py-10 md:py-16 my-8"
+        className="max-w-screen-md mx-auto p-4 bg-white shadow md:rounded  sm:py-10 md:py-16 my-8"
       >
         {isFetching ? (
           <div className="text-center">

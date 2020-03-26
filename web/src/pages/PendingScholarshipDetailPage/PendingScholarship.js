@@ -30,7 +30,7 @@ export default function PendingScholarship({ scholarship, onEdit }) {
       <IconButton
         icon={ArrowBack}
         onClick={() => navigate(-1)}
-        className="hidden sm:block absolute -ml-16"
+        className="hidden md:block absolute -ml-16"
       >
         Atrás
       </IconButton>
@@ -38,7 +38,7 @@ export default function PendingScholarship({ scholarship, onEdit }) {
       <IconButton
         icon={Edit}
         onClick={onEdit}
-        className="hidden sm:block absolute left-full ml-2"
+        className="hidden md:block absolute left-full ml-2"
       >
         Editar convocatoria
       </IconButton>

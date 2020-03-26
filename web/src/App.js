@@ -7,6 +7,7 @@ import PrivateRoute from 'ui/components/PrivateRoute';
 
 import HomePage from 'pages/HomePage';
 import LoginPage from 'pages/LoginPage';
+import AdminPage from 'pages/AdminPage';
 import SearchPage from 'pages/SearchPage';
 import ScholarshipPage from 'pages/ScholarshipPage';
 import NotFoundPage from 'pages/NotFoundPage';
@@ -27,6 +28,7 @@ function App() {
           <Route path="/terminos" element={<DisclaimerPage />} />
           <Route path="/convocatoria/:id" element={<ScholarshipPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <PrivateRoute path="/admin" element={<AdminPage />} />
           <PrivateRoute
             path="/admin/pendientes"
             element={<PendingScholarshipsPage />}

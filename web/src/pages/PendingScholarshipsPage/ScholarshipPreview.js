@@ -33,12 +33,12 @@ export function ScholarshipPreview({
   fillStatus,
 }) {
   return (
-    <article className="bg-white border-t border-b sm:rounded sm:border mb-5">
+    <article className="bg-white border-t border-b md:rounded md:border mb-5">
       <div className="relative max-w-md mx-auto mt-4 mb-2 sm:mt-8 sm:mb-4 px-4 sm:px-0">
         <EntityAvatar
           spiderName={spider.name}
           size={54}
-          className="shadow-xs hidden sm:block absolute top-0 right-full mr-4 md:mr-8"
+          className="shadow-xs hidden md:block md:mr-8 absolute top-0 right-full mr-4"
         />
         <header>
           <div className="max-w-md mx-auto text-gray-700 mb-1">
