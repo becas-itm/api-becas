@@ -16,6 +16,10 @@ export { ExitToApp } from './ExitToApp';
 
 export { FirstPage } from './FirstPage';
 
+export { Home } from './Home';
+
+export { Inbox } from './Inbox';
+
 export { KeyboardArrowDown } from './KeyboardArrowDown';
 
 export { LastPage } from './LastPage';

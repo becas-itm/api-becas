@@ -1,0 +1,27 @@
+.AdminTemplate {
+  display: grid;
+  min-height: 100vh;
+  grid-template-areas:
+    "head head"
+    "rail main"
+    "foot foot";
+
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: auto 1fr;
+}
+
+.AdminTemplate > :first-child {
+  grid-area: head;
+}
+
+.AdminTemplate > :nth-child(2) {
+  grid-area: rail;
+}
+
+.AdminTemplate > :nth-child(3) {
+  grid-area: main;
+}
+
+.AdminTemplate > :last-child {
+  grid-area: foot;
+}
