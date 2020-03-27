@@ -999,4 +999,12 @@ export default [
     name: 'Zimbabue',
     code: 'ZWE',
   },
+  {
+    name: 'Online',
+    code: 'ONL',
+  },
+  {
+    name: 'Otros',
+    code: 'OTH',
+  },
 ];
