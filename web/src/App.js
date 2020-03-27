@@ -9,6 +9,7 @@ import HomePage from 'pages/HomePage';
 import LoginPage from 'pages/LoginPage';
 import AdminPage from 'pages/AdminPage';
 import SearchPage from 'pages/SearchPage';
+import ProfilePage from 'pages/ProfilePage';
 import ScholarshipPage from 'pages/ScholarshipPage';
 import NotFoundPage from 'pages/NotFoundPage';
 import DisclaimerPage from 'pages/DisclaimerPage';
@@ -29,6 +30,7 @@ function App() {
           <Route path="/convocatoria/:id" element={<ScholarshipPage />} />
           <Route path="/login" element={<LoginPage />} />
           <PrivateRoute path="/admin" element={<AdminPage />} />
+          <PrivateRoute path="/admin/perfil" element={<ProfilePage />} />
           <PrivateRoute
             path="/admin/pendientes"
             element={<PendingScholarshipsPage />}
