@@ -29,6 +29,6 @@ def extract_token_string(authorization):
 
 def verify_token(authorization: str = Header('')):
     try:
-        get_auth_token(extract_token_string(authorization))
+        return get_auth_token(extract_token_string(authorization))
     except TokenError:
         raise Unauthorized

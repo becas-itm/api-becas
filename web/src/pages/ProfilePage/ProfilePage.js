@@ -2,16 +2,20 @@ import React from 'react';
 import { useUser } from 'reactfire';
 import { useNavigate } from 'react-router-dom';
 
+import { useToggle } from 'utils/hooks';
 import Avatar from 'ui/components/Avatar';
 import IconButton from 'ui/components/IconButton';
 import { formatDeadline } from 'utils/scholarship';
-import { ArrowBack } from 'ui/components/Icon';
+import { ArrowBack, Edit } from 'ui/components/Icon';
 import AdminTemplate from 'ui/templates/AdminTemplate';
 import { AlternateEmail } from 'ui/components/Icon/icons/AlternateEmail';
+
+import { EditProfileDialog } from './EditProfileDialog';
 
 export default function ProfilePage() {
   const user = useUser();
   const navigate = useNavigate();
+  const [showEdit, toggleEdit] = useToggle();
 
   return (
     <AdminTemplate>
@@ -21,6 +25,9 @@ export default function ProfilePage() {
             Atrás
           </IconButton>
           <h1 className="flex-1 ml-3 text-lg">Perfil</h1>
+          <IconButton onClick={toggleEdit} icon={Edit} large>
+            Editar perfil
+          </IconButton>
         </div>
 
         <div className="flex flex-col sm:flex-row items-center sm:items-start">
@@ -58,6 +65,12 @@ export default function ProfilePage() {
             <span>{formatDeadline(user.metadata.creationTime)}</span>
           </div>
         </section>
+
+        <EditProfileDialog
+          user={user}
+          isOpen={showEdit}
+          onCancel={toggleEdit}
+        />
       </div>
     </AdminTemplate>
   );
