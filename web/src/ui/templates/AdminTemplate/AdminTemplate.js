@@ -1,17 +1,24 @@
 import React from 'react';
 import { useUser, useAuth } from 'reactfire';
+import { useNavigate } from 'react-router-dom';
 
 import AppLogo from 'ui/components/AppLogo';
 import AppFooter from 'ui/components/AppFooter';
+import { Home, Inbox } from 'ui/components/Icon';
 import UserActions from 'ui/components/UserActions';
 import NavRail, { NavItem } from 'ui/components/NavRail';
 
 import './AdminTemplate.css';
-import { Home, Inbox } from 'ui/components/Icon';
 
 function AdminTemplate({ children, ...restProps }) {
   const user = useUser();
   const auth = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    auth.signOut();
+    navigate('/login');
+  };
 
   return (
     <div className="AdminTemplate">
@@ -19,7 +26,7 @@ function AdminTemplate({ children, ...restProps }) {
         <div className="container h-16 flex items-center justify-between mx-auto px-4">
           <AppLogo>Admin</AppLogo>
           <div>
-            <UserActions user={user} onLogout={() => auth.signOut()} />
+            <UserActions user={user} onLogout={handleLogout} />
           </div>
         </div>
       </header>

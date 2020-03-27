@@ -1,13 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ExitToApp } from 'ui/components/Icon';
 
 export default function UserActions({ user, onLogout }) {
-  if (!user) {
-    return null;
-  }
-
   return (
     <div className="flex items-center">
+      <Link to="/admin/perfil" className="hover:underline">
+        {user.displayName || 'Anónimo'}
+      </Link>
+      <span className="text-sm text-gray-400 ml-2 select-none">|</span>
       <button
         onClick={onLogout}
         type="button"
