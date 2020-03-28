@@ -13,6 +13,7 @@ class EditItem(BaseModel):
     displayName: str = ''
     email: str = ''
     password: str = ''
+    photoUrl: str = ''
 
 
 @router.put('/')
@@ -24,6 +25,9 @@ def edit_user(item: EditItem, token: ... = Depends(verify_token)):
 
     if item.password:
         data['password'] = item.password
+
+    if item.photoUrl:
+        data['photo_url'] = item.photoUrl
 
     try:
         auth.update_user(token['user_id'], **data)

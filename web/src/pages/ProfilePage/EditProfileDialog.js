@@ -3,6 +3,7 @@ import * as yup from 'yup';
 import { Formik, Form, FastField, ErrorMessage } from 'formik';
 
 import { Button, KIND } from 'ui/components/Button';
+import AvatarUrlPicker from 'ui/components/AvatarUrlPicker';
 import Dialog, { Title, Actions, CloseBtn } from 'ui/components/Dialog';
 
 import { useEditUser } from './useEditUser';
@@ -20,7 +21,6 @@ const validationSchema = yup.object().shape({
 
 export function EditProfileDialog({ isOpen, user, onCancel }) {
   const { edit, isLoading } = useEditUser();
-
   const handleDismiss = isLoading ? () => {} : onCancel;
 
   return (
@@ -40,11 +40,20 @@ export function EditProfileDialog({ isOpen, user, onCancel }) {
         initialValues={{
           password: '',
           displayName: user.displayName || '',
+          photoUrl: user.photoURL,
         }}
         validateOnMount
       >
-        {({ isValid }) => (
+        {({ isValid, values, setFieldValue }) => (
           <Form noValidate>
+            <div className="block mb-4">
+              <div className="block text-base mb-1">Avatar</div>
+              <AvatarUrlPicker
+                url={values.photoUrl}
+                onUrl={url => setFieldValue('photoUrl', url)}
+              />
+            </div>
+
             <label className="block mb-4">
               <span className="block text-base">Nombre</span>
               <FastField

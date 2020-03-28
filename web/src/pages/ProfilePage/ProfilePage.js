@@ -32,7 +32,7 @@ export default function ProfilePage() {
 
         <div className="flex flex-col sm:flex-row items-center sm:items-start">
           <Avatar
-            src="/img/female.png"
+            src={user.photoURL}
             size={null}
             className="w-24 h-24 sm:w-32 sm:h-32 sm:mr-16 shadow-xs bg-white flex-shrink-0"
           />

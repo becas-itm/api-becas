@@ -1,0 +1,8 @@
+.AvatarUrlPicker__radio:nth-child(even) {
+  margin-left: 1rem;
+}
+
+.AvatarUrlPicker__radio:focus,
+.AvatarUrlPicker__radio[aria-checked="true"] {
+  border-color: #63b3ed;
+}
