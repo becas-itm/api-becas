@@ -1,3 +1,5 @@
+import os
+
 import jwt
 
 from fastapi import Header
@@ -11,7 +13,7 @@ class TokenError(Exception):
 
 def get_auth_token(token_string):
     try:
-        return jwt.decode(token_string, 'secret')
+        return jwt.decode(token_string, os.getenv('APP_KEY', 'secret'))
     except (jwt.exceptions.InvalidTokenError,
             jwt.exceptions.DecodeError,
             jwt.exceptions.ExpiredSignatureError):

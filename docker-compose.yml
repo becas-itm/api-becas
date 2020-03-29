@@ -29,6 +29,7 @@ services:
     environment:
       TZ: UTC
       ELASTIC_HOST: http://elastic:9200
+      APP_KEY: secret
     ports:
       - 3001:3001
     volumes:

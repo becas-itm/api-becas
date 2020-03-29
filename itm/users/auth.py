@@ -1,3 +1,4 @@
+import os
 import datetime
 
 import jwt
@@ -37,7 +38,7 @@ def sign_in(credentials: Credentials):
         'token': jwt.encode({
             'id': user.id,
             'exp': datetime.datetime.utcnow() + datetime.timedelta(hours=1),
-        }, 'secret'),
+        }, os.getenv('APP_KEY', 'secret')),
     }
 
 
