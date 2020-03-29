@@ -42,6 +42,10 @@ export default function AvatarUrlPicker({ url, onUrl }) {
           url="http://localhost:3000/img/avatars/male.png"
           alt="Hombre"
         />
+        <AvatarRadio
+          url="http://localhost:3000/img/avatars/person.svg"
+          alt="Anónimo"
+        />
       </div>
     </div>
   );
