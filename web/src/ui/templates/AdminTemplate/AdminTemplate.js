@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router-dom';
 
 import AppLogo from 'ui/components/AppLogo';
 import AppFooter from 'ui/components/AppFooter';
-import { Home, Inbox } from 'ui/components/Icon';
 import UserActions from 'ui/components/UserActions';
 import NavRail, { NavItem } from 'ui/components/NavRail';
+import { Home, Inbox, SupervisorAccount } from 'ui/components/Icon';
 
 import './AdminTemplate.css';
 
@@ -37,6 +37,9 @@ function AdminTemplate({ children, ...restProps }) {
         </NavItem>
         <NavItem to="/admin/pendientes" icon={Inbox}>
           Becas
+        </NavItem>
+        <NavItem to="/admin/usuarios" icon={SupervisorAccount}>
+          Usuarios
         </NavItem>
       </NavRail>
 

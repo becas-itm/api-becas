@@ -33,3 +33,20 @@ def edit_user(item: EditItem, token: ... = Depends(verify_token)):
         auth.update_user(token['user_id'], **data)
     except ValueError:
         raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY)
+
+
+@router.get('/')
+def list_users():
+    def format_user(user):
+        return {
+            'uid': user.uid,
+            'photoUrl': user.photo_url,
+            'displayName': user.display_name,
+        }
+
+    return list(map(format_user, auth.list_users().iterate_all()))
+
+
+@router.post('/')
+def create_user(item: EditItem):
+    pass

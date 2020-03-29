@@ -1,3 +1,5 @@
+export { Add } from './Add';
+
 export { AlternateEmail } from './AlternateEmail';
 
 export { ArrowBack } from './ArrowBack';
@@ -35,6 +37,8 @@ export { School } from './School';
 export { Search } from './Search';
 
 export { SettingsBackupRestore } from './SettingsBackupRestore';
+
+export { SupervisorAccount } from './SupervisorAccount';
 
 export { Tune } from './Tune';
 

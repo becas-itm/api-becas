@@ -15,6 +15,7 @@ import NotFoundPage from 'pages/NotFoundPage';
 import DisclaimerPage from 'pages/DisclaimerPage';
 import PendingScholarshipsPage from 'pages/PendingScholarshipsPage';
 import PendingScholarshipDetailPage from 'pages/PendingScholarshipDetailPage';
+import UsersPage from 'pages/UsersPage';
 
 const queryConfig = { refetchAllOnWindowFocus: false };
 
@@ -30,6 +31,7 @@ function App() {
           <Route path="/convocatoria/:id" element={<ScholarshipPage />} />
           <Route path="/login" element={<LoginPage />} />
           <PrivateRoute path="/admin" element={<AdminPage />} />
+          <PrivateRoute path="/admin/usuarios" element={<UsersPage />} />
           <PrivateRoute path="/admin/perfil" element={<ProfilePage />} />
           <PrivateRoute
             path="/admin/pendientes"
