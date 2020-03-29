@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import { useAuth } from 'reactfire';
+import { useAuth } from 'utils/hooks/auth';
 import { useNavigate } from 'react-router-dom';
 
 const initialState = {
@@ -29,11 +29,11 @@ export function useLogin() {
   const auth = useAuth();
   const [state, dispatch] = useReducer(authReducer, initialState);
 
-  const attempt = ({ email, password }) =>
+  const attempt = credentials =>
     Promise.resolve(dispatch({ type: 'ATTEMPT' }))
-      .then(() => auth.signInWithEmailAndPassword(email, password))
+      .then(() => auth.attempt(credentials))
       .then(() => dispatch({ type: 'SUCCEED' }))
-      .then(() => navigate('/admin/pendientes'))
+      .then(() => navigate('/admin/'))
       .catch(() => dispatch({ type: 'ERROR' }));
 
   return { ...state, attempt };

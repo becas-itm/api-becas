@@ -1,11 +1,11 @@
 import React from 'react';
-import { useUser } from 'reactfire';
 import { useNavigate } from 'react-router-dom';
 
 import { useToggle } from 'utils/hooks';
+import { useUser } from 'utils/hooks/auth';
+
 import Avatar from 'ui/components/Avatar';
 import IconButton from 'ui/components/IconButton';
-import { formatDeadline } from 'utils/scholarship';
 import { ArrowBack, Edit } from 'ui/components/Icon';
 import AdminTemplate from 'ui/templates/AdminTemplate';
 import { AlternateEmail } from 'ui/components/Icon/icons/AlternateEmail';
@@ -39,7 +39,7 @@ export default function ProfilePage() {
 
           <div className="flex flex-col items-center mt-2 sm:mt-0 text-center sm:text-left">
             <h2 className="w-full text-2xl sm:text-3xl sm:mb-2">
-              {user.displayName || 'Anónimo'}
+              {user.displayName}
             </h2>
 
             <div className="w-full flex items-center">
@@ -53,18 +53,6 @@ export default function ProfilePage() {
             </div>
           </div>
         </div>
-
-        <section className="p-4 mt-5 md:mt-8 rounded-sm shadow bg-white">
-          <header className="mb-2 text-gray-700">Usuario</header>
-          <div>
-            <span className="text-gray-700">Última conexión</span>{' '}
-            <span>{formatDeadline(user.metadata.lastSignInTime)}</span>
-          </div>
-          <div>
-            <span className="text-gray-700">Fecha de creación</span>{' '}
-            <span>{formatDeadline(user.metadata.creationTime)}</span>
-          </div>
-        </section>
 
         <EditProfileDialog
           user={user}

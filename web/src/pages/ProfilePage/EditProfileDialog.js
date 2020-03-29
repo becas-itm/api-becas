@@ -20,7 +20,7 @@ const validationSchema = yup.object().shape({
 });
 
 export function EditProfileDialog({ isOpen, user, onCancel }) {
-  const { edit, isLoading } = useEditUser();
+  const { edit, isLoading } = useEditUser(user.id);
   const handleDismiss = isLoading ? () => {} : onCancel;
 
   return (

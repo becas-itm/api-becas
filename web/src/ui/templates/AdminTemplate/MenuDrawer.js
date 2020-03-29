@@ -1,5 +1,5 @@
 import React from 'react';
-import { useUser } from 'reactfire';
+import { useUser } from 'utils/hooks/auth';
 import { Link, NavLink } from 'react-router-dom';
 
 import Avatar from 'ui/components/Avatar';
@@ -40,7 +40,7 @@ export function MenuDrawer({ onDismiss, onLogout }) {
 
         <Link to="/admin/perfil" className="MenuDrawer-user flex items-center">
           <Avatar src={user.photoURL} size={36} className="shadow-xs mr-3" />
-          <h3 className="text-gray-700">{user.displayName || 'Anónimo'}</h3>
+          <h3 className="text-gray-700">{user.displayName}</h3>
         </Link>
       </header>
 

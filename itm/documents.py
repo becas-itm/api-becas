@@ -123,6 +123,34 @@ class RawScholarship(Document):
         scholarship.save()
 
 
+class User(Document):
+    class Index:
+        name = 'users'
+
+    @property
+    def id(self):
+        return self.meta.id
+
+    name = Text(required=True)
+
+    email = Keyword(required=True)
+
+    password = Keyword()
+
+    avatarUrl = Keyword(required=True)
+
+    @staticmethod
+    def find_by_email(email):
+        result = User.search() \
+            .query('match', email=email) \
+            .execute()
+
+        if len(result) == 0:
+            return None
+
+        return result[0]
+
+
 def connect_db():
     host = os.getenv('ELASTIC_HOST', '127.0.0.1')
     return create_connection(alias='default', hosts=[host])
@@ -132,6 +160,7 @@ def init_indexes():
     connect_db()
     Scholarship.init()
     RawScholarship.init()
+    User.init()
 
 
 if __name__ == '__main__':

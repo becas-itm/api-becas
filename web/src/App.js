@@ -2,7 +2,6 @@ import React from 'react';
 import { ReactQueryConfigProvider } from 'react-query';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { useAppToken } from 'utils/hooks';
 import PrivateRoute from 'ui/components/PrivateRoute';
 
 import HomePage from 'pages/HomePage';
@@ -20,7 +19,6 @@ import UsersPage from 'pages/UsersPage';
 const queryConfig = { refetchAllOnWindowFocus: false };
 
 function App() {
-  useAppToken();
   return (
     <ReactQueryConfigProvider config={queryConfig}>
       <BrowserRouter>

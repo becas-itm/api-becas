@@ -1,9 +1,10 @@
-from firebase_admin import auth
+import bcrypt
 
 from pydantic import BaseModel
-from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, HTTPException, status
 
-from itm.shared.utils.auth import verify_token
+from itm.documents import User
+from itm.shared.http import NotFound
 
 
 router = APIRouter()
@@ -16,37 +17,45 @@ class EditItem(BaseModel):
     photoUrl: str = ''
 
 
-@router.put('/')
-def edit_user(item: EditItem, token: ... = Depends(verify_token)):
-    data = {}
+@router.put('/{user_id}/')
+def edit_user(user_id: str, item: EditItem):
+    user = User.get(user_id, ignore=NotFound.code)
+
+    if not user:
+        raise NotFound
 
     if item.displayName:
-        data['display_name'] = item.displayName
+        user.name = item.displayName
 
     if item.password:
-        data['password'] = item.password
+        user.password = bcrypt.hashpw(bytes(item.password.encode('utf8')), bcrypt.gensalt())
 
     if item.photoUrl:
-        data['photo_url'] = item.photoUrl
+        user.avatarUrl = item.photoUrl
 
-    try:
-        auth.update_user(token['user_id'], **data)
-    except ValueError:
-        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY)
+    user.save(refresh=True)
 
 
 @router.get('/')
 def list_users():
     def format_user(user):
         return {
-            'uid': user.uid,
-            'photoUrl': user.photo_url,
-            'displayName': user.display_name,
+            'uid': user.id,
+            'displayName': user.name,
+            'photoUrl': user.avatarUrl,
         }
 
-    return list(map(format_user, auth.list_users().iterate_all()))
+    users = User.search() \
+        .source(['name', 'email', 'avatarUrl']) \
+        .scan()
+
+    return list(map(format_user, users))
 
 
 @router.post('/')
-def create_user(item: EditItem):
-    pass
+def invite_user(item: EditItem):
+    if not item.email or not item.displayName or not item.photoUrl:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, 'Missing fields')
+
+    user = User(name=item.displayName, email=item.email, avatarUrl=item.photoUrl)
+    user.save()

@@ -29,7 +29,6 @@ services:
     environment:
       TZ: UTC
       ELASTIC_HOST: http://elastic:9200
-      GOOGLE_APPLICATION_CREDENTIALS: "/usr/src/app/google.json"
     ports:
       - 3001:3001
     volumes:

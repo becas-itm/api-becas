@@ -1,8 +1,8 @@
 import React from 'react';
-import { useUser, useAuth } from 'reactfire';
-import { useNavigate } from 'react-router-dom';
-
 import { useToggle } from 'utils/hooks';
+import { useNavigate } from 'react-router-dom';
+import { useAuth, useUser } from 'utils/hooks/auth';
+
 import AppLogo from 'ui/components/AppLogo';
 import AppFooter from 'ui/components/AppFooter';
 import IconButton from 'ui/components/IconButton';

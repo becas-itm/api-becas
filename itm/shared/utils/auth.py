@@ -1,6 +1,6 @@
-from fastapi import Header
+import jwt
 
-from firebase_admin import auth
+from fastapi import Header
 
 from itm.shared.http import Unauthorized
 
@@ -11,15 +11,11 @@ class TokenError(Exception):
 
 def get_auth_token(token_string):
     try:
-        token = auth.verify_id_token(token_string)
-    except (ValueError,
-            auth.InvalidIdTokenError,
-            auth.ExpiredIdTokenError,
-            auth.RevokedIdTokenError,
-            auth.CertificateFetchError):
+        return jwt.decode(token_string, 'secret')
+    except (jwt.exceptions.InvalidTokenError,
+            jwt.exceptions.DecodeError,
+            jwt.exceptions.ExpiredSignatureError):
         raise TokenError
-    else:
-        return token
 
 
 def extract_token_string(authorization):

@@ -116,6 +116,3 @@ db.sqlite3
 # IDEs
 .vscode/
 .idea/
-
-# Google Auth Credentials
-google.json
