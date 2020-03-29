@@ -2,7 +2,7 @@ import React from 'react';
 import { format } from 'date-fns';
 import { Formik, Form } from 'formik';
 
-import { Button, KIND } from 'ui/components/Button';
+import Button, { COLOR } from 'ui/components/Button';
 import { ScholarshipDetails } from 'pages/ScholarshipPage/ScholarshipDetails';
 
 import { useUpdate } from './useScholarship';
@@ -76,7 +76,7 @@ export default function EditableScholarship({ scholarship, onEdit, onCancel }) {
           <div className="flex justify-end mt-6">
             <Button
               disabled={isUpdating}
-              kind={KIND.secondary}
+              color={COLOR.secondary}
               onClick={onCancel}
             >
               Cancelar

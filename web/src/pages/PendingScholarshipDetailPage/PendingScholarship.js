@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useToggle } from 'utils/hooks';
 import IconButton from 'ui/components/IconButton';
-import { Button, KIND } from 'ui/components/Button';
+import Button, { COLOR } from 'ui/components/Button';
 import { ArrowBack, Edit } from 'ui/components/Icon';
 import { ScholarshipDetails } from 'pages/ScholarshipPage/ScholarshipDetails';
 
@@ -81,8 +81,9 @@ export default function PendingScholarship({ scholarship, onEdit }) {
       <div className="flex justify-end mt-6">
         <Button
           disabled={isApproving || isApproved || isDenied}
-          kind={KIND.dangerTertiary}
           onClick={toggleDenyDialog}
+          color={COLOR.danger}
+          outline
         >
           Rechazar
         </Button>

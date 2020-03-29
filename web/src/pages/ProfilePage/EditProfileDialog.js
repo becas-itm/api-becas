@@ -2,7 +2,7 @@ import React from 'react';
 import * as yup from 'yup';
 import { Formik, Form, FastField, ErrorMessage } from 'formik';
 
-import { Button, KIND } from 'ui/components/Button';
+import Button, { COLOR } from 'ui/components/Button';
 import AvatarUrlPicker from 'ui/components/AvatarUrlPicker';
 import Dialog, { Title, Actions, CloseBtn } from 'ui/components/Dialog';
 
@@ -102,7 +102,7 @@ export function EditProfileDialog({ isOpen, user, onCancel }) {
             </label>
 
             <Actions className="mt-6">
-              <Button kind={KIND.secondary} disabled={isLoading} type="reset">
+              <Button color={COLOR.secondary} disabled={isLoading} type="reset">
                 Restablecer
               </Button>
               <Button

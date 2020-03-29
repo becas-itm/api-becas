@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { useToggle } from 'utils/hooks';
+import Button from 'ui/components/Button';
 import { OpenInNew } from 'ui/components/Icon';
-import { Button, KIND } from 'ui/components/Button';
 import Dialog, { Title, Actions } from 'ui/components/Dialog';
 
 export function IcetexDialogDetails({ id }) {
@@ -12,7 +12,7 @@ export function IcetexDialogDetails({ id }) {
   return (
     <>
       <div className="flex justify-center mt-2">
-        <Button onClick={toggleDetails} kind={KIND.tertiary}>
+        <Button onClick={toggleDetails} outline>
           Ver detalles
         </Button>
       </div>
@@ -54,11 +54,7 @@ export function IcetexDialogDetails({ id }) {
           </li>
         </ol>
         <Actions className="mt-0">
-          <Button
-            ref={okButtonRef}
-            kind={KIND.tertiary}
-            onClick={toggleDetails}
-          >
+          <Button outline ref={okButtonRef} onClick={toggleDetails}>
             Listo
           </Button>
         </Actions>

@@ -3,7 +3,7 @@ import * as yup from 'yup';
 import { useFormik } from 'formik';
 
 import { Link } from 'react-router-dom';
-import { Button } from 'ui/components/Button';
+import Button from 'ui/components/Button';
 import { AppLogo } from 'ui/components/AppLogo';
 
 const validationSchema = yup.object().shape({
@@ -97,12 +97,13 @@ export default function LoginCard({ onLogin, isLoading, hasErrors = false }) {
       </Link>
 
       <Button
-        disabled={!isValid || isLoading}
         wide
+        disabled={!isValid}
+        isLoading={isLoading}
         type="submit"
         className="mt-4"
       >
-        {isLoading ? 'Cargando...' : 'Iniciar sesión'}
+        Iniciar sesión
       </Button>
     </form>
   );

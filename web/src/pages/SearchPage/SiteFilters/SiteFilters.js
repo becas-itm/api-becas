@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import { checkboxGroup } from 'utils/forms';
 
 import { Checkbox } from 'ui/components/Checkbox';
-import { Button, KIND } from 'ui/components/Button';
+import Button, { COLOR } from 'ui/components/Button';
 import CountryCombobox from 'ui/components/CountryCombobox';
 
 import LanguageFilter from './LanguageFilter';
@@ -111,7 +111,7 @@ export default function SiteFilters({ filters, onSubmit, onReset }) {
         <Button wide type="submit">
           Listo
         </Button>
-        <Button kind={KIND.secondary} wide type="reset" className="mt-3">
+        <Button color={COLOR.secondary} wide type="reset" className="mt-3">
           Restablecer
         </Button>
       </div>

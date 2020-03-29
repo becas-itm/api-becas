@@ -1,6 +1,6 @@
 import React from 'react';
 import Textarea from 'ui/components/Textarea';
-import { Button, KIND } from 'ui/components/Button';
+import Button, { COLOR } from 'ui/components/Button';
 import Dialog, { Title, Actions } from 'ui/components/Dialog';
 
 import { useDeny } from './useScholarship';
@@ -39,7 +39,7 @@ export function DenyDialog({ scholarshipId, onCancel, onDeny }) {
           <Button
             onClick={onCancel}
             ref={cancelButtonRef}
-            kind={KIND.secondary}
+            color={COLOR.secondary}
             disabled={isDenying}
           >
             Cancelar
@@ -47,7 +47,7 @@ export function DenyDialog({ scholarshipId, onCancel, onDeny }) {
           <Button
             isLoading={isDenying}
             type="submit"
-            kind={KIND.danger}
+            color={COLOR.danger}
             className="ml-3"
           >
             Rechazar

@@ -4,66 +4,79 @@ import classNames from 'classnames';
 import Spinner from 'ui/components/Spinner';
 import './Button.scss';
 
-export const KIND = {
-  primary: '-kindPrimary',
-  secondary: '-kindSecondary',
-  tertiary: '-kindTertiary',
-  danger: '-kindDanger',
-  dangerTertiary: '-kindDangerTertiary',
-};
+export const COLOR = Object.freeze({
+  primary: '-colorPrimary',
+  secondary: '-colorSecondary',
+  danger: '-colorDanger',
+});
 
-export const Button = React.forwardRef(
-  (
-    {
-      kind,
-      wide,
-      className,
-      renderAs: Component,
-      disabled,
-      isLoading,
-      ...restProps
-    },
-    ref,
-  ) => {
-    const classes = classNames(
-      'Button',
-      wide && '-wide',
-      {
-        'Button--disabled': disabled || isLoading,
-        'Button--loading': isLoading,
-      },
-      className,
-    );
-    const contentClasses = classNames('Button__content', kind);
-    return (
-      <div className={classes}>
-        <Component
-          {...restProps}
-          disabled={disabled || isLoading}
-          className={contentClasses}
-          ref={ref}
-        />
-        {isLoading && <Spinner size={24} white className="Button__indicator" />}
-      </div>
-    );
+const Button = React.forwardRef(function Button(
+  {
+    wide,
+    color,
+    shape,
+    isLoading,
+    className,
+    disabled,
+    outline,
+    children,
+    renderAs: Component,
+    ...restProps
   },
-);
+  ref,
+) {
+  const classes = classNames(
+    'Button -shapeSquare -sizeRegular',
+    color,
+    {
+      '-wide': wide,
+      '-outline': outline,
+      '-loading': isLoading,
+      '-disabled': disabled,
+    },
+    className,
+  );
+  return (
+    <Component
+      ref={ref}
+      {...restProps}
+      className={classes}
+      disabled={isLoading || disabled}
+    >
+      <div className="Button-content">
+        {isLoading && (
+          <Spinner
+            size={24}
+            colorAuto={outline || true}
+            className="Button-indicator"
+            data-testid="button-indicator"
+          />
+        )}
+        <div className="Button-label">{children}</div>
+      </div>
+    </Component>
+  );
+});
 
 Button.defaultProps = {
-  wide: false,
   type: 'button',
-  kind: KIND.primary,
-  disabled: false,
   renderAs: 'button',
+  wide: false,
+  color: COLOR.primary,
   isLoading: false,
+  disabled: false,
+  outline: false,
+  'data-testid': 'button',
 };
 
 Button.propTypes = {
-  disabled: propTypes.bool,
-  wide: propTypes.bool,
-  kind: propTypes.oneOf(Object.values(KIND)),
   type: propTypes.oneOf(['button', 'submit', 'reset']),
   renderAs: propTypes.elementType,
-  className: propTypes.string,
+  wide: propTypes.bool,
+  color: propTypes.oneOf(Object.values(COLOR)),
   isLoading: propTypes.bool,
+  disabled: propTypes.bool,
+  outline: propTypes.bool,
 };
+
+export default Button;

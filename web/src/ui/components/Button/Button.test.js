@@ -1,69 +1,88 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 
-import { Button, KIND } from './index';
+import Button, { COLOR } from './index';
 
 describe('Button component', () => {
   test('renders correctly', () => {
-    const { container } = render(<Button>foo</Button>);
-    const button = container.querySelector('button');
+    const { queryByTestId } = render(<Button>foo</Button>);
+    const button = queryByTestId('button');
     expect(button).toBeInTheDocument();
-    expect(button).toHaveClass('Button__content');
+    expect(button).toHaveClass('Button');
+    expect(button).toHaveTextContent('foo');
   });
 
   test('button type should be `button` by default', () => {
-    const { getByText } = render(<Button>foo</Button>);
-    expect(getByText('foo')).toHaveProperty('type', 'button');
+    const { getByTestId } = render(<Button />);
+    expect(getByTestId('button')).toHaveProperty('type', 'button');
   });
 
-  describe('Button kind', () => {
-    test('type `primary`', () => {
-      const { getByText } = render(<Button kind={KIND.primary}>foo</Button>);
-      expect(getByText('foo')).toHaveClass(KIND.primary);
+  describe('Button colors', () => {
+    test('color `primary`', () => {
+      const { getByTestId } = render(<Button color={COLOR.primary} />);
+      expect(getByTestId('button')).toHaveClass(COLOR.primary);
     });
 
-    test('type `secondary`', () => {
-      const { getByText } = render(<Button kind={KIND.secondary}>foo</Button>);
-      expect(getByText('foo')).toHaveClass(KIND.secondary);
+    test('it should have `primary` color by default', () => {
+      const { getByTestId } = render(<Button />);
+      expect(getByTestId('button')).toHaveClass(COLOR.primary);
     });
 
-    test('type `tertiary`', () => {
-      const { getByText } = render(<Button kind={KIND.tertiary}>foo</Button>);
-      expect(getByText('foo')).toHaveClass(KIND.tertiary);
+    test('color `secondary`', () => {
+      const { getByTestId } = render(<Button color={COLOR.secondary} />);
+      expect(getByTestId('button')).toHaveClass(COLOR.secondary);
     });
 
-    test('type `danger`', () => {
-      const { getByText } = render(<Button kind={KIND.danger}>foo</Button>);
-      expect(getByText('foo')).toHaveClass(KIND.danger);
-    });
-
-    test('type `danger tertiary`', () => {
-      const { getByText } = render(
-        <Button kind={KIND.dangerTertiary}>foo</Button>,
-      );
-      expect(getByText('foo')).toHaveClass(KIND.dangerTertiary);
-    });
-
-    it('should be `primary` by default', () => {
-      const { getByText } = render(<Button>foo</Button>);
-      expect(getByText('foo')).toHaveClass(KIND.primary);
+    test('color `danger`', () => {
+      const { getByTestId } = render(<Button color={COLOR.danger} />);
+      expect(getByTestId('button')).toHaveClass(COLOR.danger);
     });
   });
 
   test('wide button', () => {
-    const { container } = render(<Button wide>foo</Button>);
-    const button = container.querySelector('.Button');
-    expect(button).toBeInTheDocument();
-    expect(button).toHaveClass('-wide');
+    const { getByTestId } = render(<Button wide />);
+    expect(getByTestId('button')).toHaveClass('-wide');
   });
 
-  test('Disabled button', () => {
-    const { getByText } = render(<Button disabled>foo</Button>);
-    expect(getByText('foo')).toHaveProperty('disabled', true);
+  describe('Disable button', () => {
+    it('should have a `disabled` HTML attribute', () => {
+      const { getByTestId } = render(<Button disabled />);
+      expect(getByTestId('button')).toHaveProperty('disabled', true);
+    });
+
+    it('should have a disabled CSS class', () => {
+      const { getByTestId } = render(<Button disabled />);
+      expect(getByTestId('button')).toHaveClass('-disabled');
+    });
   });
 
-  test('renderAs overrides button element', () => {
-    const { container } = render(<Button renderAs="a">foo</Button>);
-    expect(container.querySelector('a')).toBeInTheDocument();
+  describe('Loading state', () => {
+    it('should be a disabled button', () => {
+      const { getByTestId } = render(<Button isLoading />);
+      expect(getByTestId('button')).toHaveProperty('disabled', true);
+    });
+
+    it('should have a loading indicator', () => {
+      const { getByTestId } = render(<Button isLoading />);
+      expect(getByTestId('button-indicator')).toBeInTheDocument();
+    });
+  });
+
+  describe('Outline button', () => {
+    test('Danger color', () => {
+      const { getByTestId } = render(<Button outline color={COLOR.danger} />);
+      expect(getByTestId('button')).toHaveClass(COLOR.danger, '-outline');
+    });
+
+    test('Primary color', () => {
+      const { getByTestId } = render(<Button outline color={COLOR.primary} />);
+      expect(getByTestId('button')).toHaveClass(COLOR.primary, '-outline');
+    });
+  });
+
+  test('renderAs overrides `button` element', () => {
+    const TAG = 'a';
+    const { getByTestId } = render(<Button renderAs={TAG} />);
+    expect(getByTestId('button').tagName.toLowerCase()).toBe(TAG);
   });
 });

@@ -1,6 +1,6 @@
 import React from 'react';
+import Button from 'ui/components/Button';
 import Pagination from 'ui/components/Pagination';
-import { Button, KIND } from 'ui/components/Button';
 import NotFoundGhost from 'ui/components/NotFoundGhost';
 import { SettingsBackupRestore } from 'ui/components/Icon';
 
@@ -15,12 +15,7 @@ export default function SearchResults({ results, onPage, onResetFilters }) {
         title="Sin resultados de búsqueda"
         description="Prueba usando un término más general, o bien"
       >
-        <Button
-          onClick={onResetFilters}
-          kind={KIND.tertiary}
-          type="reset"
-          form="filters"
-        >
+        <Button onClick={onResetFilters} outline type="reset" form="filters">
           Restablece los filtros <SettingsBackupRestore className="ml-2" />
         </Button>
       </NotFoundGhost>

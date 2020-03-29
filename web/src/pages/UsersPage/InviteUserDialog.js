@@ -4,7 +4,7 @@ import { useMutation } from 'react-query';
 import { Formik, Form, FastField, ErrorMessage } from 'formik';
 
 import { post } from 'utils/api';
-import { Button, KIND } from 'ui/components/Button';
+import Button, { COLOR } from 'ui/components/Button';
 import AvatarUrlPicker from 'ui/components/AvatarUrlPicker';
 import Dialog, { Title, Actions, CloseBtn } from 'ui/components/Dialog';
 
@@ -102,7 +102,7 @@ export function InviteUserDialog({ isOpen, onCancel, onInvite }) {
             <Actions className="mt-6">
               <Button
                 onClick={onCancel}
-                kind={KIND.secondary}
+                color={COLOR.secondary}
                 disabled={isLoading}
               >
                 Cancelar
