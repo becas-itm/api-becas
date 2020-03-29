@@ -21,6 +21,7 @@ const Button = React.forwardRef(function Button(
     outline,
     children,
     renderAs: Component,
+    labelClass = '',
     ...restProps
   },
   ref,
@@ -52,7 +53,7 @@ const Button = React.forwardRef(function Button(
             data-testid="button-indicator"
           />
         )}
-        <div className="Button-label">{children}</div>
+        <div className={`Button-label ${labelClass || ''}`}>{children}</div>
       </div>
     </Component>
   );
@@ -77,6 +78,7 @@ Button.propTypes = {
   isLoading: propTypes.bool,
   disabled: propTypes.bool,
   outline: propTypes.bool,
+  labelClass: propTypes.string,
 };
 
 export default Button;
