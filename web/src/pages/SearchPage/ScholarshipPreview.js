@@ -3,7 +3,7 @@ import { format } from 'date-fns';
 import propTypes from 'prop-types';
 import locale from 'date-fns/locale/es';
 
-import { LinkButton } from 'ui/components/LinkButton';
+import LinkButton from 'ui/components/LinkButton';
 import EntityAvatar from 'ui/components/EntityAvatar';
 import { Event, ArrowForward } from 'ui/components/Icon';
 

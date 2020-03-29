@@ -1,1 +1,1 @@
-export { LinkButton } from './LinkButton';
+export { default, COLOR } from './LinkButton';

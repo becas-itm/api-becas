@@ -2,9 +2,9 @@ import React from 'react';
 import propTypes from 'prop-types';
 
 import Pill, { COLOR } from 'ui/components/Pill';
+import LinkButton from 'ui/components/LinkButton';
 import { formatDeadline } from 'utils/scholarship';
 import EntityAvatar from 'ui/components/EntityAvatar';
-import { LinkButton } from 'ui/components/LinkButton';
 
 function PillStatus({ status }) {
   if (status === 'COMPLETE') {

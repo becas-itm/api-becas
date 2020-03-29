@@ -1,36 +1,20 @@
 import React from 'react';
-import { KIND } from 'ui/components/Button';
-import { render } from '@testing-library/react';
+import { render as baseRender } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import { LinkButton } from './index';
+import LinkButton from './index';
+
+const render = children => baseRender(<BrowserRouter children={children} />);
 
 describe('Link Button', () => {
   it('should render a button', () => {
-    const { container } = render(
-      <BrowserRouter>
-        <LinkButton to="#">foo</LinkButton>
-      </BrowserRouter>,
-    );
-    expect(container.querySelector('.Button')).toBeInTheDocument();
+    const { queryByTestId } = render(<LinkButton to="#">foo</LinkButton>);
+    const button = queryByTestId('link-button');
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveTextContent('foo');
   });
 
   it('should render an `a` element', () => {
-    const { getByText } = render(
-      <BrowserRouter>
-        <LinkButton to="#">foo</LinkButton>
-      </BrowserRouter>,
-    );
-    expect(getByText('foo').tagName).toBe('A');
-  });
-
-  test('type should be `tertiary` by default', () => {
-    const { getByText } = render(
-      <BrowserRouter>
-        <LinkButton kind={KIND.tertiary} to="#">
-          foo
-        </LinkButton>
-      </BrowserRouter>,
-    );
-    expect(getByText('foo')).toHaveClass(KIND.tertiary);
+    const { getByTestId } = render(<LinkButton to="#" />);
+    expect(getByTestId('link-button').tagName.toLowerCase()).toBe('a');
   });
 });

@@ -1,7 +1,7 @@
 import React from 'react';
+import LinkButton from 'ui/components/LinkButton';
 import { SiteTemplate } from 'ui/templates/SiteTemplate';
 import NotFoundGhost from 'ui/components/NotFoundGhost';
-import { LinkButton } from 'ui/components/LinkButton';
 
 export default function NotFoundPage() {
   return (

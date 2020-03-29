@@ -1,7 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button, KIND } from 'ui/components/Button';
+import Button, { COLOR } from 'ui/components/Button';
 
-export function LinkButton(props) {
-  return <Button renderAs={Link} kind={KIND.tertiary} {...props} />;
+export { COLOR };
+
+export default function LinkButton(props) {
+  return <Button {...props} />;
 }
+
+LinkButton.propTypes = Button.propTypes;
+
+LinkButton.defaultProps = {
+  ...Button.defaultProps,
+  outline: true,
+  renderAs: Link,
+  'data-testid': 'link-button',
+};

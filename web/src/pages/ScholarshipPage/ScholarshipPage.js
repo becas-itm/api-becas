@@ -4,9 +4,9 @@ import { useQuery } from 'react-query';
 import { useParams } from 'react-router';
 
 import Spinner from 'ui/components/Spinner';
+import LinkButton from 'ui/components/LinkButton';
 import CountryFlag from 'ui/components/CountryFlag';
 import EntityAvatar from 'ui/components/EntityAvatar';
-import { LinkButton } from 'ui/components/LinkButton';
 import NotFoundGhost from 'ui/components/NotFoundGhost';
 import { SiteTemplate } from 'ui/templates/SiteTemplate';
 import { Event, School, Money } from 'ui/components/Icon';
