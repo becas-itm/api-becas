@@ -2,18 +2,22 @@ import React from 'react';
 import { useUser, useAuth } from 'reactfire';
 import { useNavigate } from 'react-router-dom';
 
+import { useToggle } from 'utils/hooks';
 import AppLogo from 'ui/components/AppLogo';
 import AppFooter from 'ui/components/AppFooter';
+import IconButton from 'ui/components/IconButton';
 import UserActions from 'ui/components/UserActions';
 import NavRail, { NavItem } from 'ui/components/NavRail';
-import { Home, Inbox, SupervisorAccount } from 'ui/components/Icon';
+import { Home, Inbox, SupervisorAccount, Menu } from 'ui/components/Icon';
 
+import { MenuDrawer } from './MenuDrawer';
 import './AdminTemplate.css';
 
 function AdminTemplate({ children, ...restProps }) {
   const user = useUser();
   const auth = useAuth();
   const navigate = useNavigate();
+  const [showMenu, toggleMenu] = useToggle();
 
   const handleLogout = () => {
     auth.signOut();
@@ -26,7 +30,14 @@ function AdminTemplate({ children, ...restProps }) {
         <div className="container h-16 flex items-center justify-between mx-auto px-4">
           <AppLogo>Admin</AppLogo>
           <div>
-            <UserActions user={user} onLogout={handleLogout} />
+            <div className="hidden sm:block">
+              <UserActions user={user} onLogout={handleLogout} />
+            </div>
+            <div className="sm:hidden">
+              <IconButton onClick={toggleMenu} icon={Menu}>
+                Abrir menú
+              </IconButton>
+            </div>
           </div>
         </div>
       </header>
@@ -46,6 +57,10 @@ function AdminTemplate({ children, ...restProps }) {
       <div {...restProps}>{children}</div>
 
       <AppFooter />
+
+      {showMenu && (
+        <MenuDrawer onDismiss={toggleMenu} onLogout={handleLogout} />
+      )}
     </div>
   );
 }

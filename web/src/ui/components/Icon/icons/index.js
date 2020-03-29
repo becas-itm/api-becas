@@ -28,6 +28,8 @@ export { KeyboardArrowDown } from './KeyboardArrowDown';
 
 export { LastPage } from './LastPage';
 
+export { Menu } from './Menu';
+
 export { Money } from './Money';
 
 export { OpenInNew } from './OpenInNew';

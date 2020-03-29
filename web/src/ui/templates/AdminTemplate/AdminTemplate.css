@@ -25,3 +25,23 @@
 .AdminTemplate > :last-child {
   grid-area: foot;
 }
+
+.MenuDrawer-user:hover h3,
+.MenuDrawer-user:focus h3 {
+  text-decoration: underline;
+}
+
+.MenuDrawer-Item {
+  color: var(--text-emphasis-high);
+}
+
+.MenuDrawer-Item:hover,
+.MenuDrawer-Item:focus {
+  background: rgba(0, 0, 0, .05);
+}
+
+.MenuDrawer-Item.-selected {
+  background: #d4e6f7;
+  color: #0a6bc2;
+  font-weight: 600;
+}
