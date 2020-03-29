@@ -7,15 +7,17 @@
   height: 100%;
   box-sizing: border-box;
   border: 3px solid rgba(0, 0, 0, .12);
-  border-top-color: hsl(213, 83%, 44%);
   border-radius: 50%;
   animation: Spinner-rotate 775ms linear infinite;
   will-change: transform;
 }
 
-.Spinner--color-white::before {
-  border-color: rgba(0, 0, 0, .12);
-  border-top-color: #fff;
+.Spinner.-colorPrimary::before {
+  border-top-color: hsl(213, 83%, 44%);
+}
+
+.Spinner.-colorAuto::before {
+  border-top-color: currentColor;
 }
 
 @keyframes Spinner-rotate {

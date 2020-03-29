@@ -3,12 +3,10 @@ import propTypes from 'prop-types';
 import classNames from 'classnames';
 import './Spinner.css';
 
-function Spinner({ size, className, white, style, ...restProps }) {
+function Spinner({ size, className, colorAuto, style, ...restProps }) {
   const styles = classNames(
     'Spinner relative inline-block',
-    {
-      'Spinner--color-white': white,
-    },
+    colorAuto ? '-colorAuto' : '-colorPrimary',
     className,
   );
   return (
@@ -23,9 +21,13 @@ function Spinner({ size, className, white, style, ...restProps }) {
 Spinner.defaultProps = {
   size: 28,
   style: {},
-  className: '',
+  colorAuto: false,
+  'data-testid': 'spinner',
 };
 
-Spinner.propTypes = { size: propTypes.number };
+Spinner.propTypes = {
+  size: propTypes.number,
+  colorAuto: propTypes.bool,
+};
 
 export default Spinner;
