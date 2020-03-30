@@ -139,6 +139,15 @@ class User(Document):
 
     avatarUrl = Keyword(required=True)
 
+    verifiedAt = Date()
+
+    invitation = Object(
+        properties={
+            'token': Keyword(required=True),
+            'invitedAt': Date(required=True),
+        },
+    )
+
     @staticmethod
     def find_by_email(email):
         result = User.search() \

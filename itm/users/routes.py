@@ -1,10 +1,12 @@
-import bcrypt
+from datetime import datetime
 
+from fastapi import APIRouter
 from pydantic import BaseModel
-from fastapi import APIRouter, HTTPException, status
 
 from itm.documents import User
-from itm.shared.http import NotFound
+from itm.auth.hash import HashService
+from itm.auth.token import TokenService
+from itm.shared.http import NotFound, UnprocessableEntity
 
 
 router = APIRouter()
@@ -28,7 +30,7 @@ def edit_user(user_id: str, item: EditItem):
         user.name = item.displayName
 
     if item.password:
-        user.password = bcrypt.hashpw(bytes(item.password.encode('utf8')), bcrypt.gensalt())
+        user.password = HashService.hash(item.password)
 
     if item.photoUrl:
         user.avatarUrl = item.photoUrl
@@ -55,7 +57,17 @@ def list_users():
 @router.post('/')
 def invite_user(item: EditItem):
     if not item.email or not item.displayName or not item.photoUrl:
-        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, 'Missing fields')
+        raise UnprocessableEntity('Missing fields')
 
-    user = User(name=item.displayName, email=item.email, avatarUrl=item.photoUrl)
-    user.save()
+    if User.find_by_email(item.email):
+        raise UnprocessableEntity('Already exists')
+
+    invitation = {
+        'invitedAt': datetime.utcnow(),
+        'token': TokenService.encode({'email': item.email}, {'days': 1}),
+    }
+
+    User(name=item.displayName,
+         email=item.email,
+         avatarUrl=item.photoUrl,
+         invitation=invitation).save(refresh=True)
