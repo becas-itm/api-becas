@@ -2,7 +2,7 @@ import React from 'react';
 import propTypes from 'prop-types';
 import itmLogo from './itmLogo.png';
 
-function AppLogo({ children }) {
+function AppLogo({ responsive, children }) {
   return (
     <div
       className="inline-flex items-center flex-shrink-0"
@@ -12,7 +12,7 @@ function AppLogo({ children }) {
         src={itmLogo}
         alt="ITM"
         title="Logo ITM"
-        className="h-12 sm:h-auto"
+        className={`${responsive ? 'h-12 sm:h-auto' : 'h-auto'}`}
         style={{ maxHeight: 60 }}
       />
       {children && (
@@ -24,8 +24,14 @@ function AppLogo({ children }) {
   );
 }
 
-AppLogo.defaultProps = { children: 'Becas' };
+AppLogo.defaultProps = {
+  children: 'Becas',
+  responsive: true,
+};
 
-AppLogo.propTypes = { children: propTypes.string };
+AppLogo.propTypes = {
+  children: propTypes.string,
+  responsive: propTypes.bool,
+};
 
 export default AppLogo;
