@@ -22,7 +22,9 @@ class Credentials(BaseModel):
 def sign_in(credentials: Credentials):
     user = User.find_by_email(credentials.email)
 
-    if not user or not HashService.compare(credentials.password, user.password):
+    if (not user or
+        not user.verifiedAt or
+            not HashService.compare(credentials.password, user.password)):
         raise UnprocessableEntity
 
     return {
