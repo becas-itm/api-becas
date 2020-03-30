@@ -48,6 +48,7 @@ def list_users():
         }
 
     users = User.search() \
+        .query('exists', field='verifiedAt') \
         .source(['name', 'email', 'avatarUrl']) \
         .scan()
 
