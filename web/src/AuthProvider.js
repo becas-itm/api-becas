@@ -25,7 +25,7 @@ function verifyToken(url, token) {
 
 function useAppAuth() {
   const [user, setUser] = React.useState(null);
-  const { token } = useToken(user?.token || '');
+  const { token, setToken } = useToken(user?.token || '');
 
   const { refetch } = useQuery(['/api/auth/verify', token], verifyToken, {
     suspense: true,
@@ -44,7 +44,10 @@ function useAppAuth() {
       .then(res => res.json())
       .then(setUser);
 
-  const signOut = () => setUser(null);
+  const signOut = () => {
+    setUser(null);
+    setToken('');
+  };
 
   return {
     user,
