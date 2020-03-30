@@ -20,3 +20,10 @@ class Unauthorized(HTTPException):
 
     def __init__(self, detail=None, headers=None):
         super().__init__(self.code, detail, headers)
+
+
+class UnprocessableEntity(HTTPException):
+    code = status.HTTP_422_UNPROCESSABLE_ENTITY
+
+    def __init__(self, detail=None, headers=None):
+        super().__init__(self.code, detail, headers)
