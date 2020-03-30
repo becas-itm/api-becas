@@ -148,6 +148,13 @@ class User(Document):
         },
     )
 
+    passwordReset = Object(
+        properties={
+            'token': Keyword(required=True),
+            'requestedAt': Date(required=True),
+        },
+    )
+
     @staticmethod
     def find_by_email(email):
         result = User.search() \

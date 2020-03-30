@@ -90,7 +90,7 @@ export default function LoginCard({ onLogin, isLoading, hasErrors = false }) {
       </label>
 
       <Link
-        to="#"
+        to="/recuperar"
         className="block mt-6 mb-2 text-primary text-base text-center hover:underline"
       >
         ¿Olvidaste tu contraseña?
