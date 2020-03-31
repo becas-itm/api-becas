@@ -45,6 +45,7 @@ def sign_in(credentials: Credentials):
         'email': user.email,
         'photoURL': user.avatarUrl,
         'token': TokenService.encode({'id': user.id}, {'hours': 1}),
+        'genre': user.genre,
     }
 
 
@@ -62,6 +63,7 @@ def verify_user_token(token: str):
         'displayName': user.name,
         'photoURL': user.avatarUrl,
         'token': token,
+        'genre': user.genre,
     }
 
 
@@ -72,6 +74,7 @@ def register(token: str):
     return {
         'displayName': user.name,
         'photoURL': user.avatarUrl,
+        'genre': user.genre,
     }
 
 
@@ -121,6 +124,7 @@ def reset(token: str):
     return {
         'displayName': user.name,
         'photoURL': user.avatarUrl,
+        'genre': user.genre,
     }
 
 

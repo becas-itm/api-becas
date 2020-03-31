@@ -17,6 +17,7 @@ class EditItem(BaseModel):
     email: str = ''
     password: str = ''
     photoUrl: str = ''
+    genre: str = ''
 
 
 @router.put('/{user_id}/')
@@ -35,6 +36,9 @@ def edit_user(user_id: str, item: EditItem):
     if item.photoUrl:
         user.avatarUrl = item.photoUrl
 
+    if item.genre:
+        user.genre = item.genre
+
     user.save(refresh=True)
 
 
@@ -45,11 +49,12 @@ def list_users():
             'uid': user.id,
             'displayName': user.name,
             'photoUrl': user.avatarUrl,
+            'genre': user.genre,
         }
 
     users = User.search() \
         .query('exists', field='verifiedAt') \
-        .source(['name', 'email', 'avatarUrl']) \
+        .source(['name', 'email', 'avatarUrl', 'genre']) \
         .scan()
 
     return list(map(format_user, users))
@@ -71,4 +76,5 @@ def invite_user(item: EditItem):
     User(name=item.displayName,
          email=item.email,
          avatarUrl=item.photoUrl,
-         invitation=invitation).save(refresh=True)
+         invitation=invitation,
+         genre=item.genre).save(refresh=True)

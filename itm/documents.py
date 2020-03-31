@@ -137,6 +137,8 @@ class User(Document):
 
     password = Keyword()
 
+    genre = Keyword()
+
     avatarUrl = Keyword(required=True)
 
     verifiedAt = Date()
