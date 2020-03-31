@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from '@testing-library/react';
-import Avatar from '../index';
+import Avatar, { SIZE } from '../index';
 import fixtureImg from './fixture.png';
 
 const STUB_FILENAME = 'http://localhost/fixture.png';
@@ -22,11 +22,37 @@ describe('src prop', () => {
 });
 
 describe('size prop', () => {
-  it('should have the given size', () => {
-    const size = 48;
-    const { getByTestId } = render(<Avatar size={size} src={fixtureImg} />);
+  it('regular size is 48px', () => {
+    const { getByTestId } = render(
+      <Avatar size={SIZE.regular} src={fixtureImg} />,
+    );
     const avatar = getByTestId('Avatar');
-    expect(avatar).toHaveStyle(`width: ${size}px`);
-    expect(avatar).toHaveStyle(`height: ${size}px`);
+    expect(avatar).toHaveStyle(`width: 48px`);
+    expect(avatar).toHaveStyle(`height: 48px`);
+  });
+
+  it('large size is 96px', () => {
+    const { getByTestId } = render(
+      <Avatar size={SIZE.large} src={fixtureImg} />,
+    );
+    const avatar = getByTestId('Avatar');
+    expect(avatar).toHaveStyle(`width: 96px`);
+    expect(avatar).toHaveStyle(`height: 96px`);
+  });
+
+  it('extraLarge size is 128px', () => {
+    const { getByTestId } = render(
+      <Avatar size={SIZE.extraLarge} src={fixtureImg} />,
+    );
+    const avatar = getByTestId('Avatar');
+    expect(avatar).toHaveStyle(`width: 128px`);
+    expect(avatar).toHaveStyle(`height: 128px`);
+  });
+
+  it('default size should be regular', () => {
+    const { getByTestId } = render(<Avatar src={fixtureImg} />);
+    const avatar = getByTestId('Avatar');
+    expect(avatar).toHaveStyle(`width: ${SIZE.regular}px`);
+    expect(avatar).toHaveStyle(`height: ${SIZE.regular}px`);
   });
 });

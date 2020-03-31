@@ -31,11 +31,9 @@ export default function ProfilePage() {
         </div>
 
         <div className="flex flex-col sm:flex-row items-center sm:items-start">
-          <Avatar
-            src={user.photoURL}
-            size={null}
-            className="w-24 h-24 sm:w-32 sm:h-32 sm:mr-16 shadow-xs bg-white flex-shrink-0"
-          />
+          <div className="w-24 h-24 sm:w-32 sm:h-32 sm:mr-16">
+            <Avatar src={user.photoURL} size={null} />
+          </div>
 
           <div className="flex flex-col items-center mt-2 sm:mt-0 text-center sm:text-left">
             <h2 className="w-full text-2xl sm:text-3xl sm:mb-2">

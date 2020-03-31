@@ -97,11 +97,7 @@ function ScholarshipPage() {
 
             <div className="flex mt-4 -ml-8">
               <div className="text-gray-500 mr-4">
-                <EntityAvatar
-                  name={data.entity.name}
-                  size={48}
-                  className="shadow-xs"
-                />
+                <EntityAvatar name={data.entity.name} />
               </div>
               <div>
                 <div className="text-sm text-gray-600">Publicada por</div>

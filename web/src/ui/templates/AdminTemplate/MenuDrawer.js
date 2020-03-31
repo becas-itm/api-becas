@@ -39,8 +39,8 @@ export function MenuDrawer({ onDismiss, onLogout }) {
         <CloseBtn onClick={onDismiss} />
 
         <Link to="/admin/perfil" className="MenuDrawer-user flex items-center">
-          <Avatar src={user.photoURL} size={36} className="shadow-xs mr-3" />
-          <h3 className="text-gray-700">{user.displayName}</h3>
+          <Avatar src={user.photoURL} className="mr-3" />
+          <h3 className="text-lg text-gray-700">{user.displayName}</h3>
         </Link>
       </header>
 

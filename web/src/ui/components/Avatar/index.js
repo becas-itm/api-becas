@@ -1,1 +1,1 @@
-export { default, default as Avatar } from './Avatar';
+export { default, SIZE } from './Avatar';

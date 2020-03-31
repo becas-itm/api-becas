@@ -45,11 +45,7 @@ export function RegisterCard({ user, token, onRegister }) {
       <h1 className="text-2xl mb-8">Completar registro</h1>
 
       <div className="flex items-start">
-        <Avatar
-          size={48}
-          src={user.photoURL}
-          className="shadow-xs mr-4 flex-shrink-0"
-        />
+        <Avatar src={user.photoURL} className="mr-4" />
         <div>
           <h2 className="text-lg font-semibold">{user.displayName}</h2>
           <p className="text-gray-700">Usuario</p>

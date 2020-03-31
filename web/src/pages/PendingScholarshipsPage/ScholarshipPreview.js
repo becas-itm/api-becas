@@ -25,7 +25,7 @@ export function ScholarshipPreview({ id, name, deadline, entity, fillStatus }) {
         <EntityAvatar
           name={entity.name}
           size={54}
-          className="shadow-xs hidden md:block md:mr-8 absolute top-0 right-full mr-4"
+          className="hidden md:block md:mr-8 absolute top-0 right-full mr-4"
         />
         <header>
           <div className="max-w-md mx-auto text-gray-700 mb-1">

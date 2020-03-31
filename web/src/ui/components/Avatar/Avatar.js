@@ -1,23 +1,30 @@
 import React from 'react';
 import propTypes from 'prop-types';
 
-function Avatar({ src, size, alt = '', className = '' }) {
+export const SIZE = Object.freeze({
+  regular: 48,
+  large: 96,
+  extraLarge: 128,
+});
+
+function Avatar({ size, style, className, ...restProps }) {
   return (
-    <div
-      className={`rounded-full ${className}`}
-      style={{ width: size, height: size }}
-      data-testid="Avatar"
-    >
-      <img
-        src={src}
-        alt={alt}
-        className="object-cover rounded-full w-full h-full"
-      />
-    </div>
+    // eslint-disable-next-line jsx-a11y/alt-text
+    <img
+      {...restProps}
+      style={{ ...style, width: size, height: size }}
+      className={`inline-block object-cover rounded-full flex-shrink-0 shadow-xs bg-white ${className}`}
+    />
   );
 }
 
-Avatar.defaultProps = { size: 48 };
+Avatar.defaultProps = {
+  alt: '',
+  style: {},
+  size: SIZE.regular,
+  'data-testid': 'Avatar',
+  className: '',
+};
 
 Avatar.propTypes = {
   src: propTypes.string.isRequired,
