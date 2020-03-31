@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel
 
 from itm.documents import User
@@ -16,6 +16,11 @@ router = APIRouter()
 class Credentials(BaseModel):
     email: str
     password: str
+
+
+def can_be_recovered(requested_at):
+    passed_minutes = (datetime.utcnow() - requested_at).seconds / 60
+    return passed_minutes > 20
 
 
 def get_user_or_fail(token: str):
@@ -82,7 +87,7 @@ class CompleteRegister(BaseModel):
     password: str
 
 
-@router.put('/register/{token}/', status_code=204)
+@router.put('/register/{token}/', status_code=status.HTTP_204_NO_CONTENT)
 def complete_register(token: str, form: CompleteRegister):
     if not form.password:
         raise UnprocessableEntity
@@ -105,12 +110,14 @@ def recover(form: RecoverAccount):
     if not user:
         raise UnprocessableEntity
 
-    recover = {
+    if user.passwordReset and not can_be_recovered(user.passwordReset.requestedAt):
+        raise HTTPException(status.HTTP_429_TOO_MANY_REQUESTS)
+
+    user.passwordReset = {
         'requestedAt': datetime.utcnow(),
         'token': TokenService.encode({'email': form.email}, {'days': 1}),
     }
 
-    user.passwordReset = recover
     user.save(refresh=True)
 
 
