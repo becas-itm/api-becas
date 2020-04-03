@@ -1,0 +1,4 @@
+{
+  "baseUrl": "http://127.0.0.1:3000",
+  "$schema": "https://raw.githubusercontent.com/cypress-io/cypress/develop/cli/schema/cypress.schema.json"
+}

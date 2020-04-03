@@ -6,13 +6,17 @@
     "@reach/combobox": "^0.9.1",
     "@reach/dialog": "^0.9.1",
     "@reach/listbox": "^0.9.1",
+    "@testing-library/cypress": "^6.0.0",
     "@testing-library/jest-dom": "^5.1.1",
     "@testing-library/react": "^10.0.1",
     "@testing-library/user-event": "^10.0.0",
     "@types/jest": "^25.1.3",
+    "@types/testing-library__cypress": "^5.0.5",
     "classnames": "^2.2.6",
+    "cypress": "^4.3.0",
     "date-fns": "^2.10.0",
     "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-cypress": "^2.10.3",
     "eslint-plugin-prettier": "^3.1.2",
     "formik": "^2.1.4",
     "http-proxy-middleware": "^1.0.1",
@@ -39,11 +43,13 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "build:styles": "tailwindcss build src/tailwind.css -o src/styles.css",
-    "build:icons": "node src/ui/components/Icon/buildIcons"
+    "build:icons": "node src/ui/components/Icon/buildIcons",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": [
       "react-app",
+      "plugin:cypress/recommended",
       "plugin:prettier/recommended"
     ],
     "rules": {

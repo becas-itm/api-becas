@@ -9,5 +9,5 @@
     "moduleResolution": "node",
     "jsx": "preserve"
   },
-  "include": ["src", "config"]
+  "include": ["src", "config", "cypress/**/*.js"]
 }
