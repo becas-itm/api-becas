@@ -20,7 +20,6 @@ const validationSchema = yup.object().shape({
 
 export default function LoginCard({ onLogin, isLoading, hasErrors = false }) {
   const {
-    isValid,
     values,
     errors,
     touched,
@@ -96,13 +95,7 @@ export default function LoginCard({ onLogin, isLoading, hasErrors = false }) {
         ¿Olvidaste tu contraseña?
       </Link>
 
-      <Button
-        wide
-        disabled={!isValid}
-        isLoading={isLoading}
-        type="submit"
-        className="mt-4"
-      >
+      <Button isLoading={isLoading} wide type="submit" className="mt-4">
         Iniciar sesión
       </Button>
     </form>

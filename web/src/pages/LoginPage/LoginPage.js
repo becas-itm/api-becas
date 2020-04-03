@@ -1,8 +1,8 @@
 import React from 'react';
+import { useLogin } from 'auth/index';
 import { ThreeRowTemplate } from 'ui/templates/ThreeRowTemplate';
 
 import LoginCard from './LoginCard';
-import { useLogin } from './useLogin';
 
 export default function LoginPage() {
   const login = useLogin();

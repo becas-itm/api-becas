@@ -1,5 +1,4 @@
 import React from 'react';
-import { useUser } from 'utils/hooks/auth';
 import { Link, NavLink } from 'react-router-dom';
 
 import Avatar from 'ui/components/Avatar';
@@ -21,8 +20,7 @@ function MenuItem({ to, children }) {
   );
 }
 
-export function MenuDrawer({ onDismiss, onLogout }) {
-  const user = useUser();
+export function MenuDrawer({ user, onDismiss, onLogout }) {
   return (
     <Dialog
       isOpen

@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useToggle } from 'utils/hooks';
-import { useUser } from 'utils/hooks/auth';
+import { useUser } from 'auth/index';
 
 import Avatar from 'ui/components/Avatar';
 import IconButton from 'ui/components/IconButton';

@@ -27,3 +27,10 @@ class UnprocessableEntity(HTTPException):
 
     def __init__(self, detail=None, headers=None):
         super().__init__(self.code, detail, headers)
+
+
+class TooManyRequests(HTTPException):
+    code = status.HTTP_429_TOO_MANY_REQUESTS
+
+    def __init__(self, detail=None, headers=None):
+        super().__init__(self.code, detail, headers)

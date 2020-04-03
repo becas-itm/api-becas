@@ -157,6 +157,8 @@ class User(Document):
         },
     )
 
+    refresh_token = Keyword()
+
     @staticmethod
     def find_by_email(email):
         result = User.search() \

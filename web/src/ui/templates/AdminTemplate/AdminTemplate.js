@@ -1,7 +1,6 @@
 import React from 'react';
 import { useToggle } from 'utils/hooks';
-import { useNavigate } from 'react-router-dom';
-import { useAuth, useUser } from 'utils/hooks/auth';
+import { useAuth, useUser } from 'auth/index';
 
 import AppLogo from 'ui/components/AppLogo';
 import AppFooter from 'ui/components/AppFooter';
@@ -15,14 +14,8 @@ import './AdminTemplate.css';
 
 function AdminTemplate({ children, ...restProps }) {
   const user = useUser();
-  const auth = useAuth();
-  const navigate = useNavigate();
+  const { signOut } = useAuth();
   const [showMenu, toggleMenu] = useToggle();
-
-  const handleLogout = () => {
-    auth.signOut();
-    navigate('/login');
-  };
 
   return (
     <div className="AdminTemplate">
@@ -31,7 +24,7 @@ function AdminTemplate({ children, ...restProps }) {
           <AppLogo>Admin</AppLogo>
           <div>
             <div className="hidden sm:block">
-              <UserActions user={user} onLogout={handleLogout} />
+              <UserActions user={user} onLogout={signOut} />
             </div>
             <div className="sm:hidden">
               <IconButton onClick={toggleMenu} icon={Menu}>
@@ -59,7 +52,7 @@ function AdminTemplate({ children, ...restProps }) {
       <AppFooter />
 
       {showMenu && (
-        <MenuDrawer onDismiss={toggleMenu} onLogout={handleLogout} />
+        <MenuDrawer user={user} onDismiss={toggleMenu} onLogout={signOut} />
       )}
     </div>
   );

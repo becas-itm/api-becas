@@ -1,13 +1,23 @@
 from datetime import datetime
 
-from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel
+
+from fastapi import status
+from fastapi import APIRouter, Response, Cookie
 
 from itm.documents import User
 from itm.auth.hash import HashService
+
+from itm.auth.token import AccessToken
 from itm.auth.token import TokenService
-from itm.shared.utils.auth import get_auth_token, TokenError
-from itm.shared.http import Unauthorized, UnprocessableEntity
+from itm.auth.token import RefreshToken
+
+from itm.shared.utils.auth import TokenError
+from itm.shared.utils.auth import get_auth_token
+
+from itm.shared.http import Unauthorized
+from itm.shared.http import TooManyRequests
+from itm.shared.http import UnprocessableEntity
 
 
 router = APIRouter()
@@ -37,7 +47,7 @@ def get_user_or_fail(token: str):
 
 
 @router.post('/')
-def sign_in(credentials: Credentials):
+def sign_in(credentials: Credentials, response: Response):
     user = User.find_by_email(credentials.email)
 
     if (not user or
@@ -45,29 +55,45 @@ def sign_in(credentials: Credentials):
             not HashService.compare(credentials.password, user.password)):
         raise UnprocessableEntity
 
+    refresh_token = RefreshToken.generate(user)
+    response.set_cookie('X-Refresh-Token', refresh_token.value,
+                        httponly=True, path="/api/auth/refresh-token")
+
+    user.refresh_token = refresh_token.value
+    user.save()
+
+    access_token = AccessToken.generate(user)
+
     return {
         'displayName': user.name,
         'email': user.email,
         'photoURL': user.avatarUrl,
-        'token': TokenService.encode({'id': user.id}, {'hours': 1}),
+        'token': access_token.value,
+        'expiresIn': access_token.expires_in,
         'genre': user.genre,
     }
 
 
-@router.get('/verify/')
-def verify_user_token(token: str):
+@router.post('/refresh-token/')
+def refresh_user_token(response: Response, token: str = Cookie('', alias='X-Refresh-Token')):
     try:
         payload = get_auth_token(token)
     except TokenError:
         raise Unauthorized
 
-    user = User.get(payload['id'])
+    user = User.get(payload['id'], ignore=status.HTTP_404_NOT_FOUND)
+    if not user:
+        raise Unauthorized
+
+    token = AccessToken.generate(user)
+
     return {
         'id': user.id,
         'email': user.email,
         'displayName': user.name,
         'photoURL': user.avatarUrl,
-        'token': token,
+        'token': token.value,
+        'expiresIn': token.expires_in,
         'genre': user.genre,
     }
 
@@ -111,7 +137,7 @@ def recover(form: RecoverAccount):
         raise UnprocessableEntity
 
     if user.passwordReset and not can_be_recovered(user.passwordReset.requestedAt):
-        raise HTTPException(status.HTTP_429_TOO_MANY_REQUESTS)
+        raise TooManyRequests
 
     user.passwordReset = {
         'requestedAt': datetime.utcnow(),

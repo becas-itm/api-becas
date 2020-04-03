@@ -1,6 +1,7 @@
+import token from 'auth/token';
+
 function loadAuthorizationHeader() {
-  const token = localStorage.getItem('token');
-  return token ? { Authorization: `Bearer ${token.replace(/"/g, '')}` } : {};
+  return token.exists ? { Authorization: `Bearer ${token.getToken()}` } : {};
 }
 
 function mergeHeaders(headers = {}) {
