@@ -61,9 +61,13 @@ export default function LoginCard({ onLogin, isLoading, hasErrors = false }) {
           disabled={isLoading}
           className="block w-full px-3 py-2 rounded bg-gray-200 border border-transparent focus:border-gray-300 focus:bg-white"
           placeholder="ejemplo@itm.edu.co"
+          data-testid="email"
         />
         {errors.email && touched.email ? (
-          <div className="pl-3 mt-1 font-semibold text-sm text-red-700">
+          <div
+            className="pl-3 mt-1 font-semibold text-sm text-red-700"
+            data-testid="email-validation"
+          >
             {errors.email}
           </div>
         ) : null}
@@ -80,9 +84,13 @@ export default function LoginCard({ onLogin, isLoading, hasErrors = false }) {
           type="password"
           className="block w-full px-3 py-2 rounded bg-gray-200 border border-transparent focus:border-gray-300 focus:bg-white"
           placeholder="Contraseña"
+          data-testid="password"
         />
         {errors.password && touched.password ? (
-          <div className="pl-3 mt-1 font-semibold text-sm text-red-700">
+          <div
+            className="pl-3 mt-1 font-semibold text-sm text-red-700"
+            data-testid="password-validation"
+          >
             {errors.password}
           </div>
         ) : null}
@@ -95,7 +103,13 @@ export default function LoginCard({ onLogin, isLoading, hasErrors = false }) {
         ¿Olvidaste tu contraseña?
       </Link>
 
-      <Button isLoading={isLoading} wide type="submit" className="mt-4">
+      <Button
+        isLoading={isLoading}
+        wide
+        type="submit"
+        className="mt-4"
+        data-testid="submit-button"
+      >
         Iniciar sesión
       </Button>
     </form>
