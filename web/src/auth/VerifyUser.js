@@ -33,9 +33,7 @@ export default function VerifyUser({ children, ...restProps }) {
   const isPrivateRoute = location.pathname.startsWith(ADMIN_PATH);
 
   let { data: user } = useQuery(
-    !token.exists || (token.exists && isPrivateRoute)
-      ? '/api/auth/refresh-token/'
-      : null,
+    !token.exists && isPrivateRoute ? '/api/auth/refresh-token/' : null,
     fetchSilentRefresh,
     {
       suspense: true,
