@@ -9,8 +9,8 @@ from itm.shared.utils.countries import get_country_name
 
 
 class UpdateDraft:
-    @classmethod
-    def handle(cls, event: PendingEdited):
+    @staticmethod
+    def handle(event: PendingEdited):
         scholarship = Scholarship.get(event.scholarship_id)
 
         fields = event.fields.copy()
@@ -19,12 +19,12 @@ class UpdateDraft:
 
         scholarship.update(refresh=True, **fields)
 
-    @classmethod
-    def _fill_status(cls, is_complete):
+    @staticmethod
+    def _fill_status(is_complete):
         return FillStatus.COMPLETE.value if is_complete else FillStatus.INCOMPLETE.value
 
-    @classmethod
-    def _country(cls, code):
+    @staticmethod
+    def _country(code):
         return {
             'code': code,
             'name': get_country_name(code),
@@ -32,8 +32,8 @@ class UpdateDraft:
 
 
 class PublishScholarshipOnApproved:
-    @classmethod
-    def handle(cls, event: ScholarshipApproved):
+    @staticmethod
+    def handle(event: ScholarshipApproved):
         scholarship = Scholarship.get(event.scholarship_id)
 
         scholarship.update(
@@ -44,8 +44,8 @@ class PublishScholarshipOnApproved:
 
 
 class ArchiveScholarshipOnDenied:
-    @classmethod
-    def handle(cls, event: ScholarshipDenied):
+    @staticmethod
+    def handle(event: ScholarshipDenied):
         scholarship = Scholarship.get(event.scholarship_id)
 
         scholarship.update(
