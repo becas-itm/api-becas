@@ -19,6 +19,7 @@ from itm.shared.http import Unauthorized
 from itm.shared.http import TooManyRequests
 from itm.shared.http import UnprocessableEntity
 
+from .registration.event_handlers import SendResetPasswordMailOnUserRequested
 
 router = APIRouter()
 
@@ -50,10 +51,16 @@ def get_user_or_fail(token: str):
 def sign_in(credentials: Credentials, response: Response):
     user = User.find_by_email(credentials.email)
 
-    if (not user or
-        not user.verifiedAt or
-            not HashService.compare(credentials.password, user.password)):
-        raise UnprocessableEntity
+    if not user:
+        raise UnprocessableEntity('User does not exist')
+
+    if not user.verifiedAt:
+        raise UnprocessableEntity('Use unverified')
+
+    if not HashService.compare(credentials.password, user.password):
+        print('credentials', credentials.password)
+        print('current pwd', user.password)
+        raise UnprocessableEntity('Wrong credentials')
 
     refresh_token = RefreshToken.generate(user)
     response.set_cookie('X-Refresh-Token', refresh_token.value,
@@ -139,12 +146,15 @@ def recover(form: RecoverAccount):
     if user.passwordReset and not can_be_recovered(user.passwordReset.requestedAt):
         raise TooManyRequests
 
+    token = TokenService.encode({'email': form.email}, {'days': 1})
     user.passwordReset = {
         'requestedAt': datetime.utcnow(),
-        'token': TokenService.encode({'email': form.email}, {'days': 1}),
+        'token': token,
     }
-
     user.save(refresh=True)
+
+    SendResetPasswordMailOnUserRequested() \
+        .handle(user.email, token)
 
 
 class ResetAccount(BaseModel):

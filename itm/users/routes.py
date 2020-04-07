@@ -8,6 +8,8 @@ from itm.auth.hash import HashService
 from itm.auth.token import TokenService
 from itm.shared.http import NotFound, UnprocessableEntity
 
+from .registration.event_handlers import SendCompleteRegistrationEmailOnUserInvited
+
 
 router = APIRouter()
 
@@ -61,7 +63,7 @@ def list_users():
 
 
 @router.post('/')
-def invite_user(item: EditItem):
+def invite_user(item: EditItem):  # TODO: Use own model
     if not item.email or not item.displayName or not item.photoUrl:
         raise UnprocessableEntity('Missing fields')
 
@@ -73,8 +75,12 @@ def invite_user(item: EditItem):
         'token': TokenService.encode({'email': item.email}, {'days': 1}),
     }
 
-    User(name=item.displayName,
-         email=item.email,
-         avatarUrl=item.photoUrl,
-         invitation=invitation,
-         genre=item.genre).save(refresh=True)
+    user = User(name=item.displayName,
+                email=item.email,
+                avatarUrl=item.photoUrl,
+                invitation=invitation,
+                genre=item.genre)
+    user.save(refresh=True)
+
+    SendCompleteRegistrationEmailOnUserInvited() \
+        .handle(user.email, invitation['token'], user.name)
