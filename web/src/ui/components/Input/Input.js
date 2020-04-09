@@ -6,13 +6,13 @@ import { useFocus } from 'utils/hooks';
 import { RenderIcon } from './RenderIcon';
 
 const Input = React.forwardRef(function Input(
-  { className, endIcon, RenderIcon, ...restProps },
+  { wide, className, endIcon, RenderIcon, ...restProps },
   ref,
 ) {
   const [isFocused, focusHandlers] = useFocus(restProps.autoFocus);
 
   return (
-    <div className={getStyles({ endIcon, isFocused, className })}>
+    <div className={getStyles({ wide, endIcon, isFocused, className })}>
       <input
         ref={ref}
         {...restProps}
@@ -24,10 +24,11 @@ const Input = React.forwardRef(function Input(
   );
 });
 
-function getStyles({ endIcon, isFocused, className }) {
+function getStyles({ wide, endIcon, isFocused, className }) {
   return classNames(
     'relative inline-flex items-center rounded h-10 border pl-3',
     {
+      'w-full': wide,
       'pr-3': !endIcon,
       'bg-white border-primary': isFocused,
       'bg-gray-200 border-transparent': !isFocused,
@@ -37,6 +38,7 @@ function getStyles({ endIcon, isFocused, className }) {
 }
 
 Input.defaultProps = {
+  wide: true,
   RenderIcon,
   type: 'input',
   autoFocus: false,
@@ -44,6 +46,7 @@ Input.defaultProps = {
 };
 
 Input.propTypes = {
+  wide: propTypes.bool,
   className: propTypes.string,
   endIcon: propTypes.element,
 };

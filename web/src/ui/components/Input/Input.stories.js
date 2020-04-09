@@ -30,3 +30,5 @@ export const customEndIcon = () => (
     placeholder="Search"
   />
 );
+
+export const stretch = () => <Input wide={false} placeholder="Placeholder" />;

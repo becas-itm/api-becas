@@ -49,3 +49,20 @@ test('ref is forwarded to input element', () => {
   const input = container.querySelector('input');
   expect(ref.current).toBe(input);
 });
+
+describe('wide prop', () => {
+  it('should have a full width', () => {
+    const { container } = render(<Input wide />);
+    expect(container.firstChild).toHaveClass('w-full');
+  });
+
+  it('should be `true` by default', () => {
+    const { container } = render(<Input />);
+    expect(container.firstChild).toHaveClass('w-full');
+  });
+
+  it('`false` value should not add width style', () => {
+    const { container } = render(<Input wide={false} />);
+    expect(container.firstChild).not.toHaveClass('w-full');
+  });
+});
