@@ -9,11 +9,7 @@ export default function LoginPage() {
   return (
     <ThreeRowTemplate header={null}>
       <div className="flex justify-center mt-4 sm:mt-8 lg:mt-24 px-4">
-        <LoginCard
-          onLogin={login.attempt}
-          isLoading={login.isLoading}
-          hasErrors={login.hasErrors}
-        />
+        <LoginCard onSubmit={login.attempt} isLoading={login.isLoading} />
       </div>
     </ThreeRowTemplate>
   );

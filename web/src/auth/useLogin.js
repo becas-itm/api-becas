@@ -1,39 +1,21 @@
-import { useReducer } from 'react';
+import { useState, useCallback } from 'react';
 import { useAuth } from './useAuth';
-
-const initialState = {
-  hasErrors: false,
-  isLoading: false,
-};
-
-function authReducer(_, action) {
-  switch (action.type) {
-    case 'ERROR':
-      return { hasErrors: true, isLoading: false };
-
-    case 'ATTEMPT':
-      return { hasErrors: false, isLoading: true };
-
-    case 'SUCCEED':
-    default:
-      return initialState;
-  }
-}
 
 export function useLogin() {
   const { signIn } = useAuth();
-  const [state, dispatch] = useReducer(authReducer, initialState);
+  const [isLoading, setLoading] = useState(false);
 
-  const attempt = credentials =>
-    Promise.resolve(dispatch({ type: 'ATTEMPT' }))
-      .then(() => attemptLogin(credentials))
-      .then(user => {
-        dispatch({ type: 'SUCCEED' });
-        signIn(user);
-      })
-      .catch(() => dispatch({ type: 'ERROR' }));
+  const attempt = useCallback(
+    credentials =>
+      Promise.resolve(setLoading(true))
+        .then(() => attemptLogin(credentials))
+        .then(signIn)
+        .catch(() => alert('Correo y/o contraseña no válidos'))
+        .then(() => setLoading(false)),
+    [signIn],
+  );
 
-  return { ...state, attempt };
+  return { isLoading, attempt };
 }
 
 async function attemptLogin(credentials) {

@@ -1,10 +1,12 @@
 import React from 'react';
 import * as yup from 'yup';
-import { useFormik } from 'formik';
-
+import { Formik, Form } from 'formik';
 import { Link } from 'react-router-dom';
+
+import Input from 'ui/components/Input';
 import Button from 'ui/components/Button';
 import { AppLogo } from 'ui/components/AppLogo';
+import { FastField } from 'ui/components/formik';
 
 const validationSchema = yup.object().shape({
   email: yup
@@ -18,100 +20,65 @@ const validationSchema = yup.object().shape({
     .required('Ingresa una contraseña'),
 });
 
-export default function LoginCard({ onLogin, isLoading, hasErrors = false }) {
-  const {
-    values,
-    errors,
-    touched,
-    handleBlur,
-    handleSubmit,
-    handleChange,
-  } = useFormik({
-    validationSchema,
-    isInitialValid: false,
-    initialValues: { email: '', password: '' },
-    onSubmit: values => onLogin(values),
-  });
-
-  React.useEffect(() => {
-    if (hasErrors) {
-      alert('Correo y/o contraseña no válidos');
-    }
-  }, [hasErrors]);
-
+function LoginCard({ onSubmit, isLoading = false }) {
   return (
-    <form
-      onSubmit={handleSubmit}
-      noValidate
-      className="w-full max-w-sm pt-6 px-8 pb-8 bg-white rounded shadow"
+    <Formik
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
+      initialValues={{ email: '', password: '' }}
     >
-      <header className="flex flex-col items-center mb-6">
-        <AppLogo responsive={false} children={null} />
-        <h1 className="block text-center text-xl">Iniciar sesión — Becas</h1>
-      </header>
-
-      <label className="block mb-6">
-        <span className="block text-base">Correo electrónico</span>
-        <input
-          value={values.email}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          name="email"
-          type="email"
-          disabled={isLoading}
-          className="block w-full px-3 py-2 rounded bg-gray-200 border border-transparent focus:border-gray-300 focus:bg-white"
-          placeholder="ejemplo@itm.edu.co"
-          data-testid="email"
-        />
-        {errors.email && touched.email ? (
-          <div
-            className="pl-3 mt-1 font-semibold text-sm text-red-700"
-            data-testid="email-validation"
-          >
-            {errors.email}
-          </div>
-        ) : null}
-      </label>
-
-      <label className="block">
-        <span className="block text-base">Contraseña</span>
-        <input
-          value={values.password}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          disabled={isLoading}
-          name="password"
-          type="password"
-          className="block w-full px-3 py-2 rounded bg-gray-200 border border-transparent focus:border-gray-300 focus:bg-white"
-          placeholder="Contraseña"
-          data-testid="password"
-        />
-        {errors.password && touched.password ? (
-          <div
-            className="pl-3 mt-1 font-semibold text-sm text-red-700"
-            data-testid="password-validation"
-          >
-            {errors.password}
-          </div>
-        ) : null}
-      </label>
-
-      <Link
-        to="/recuperar"
-        className="block mt-6 mb-2 text-primary text-base text-center hover:underline"
+      <Form
+        noValidate
+        className="w-full max-w-sm pt-6 px-8 pb-8 bg-white rounded shadow"
       >
-        ¿Olvidaste tu contraseña?
-      </Link>
+        <header className="flex flex-col items-center mb-6">
+          <AppLogo responsive={false} children={null} />
+          <h1 className="block text-center text-xl">Iniciar sesión — Becas</h1>
+        </header>
 
-      <Button
-        isLoading={isLoading}
-        wide
-        type="submit"
-        className="mt-4"
-        data-testid="submit-button"
-      >
-        Iniciar sesión
-      </Button>
-    </form>
+        <div className="block mb-6">
+          <FastField label="Correo electrónico" name="email">
+            <Input
+              type="email"
+              placeholder="ejemplo@itm.edu.co"
+              data-testid="email"
+              disabled={isLoading}
+            />
+          </FastField>
+        </div>
+
+        <label className="block">
+          <FastField name="password" label="Contraseña">
+            <Input
+              type="password"
+              placeholder="Contraseña"
+              data-testid="password"
+              disabled={isLoading}
+            />
+          </FastField>
+        </label>
+
+        <div className="mt-6 mb-2 text-center">
+          <Link
+            to="/recuperar"
+            className="text-primary text-base hover:underline"
+          >
+            ¿Olvidaste tu contraseña?
+          </Link>
+        </div>
+
+        <Button
+          wide
+          isLoading={isLoading}
+          type="submit"
+          className="mt-4"
+          data-testid="submit-button"
+        >
+          Iniciar sesión
+        </Button>
+      </Form>
+    </Formik>
   );
 }
+
+export default LoginCard;
