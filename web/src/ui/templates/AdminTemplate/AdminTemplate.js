@@ -20,7 +20,7 @@ function AdminTemplate({ children, ...restProps }) {
   return (
     <div className="AdminTemplate">
       <header className="bg-white border-b">
-        <div className="container h-16 flex items-center justify-between mx-auto px-4">
+        <div className="h-16 flex items-center justify-between mx-auto px-4">
           <AppLogo>Admin</AppLogo>
           <div>
             <div className="hidden sm:block">
