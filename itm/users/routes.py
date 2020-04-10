@@ -18,7 +18,6 @@ class EditItem(BaseModel):
     displayName: str = ''
     email: str = ''
     password: str = ''
-    photoUrl: str = ''
     genre: str = ''
 
 
@@ -35,9 +34,6 @@ def edit_user(user_id: str, item: EditItem):
     if item.password:
         user.password = HashService.hash(item.password)
 
-    if item.photoUrl:
-        user.avatarUrl = item.photoUrl
-
     if item.genre:
         user.genre = item.genre
 
@@ -50,24 +46,26 @@ def list_users():
         return {
             'uid': user.id,
             'displayName': user.name,
-            'photoUrl': user.avatarUrl,
             'genre': user.genre,
             'email': user.email,
         }
 
     users = User.search() \
         .query('exists', field='verifiedAt') \
-        .source(['name', 'email', 'avatarUrl', 'genre']) \
+        .source(['name', 'email', 'genre']) \
         .scan()
 
     return list(map(format_user, users))
 
 
-@router.post('/')
-def invite_user(item: EditItem):  # TODO: Use own model
-    if not item.email or not item.displayName or not item.photoUrl:
-        raise UnprocessableEntity('Missing fields')
+class InviteUserItem(BaseModel):
+    displayName: str
+    email: str
+    genre: str = 'anonymous'
 
+
+@router.post('/')
+def invite_user(item: InviteUserItem):
     if User.find_by_email(item.email):
         raise UnprocessableEntity('Already exists')
 
@@ -78,7 +76,6 @@ def invite_user(item: EditItem):  # TODO: Use own model
 
     user = User(name=item.displayName,
                 email=item.email,
-                avatarUrl=item.photoUrl,
                 invitation=invitation,
                 genre=item.genre)
     user.save(refresh=True)

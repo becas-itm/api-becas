@@ -139,8 +139,6 @@ class User(Document):
 
     genre = Keyword()
 
-    avatarUrl = Keyword(required=True)
-
     verifiedAt = Date()
 
     invitation = Object(

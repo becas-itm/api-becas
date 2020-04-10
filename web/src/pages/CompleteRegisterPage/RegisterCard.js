@@ -4,8 +4,8 @@ import { useFormik } from 'formik';
 import { useMutation } from 'react-query';
 
 import { put } from 'utils/api';
-import Avatar from 'ui/components/Avatar';
 import Button from 'ui/components/Button';
+import GenreAvatar from 'ui/components/GenreAvatar';
 
 const validationSchema = yup.object().shape({
   password: yup
@@ -45,7 +45,7 @@ export function RegisterCard({ user, token, onRegister }) {
       <h1 className="text-2xl mb-8">Completar registro</h1>
 
       <div className="flex items-start">
-        <Avatar src={user.photoURL} className="mr-4" />
+        <GenreAvatar genre={user.genre} className="mr-4" />
         <div>
           <h2 className="text-lg font-semibold">{user.displayName}</h2>
           <p className="text-gray-700">Usuario</p>

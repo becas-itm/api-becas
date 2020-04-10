@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
-import Avatar from 'ui/components/Avatar';
 import { ExitToApp } from 'ui/components/Icon';
+import GenreAvatar from 'ui/components/GenreAvatar';
 import Button, { COLOR } from 'ui/components/Button';
 import Dialog, { Title, KIND, CloseBtn } from 'ui/components/Dialog';
 
@@ -37,7 +37,7 @@ export function MenuDrawer({ user, onDismiss, onLogout }) {
         <CloseBtn onClick={onDismiss} />
 
         <Link to="/admin/perfil" className="MenuDrawer-user flex items-center">
-          <Avatar src={user.photoURL} className="mr-3" />
+          <GenreAvatar genre={user.genre} className="mr-3" />
           <h3 className="text-lg text-gray-700">{user.displayName}</h3>
         </Link>
       </header>
