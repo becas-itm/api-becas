@@ -13,7 +13,7 @@ function Avatar({ size, style, className, ...restProps }) {
     <img
       {...restProps}
       style={{ ...style, width: size, height: size }}
-      className={`inline-block object-cover rounded-full flex-shrink-0 shadow-xs bg-white ${className}`}
+      className={`inline-block w-full object-cover rounded-full flex-shrink-0 shadow-xs bg-white ${className}`}
     />
   );
 }
