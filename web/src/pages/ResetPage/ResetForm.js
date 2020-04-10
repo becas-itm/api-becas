@@ -1,9 +1,11 @@
 import React from 'react';
 import * as yup from 'yup';
-import { Formik, Form, FastField, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 
+import Input from 'ui/components/Input';
 import Button from 'ui/components/Button';
 import Avatar from 'ui/components/Avatar';
+import { FastField } from 'ui/components/formik';
 
 const validationSchema = yup.object().shape({
   password: yup
@@ -31,41 +33,25 @@ export function ResetForm({ user, onReset, isLoading }) {
       </div>
 
       <Formik
-        validateOnMount
         onSubmit={onReset}
         initialValues={{ password: '' }}
         validationSchema={validationSchema}
       >
-        {({ isValid }) => (
-          <Form noValidate className="mt-6">
-            <label className="block">
-              <span className="block text-base">Contraseña</span>
-              <FastField
+        <Form noValidate className="mt-6">
+          <div>
+            <FastField label="Contraseña" name="password">
+              <Input
                 disabled={isLoading}
-                name="password"
                 type="password"
-                className="block w-full px-3 py-2 rounded bg-gray-200 border border-transparent focus:border-gray-300 focus:bg-white"
                 placeholder="Contraseña"
               />
-              <ErrorMessage name="password">
-                {message => (
-                  <div className="pl-3 mt-1 font-semibold text-sm text-red-700">
-                    {message}
-                  </div>
-                )}
-              </ErrorMessage>
-            </label>
+            </FastField>
+          </div>
 
-            <Button
-              disabled={!isValid}
-              isLoading={isLoading}
-              type="submit"
-              className="mt-8"
-            >
-              Restablecer
-            </Button>
-          </Form>
-        )}
+          <Button isLoading={isLoading} type="submit" className="mt-8">
+            Restablecer
+          </Button>
+        </Form>
       </Formik>
     </>
   );

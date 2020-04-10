@@ -1,9 +1,11 @@
 import React from 'react';
 import * as yup from 'yup';
+import { Formik, Form } from 'formik';
 import { useMutation } from 'react-query';
-import { Formik, Form, FastField, ErrorMessage } from 'formik';
 
 import { post } from 'utils/api';
+import Input from 'ui/components/Input';
+import { FastField } from 'ui/components/formik';
 import Button, { COLOR } from 'ui/components/Button';
 import AvatarUrlPicker from 'ui/components/AvatarUrlPicker';
 import Dialog, { Title, Actions, CloseBtn } from 'ui/components/Dialog';
@@ -47,57 +49,33 @@ export function InviteUserDialog({ isOpen, onCancel, onInvite }) {
       <Formik
         onSubmit={handleInvite}
         validationSchema={validationSchema}
-        initialValues={{
-          displayName: '',
-          email: '',
-          photoUrl: '',
-        }}
-        validateOnMount
+        initialValues={{ displayName: '', email: '', photoUrl: '' }}
       >
         {({ values, setFieldValue }) => (
           <Form noValidate>
-            <div className="block mb-4">
-              <div className="block text-base mb-1">Avatar</div>
+            <div className="mb-4">
+              <div className="text-base mb-1">Avatar</div>
               <AvatarUrlPicker
                 url={values.photoUrl}
                 onUrl={url => setFieldValue('photoUrl', url)}
               />
             </div>
 
-            <label className="block mb-4">
-              <span className="block text-base">Nombre</span>
-              <FastField
-                name="displayName"
-                disabled={isLoading}
-                className="block w-full px-3 py-2 rounded bg-gray-200 border border-transparent focus:border-gray-300 focus:bg-white"
-                placeholder="John Doe"
-              />
-              <ErrorMessage name="displayName">
-                {message => (
-                  <div className="block pl-3 mt-1 font-semibold text-sm text-red-700">
-                    {message}
-                  </div>
-                )}
-              </ErrorMessage>
-            </label>
+            <div className="mb-4">
+              <FastField label="Nombre" name="displayName">
+                <Input disabled={isLoading} placeholder="John Doe" />
+              </FastField>
+            </div>
 
-            <label className="block mb-6">
-              <span className="block text-base">Correo electrónico</span>
-              <FastField
-                name="email"
-                type="email"
-                disabled={isLoading}
-                className="block w-full px-3 py-2 rounded bg-gray-200 border border-transparent focus:border-gray-300 focus:bg-white"
-                placeholder="ejemplo@itm.edu.co"
-              />
-              <ErrorMessage name="email">
-                {message => (
-                  <div className="block pl-3 mt-1 font-semibold text-sm text-red-700">
-                    {message}
-                  </div>
-                )}
-              </ErrorMessage>
-            </label>
+            <div className="mb-6">
+              <FastField label="Correo electrónico" name="email">
+                <Input
+                  type="email"
+                  disabled={isLoading}
+                  placeholder="ejemplo@itm.edu.co"
+                />
+              </FastField>
+            </div>
 
             <Actions className="mt-6">
               <Button
@@ -107,8 +85,8 @@ export function InviteUserDialog({ isOpen, onCancel, onInvite }) {
               >
                 Cancelar
               </Button>
-              <Button disabled={isLoading} isLoading={isLoading} type="submit">
-                {isLoading ? 'Cargando...' : 'Invitar'}
+              <Button isLoading={isLoading} type="submit">
+                Invitar
               </Button>
             </Actions>
           </Form>

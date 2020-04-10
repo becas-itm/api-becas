@@ -1,7 +1,9 @@
 import React from 'react';
 import * as yup from 'yup';
-import { Formik, Form, FastField, ErrorMessage } from 'formik';
+import { Formik, Form } from 'formik';
 
+import Input from 'ui/components/Input';
+import { FastField } from 'ui/components/formik';
 import Button, { COLOR } from 'ui/components/Button';
 import AvatarUrlPicker from 'ui/components/AvatarUrlPicker';
 import Dialog, { Title, Actions, CloseBtn } from 'ui/components/Dialog';
@@ -39,12 +41,11 @@ export function EditProfileDialog({ isOpen, user, onCancel }) {
         validationSchema={validationSchema}
         initialValues={{
           password: '',
-          displayName: user.displayName || '',
           photoUrl: user.photoURL,
+          displayName: user.displayName || '',
         }}
-        validateOnMount
       >
-        {({ isValid, values, setFieldValue }) => (
+        {({ values, setFieldValue }) => (
           <Form noValidate>
             <div className="block mb-4">
               <div className="block text-base mb-1">Avatar</div>
@@ -54,63 +55,40 @@ export function EditProfileDialog({ isOpen, user, onCancel }) {
               />
             </div>
 
-            <label className="block mb-4">
-              <span className="block text-base">Nombre</span>
-              <FastField
-                name="displayName"
-                disabled={isLoading}
-                className="block w-full px-3 py-2 rounded bg-gray-200 border border-transparent focus:border-gray-300 focus:bg-white"
-                placeholder="John Doe"
-              />
-              <ErrorMessage name="displayName">
-                {message => (
-                  <div className="block pl-3 mt-1 font-semibold text-sm text-red-700">
-                    {message}
-                  </div>
-                )}
-              </ErrorMessage>
-            </label>
+            <div className="mb-4">
+              <FastField label="Nombre" name="displayName">
+                <Input disabled={isLoading} placeholder="John Doe" />
+              </FastField>
+            </div>
 
-            <label className="block mb-4 opacity-50 cursor-not-allowed">
-              <span className="block text-base">Correo electrónico</span>
-              <input
-                readOnly
-                disabled
-                name="email"
-                type="email"
-                defaultValue={user.email || ''}
-                className="block w-full px-3 py-2 rounded bg-gray-200 border border-transparent cursor-not-allowed"
-              />
-            </label>
+            <div className="block mb-4 opacity-50 cursor-not-allowed">
+              <FastField label="Correo electrónico" name="email">
+                <Input
+                  readOnly
+                  disabled
+                  type="email"
+                  defaultValue={user.email || ''}
+                  className="cursor-not-allowed"
+                />
+              </FastField>
+            </div>
 
-            <label className="block mb-4">
-              <span className="block text-base">Contraseña</span>
-              <FastField
-                disabled={isLoading}
-                name="password"
-                type="password"
-                className="block w-full px-3 py-2 rounded bg-gray-200 border border-transparent focus:border-gray-300 focus:bg-white"
-                placeholder="Sin cambiar"
-              />
-              <ErrorMessage name="password">
-                {message => (
-                  <div className="block pl-3 mt-1 font-semibold text-sm text-red-700">
-                    {message}
-                  </div>
-                )}
-              </ErrorMessage>
-            </label>
+            <div className="mb-4">
+              <FastField label="Contraseña" name="password">
+                <Input
+                  disabled={isLoading}
+                  type="password"
+                  placeholder="Sin cambiar"
+                />
+              </FastField>
+            </div>
 
             <Actions className="mt-6">
               <Button color={COLOR.secondary} disabled={isLoading} type="reset">
                 Restablecer
               </Button>
-              <Button
-                disabled={!isValid || isLoading}
-                isLoading={isLoading}
-                type="submit"
-              >
-                {isLoading ? 'Cargando...' : 'Actualizar'}
+              <Button isLoading={isLoading} type="submit">
+                Actualizar
               </Button>
             </Actions>
           </Form>
