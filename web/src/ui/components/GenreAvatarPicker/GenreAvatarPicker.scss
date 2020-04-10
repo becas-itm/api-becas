@@ -1,0 +1,11 @@
+.GenreAvatarPicker {
+  &__radio:nth-child(even) {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  &__radio:focus,
+  &__radio[aria-checked="true"] {
+    border-color: #63b3ed;
+  }
+}
