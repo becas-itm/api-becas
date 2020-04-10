@@ -1,1 +1,1 @@
-export { default, getAvatarUrl, GENRE, SIZE } from './GenreAvatar';
+export { default, getAvatarUrl, GENRE, SIZE, getGenres } from './GenreAvatar';

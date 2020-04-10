@@ -9,10 +9,14 @@ import anonymousUrl from './img/anonymous.svg';
 export { SIZE };
 
 export const GENRE = Object.freeze({
-  anonymous: 'anonymous',
   male: 'male',
   female: 'female',
+  anonymous: 'anonymous',
 });
+
+export function getGenres() {
+  return Object.values(GENRE);
+}
 
 export function getAvatarUrl(genre) {
   switch (genre) {
