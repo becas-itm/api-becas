@@ -1,3 +1,6 @@
+from itm.publishing.domain.scholarship import AcademicLevel
+
+
 class SearchBuilder:
     def __init__(self):
         self.body = {'query': {}}
@@ -32,6 +35,13 @@ class SearchBuilder:
         return self
 
     def with_academic_level(self, level):
+        if type(level) is str:
+            level = [level]
+
+        if AcademicLevel.UNDERGRADUATE.value in level or AcademicLevel.POSTGRADUATE.value in level:
+            level = level.copy()
+            level.append(AcademicLevel.BOTH.value)
+
         self._must({'terms': {'academicLevel': level}})
         return self
 

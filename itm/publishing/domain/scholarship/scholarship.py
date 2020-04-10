@@ -201,6 +201,8 @@ class AcademicLevel(str, enum.Enum):
 
     OTHERS = 'OTHERS'
 
+    BOTH = 'BOTH'
+
 
 class Country(StringValueObject):
     MAX_CHARACTERS = 3

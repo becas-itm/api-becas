@@ -96,7 +96,7 @@ export default function PendingScholarship({ scholarship, onEdit }) {
           }
           className="ml-3"
         >
-          Aceptar
+          Aprobar
         </Button>
       </div>
 

@@ -6,6 +6,9 @@ export function getAcademicLevel(level) {
     case 'POSTGRADUATE':
       return 'Posgrado';
 
+    case 'BOTH':
+      return 'Pregrado y posgrado';
+
     default:
       return 'Otros';
   }

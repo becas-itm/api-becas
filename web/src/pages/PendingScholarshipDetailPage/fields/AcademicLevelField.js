@@ -9,6 +9,7 @@ const LEVELS = [
   { label: 'Seleccionar', value: '*' },
   { label: 'Pregrado', value: 'UNDERGRADUATE' },
   { label: 'Posgrado', value: 'POSTGRADUATE' },
+  { label: 'Pregrado y posgrado', value: 'BOTH' },
   { label: 'Otros', value: 'OTHERS' },
 ];
 
