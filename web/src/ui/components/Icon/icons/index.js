@@ -1,7 +1,5 @@
 export { Add } from './Add';
 
-export { AlternateEmail } from './AlternateEmail';
-
 export { ArrowBack } from './ArrowBack';
 
 export { ArrowForward } from './ArrowForward';

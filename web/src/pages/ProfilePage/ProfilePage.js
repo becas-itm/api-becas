@@ -1,62 +1,100 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import * as yup from 'yup';
+import { Formik, Form } from 'formik';
 
-import { useToggle } from 'utils/hooks';
 import { useUser } from 'auth/index';
 
-import Avatar from 'ui/components/Avatar';
-import IconButton from 'ui/components/IconButton';
-import { ArrowBack, Edit } from 'ui/components/Icon';
+import Input from 'ui/components/Input';
+import { FastField } from 'ui/components/formik';
+import Button, { COLOR } from 'ui/components/Button';
+import { Title, Actions } from 'ui/components/Dialog';
 import AdminTemplate from 'ui/templates/AdminTemplate';
-import { AlternateEmail } from 'ui/components/Icon/icons/AlternateEmail';
+import AvatarUrlPicker from 'ui/components/AvatarUrlPicker';
 
-import { EditProfileDialog } from './EditProfileDialog';
+import { useEditUser } from './useEditUser';
+
+const validationSchema = yup.object().shape({
+  displayName: yup
+    .string()
+    .max(25, 'El nombre debe ser menor o igual a 25 carácteres')
+    .required('Ingresa tu nombre'),
+  password: yup
+    .string()
+    .min(6, 'Ingresa como mínimo 6 carácteres')
+    .max(100, 'La contraseña debe ser menor o igual a 100 carácteres'),
+});
 
 export default function ProfilePage() {
   const user = useUser();
-  const navigate = useNavigate();
-  const [showEdit, toggleEdit] = useToggle();
+  const { edit, isLoading } = useEditUser(user.id);
 
   return (
     <AdminTemplate>
-      <div className="max-w-lg mx-auto px-4 pt-2 sm:mt-8">
-        <div className="flex items-center mb-3 sm:mb-10">
-          <IconButton onClick={() => navigate(-1)} icon={ArrowBack} large>
-            Atrás
-          </IconButton>
-          <h1 className="flex-1 ml-3 text-lg">Perfil</h1>
-          <IconButton onClick={toggleEdit} icon={Edit} large>
-            Editar perfil
-          </IconButton>
-        </div>
+      <div className="w-full max-w-sm mx-auto bg-white shadow p-8 rounded mt-8">
+        <Title id="edit-profile">Perfil</Title>
 
-        <div className="flex flex-col sm:flex-row items-center sm:items-start">
-          <div className="w-24 h-24 sm:w-32 sm:h-32 sm:mr-16">
-            <Avatar src={user.photoURL} size={null} />
-          </div>
+        <Formik
+          onSubmit={edit}
+          validationSchema={validationSchema}
+          initialValues={{
+            password: '',
+            photoUrl: user.photoURL,
+            displayName: user.displayName || '',
+          }}
+        >
+          {({ values, setFieldValue }) => (
+            <Form noValidate>
+              <div className="block mb-4">
+                <div className="block text-base mb-1">Avatar</div>
+                <AvatarUrlPicker
+                  url={values.photoUrl}
+                  onUrl={url => setFieldValue('photoUrl', url)}
+                />
+              </div>
 
-          <div className="flex flex-col items-center mt-2 sm:mt-0 text-center sm:text-left">
-            <h2 className="w-full text-2xl sm:text-3xl sm:mb-2">
-              {user.displayName}
-            </h2>
+              <div className="mb-4">
+                <FastField label="Nombre" name="displayName">
+                  <Input disabled={isLoading} placeholder="John Doe" />
+                </FastField>
+              </div>
 
-            <div className="w-full flex items-center">
-              <AlternateEmail className="flex-shrink-0 mr-1 text-gray-500" />
-              <a
-                href={`mailto:${user.email}`}
-                className="flex-1 block text-primary text-base text-left hover:underline"
-              >
-                {user.email}
-              </a>
-            </div>
-          </div>
-        </div>
+              <div className="block mb-4 opacity-50 cursor-not-allowed">
+                <FastField label="Correo electrónico" name="email">
+                  <Input
+                    readOnly
+                    disabled
+                    type="email"
+                    defaultValue={user.email || ''}
+                    className="cursor-not-allowed"
+                  />
+                </FastField>
+              </div>
 
-        <EditProfileDialog
-          user={user}
-          isOpen={showEdit}
-          onCancel={toggleEdit}
-        />
+              <div className="mb-4">
+                <FastField label="Contraseña" name="password">
+                  <Input
+                    disabled={isLoading}
+                    type="password"
+                    placeholder="Sin cambiar"
+                  />
+                </FastField>
+              </div>
+
+              <Actions className="mt-6">
+                <Button
+                  color={COLOR.secondary}
+                  disabled={isLoading}
+                  type="reset"
+                >
+                  Restablecer
+                </Button>
+                <Button isLoading={isLoading} type="submit">
+                  Actualizar
+                </Button>
+              </Actions>
+            </Form>
+          )}
+        </Formik>
       </div>
     </AdminTemplate>
   );
