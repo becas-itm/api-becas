@@ -52,6 +52,7 @@ def list_users():
             'displayName': user.name,
             'photoUrl': user.avatarUrl,
             'genre': user.genre,
+            'email': user.email,
         }
 
     users = User.search() \

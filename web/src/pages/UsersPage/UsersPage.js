@@ -4,60 +4,56 @@ import { useQuery } from 'react-query';
 
 import { useToggle } from 'utils/hooks';
 import { Add } from 'ui/components/Icon';
+import Button from 'ui/components/Button';
+import Avatar from 'ui/components/Avatar';
 import AdminTemplate from 'ui/templates/AdminTemplate';
 
 import { InviteUserDialog } from './InviteUserDialog';
-import './UsersPage.scss';
 
 function useGetAllUsers() {
   const { data, isFetching } = useQuery('/api/users/', get);
 
   return {
-    users: data || [],
     isFetching,
+    users: data || [],
   };
 }
-
-function UserCard({ name, photoUrl }) {
-  return (
-    <div className="UserCard shadow w-32 h-32 md:w-40 md:h-40">
-      <img
-        src={photoUrl || 'http://localhost:3000/img/avatars/person.svg'}
-        alt={name}
-        className="absolute w-full h-full object-cover bg-white"
-      />
-      <div className="UserCard__content">{name}</div>
-    </div>
-  );
-}
-
 export default function UsersPage() {
   const { users } = useGetAllUsers();
   const [isInviting, toggleInvite] = useToggle();
 
   return (
     <AdminTemplate className="relative">
-      <div className="p-4 max-w-3xl mx-auto sm:pt-4 lg:pt-12">
-        <h1 className="text-xl md:text-3xl mb-4">Usuarios</h1>
+      <div className="max-w-5xl mx-auto py-4 px-6">
+        <div className="mb-4 flex flex-wrap items-end justify-between">
+          <h1 className="text-xl font-semibold">Usuarios</h1>
+          <Button onClick={toggleInvite} outline>
+            <div className="flex flex-wrap items-center">
+              Invitar <Add className="ml-2" />
+            </div>
+          </Button>
+        </div>
 
-        <div className="flex flex-wrap justify-around md:justify-start">
+        <div className="flex flex-wrap sm:justify-around md:justify-start">
           {users.map(user => (
-            <div key={user.uid} className="mt-4 mr-4 md:mt-8 md:mr-8">
-              <UserCard name={user.displayName} photoUrl={user.photoUrl} />
+            <div
+              key={user.uid}
+              className="w-full sm:w-auto mt-4 mr-4 md:mt-8 md:mr-8"
+            >
+              <div className="p-4 pr-6 flex flex-wrap items-start rounded shadow bg-white">
+                <Avatar
+                  alt={user.displayName}
+                  src={user.photoUrl || '/img/avatars/person.svg'}
+                />
+                <div className="pl-3">
+                  <h3 className="text-lg font-semibold">{user.displayName}</h3>
+                  <div className="text-base text-gray-700 max-w-xs overflow-hidden">
+                    {user.email}
+                  </div>
+                </div>
+              </div>
             </div>
           ))}
-        </div>
-      </div>
-
-      <div className="fixed bottom-0 right-0">
-        <div className="m-8">
-          <button
-            onClick={toggleInvite}
-            type="submit"
-            className="w-12 h-12 bg-primary text-white rounded-full shadow focus:outline-none"
-          >
-            <Add auto className="w-8 h-8" />
-          </button>
         </div>
       </div>
 
