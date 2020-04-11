@@ -137,7 +137,7 @@ class User(Document):
 
     password = Keyword()
 
-    genre = Keyword()
+    gender = Keyword()
 
     verifiedAt = Date()
 

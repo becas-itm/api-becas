@@ -4,7 +4,7 @@ import { Formik, Form } from 'formik';
 
 import Input from 'ui/components/Input';
 import Button from 'ui/components/Button';
-import GenreAvatar from 'ui/components/GenreAvatar';
+import GenderAvatar from 'ui/components/GenderAvatar';
 import { FastField } from 'ui/components/formik';
 
 const validationSchema = yup.object().shape({
@@ -21,9 +21,9 @@ export function ResetForm({ user, onReset, isLoading }) {
       <h1 className="text-2xl mb-8">Restablecer contraseña</h1>
 
       <div className="flex items-start">
-        <GenreAvatar
+        <GenderAvatar
           size={48}
-          genre={user.genre}
+          gender={user.gender}
           className="shadow-xs mr-4 flex-shrink-0"
         />
 

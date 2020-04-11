@@ -7,7 +7,7 @@ import { post } from 'utils/api';
 import Input from 'ui/components/Input';
 import { FastField } from 'ui/components/formik';
 import Button, { COLOR } from 'ui/components/Button';
-import GenreAvatarPicker from 'ui/components/GenreAvatarPicker';
+import GenderAvatarPicker from 'ui/components/GenderAvatarPicker';
 import Dialog, { Title, Actions, CloseBtn } from 'ui/components/Dialog';
 
 const validationSchema = yup.object().shape({
@@ -49,15 +49,15 @@ export function InviteUserDialog({ isOpen, onCancel, onInvite }) {
       <Formik
         onSubmit={handleInvite}
         validationSchema={validationSchema}
-        initialValues={{ displayName: '', email: '', genre: '' }}
+        initialValues={{ displayName: '', email: '', gender: '' }}
       >
         {({ values, setFieldValue }) => (
           <Form noValidate>
             <div className="mb-4">
               <div className="text-base mb-1">Avatar</div>
-              <GenreAvatarPicker
-                genre={values.genre}
-                onGenre={genre => setFieldValue('genre', genre)}
+              <GenderAvatarPicker
+                gender={values.gender}
+                onGender={gender => setFieldValue('gender', gender)}
               />
             </div>
 

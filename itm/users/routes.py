@@ -18,7 +18,7 @@ class EditItem(BaseModel):
     displayName: str = ''
     email: str = ''
     password: str = ''
-    genre: str = ''
+    gender: str = ''
 
 
 @router.put('/{user_id}/')
@@ -34,8 +34,8 @@ def edit_user(user_id: str, item: EditItem):
     if item.password:
         user.password = HashService.hash(item.password)
 
-    if item.genre:
-        user.genre = item.genre
+    if item.gender:
+        user.gender = item.gender
 
     user.save(refresh=True)
 
@@ -46,13 +46,13 @@ def list_users():
         return {
             'uid': user.id,
             'displayName': user.name,
-            'genre': user.genre,
+            'gender': user.gender,
             'email': user.email,
         }
 
     users = User.search() \
         .query('exists', field='verifiedAt') \
-        .source(['name', 'email', 'genre']) \
+        .source(['name', 'email', 'gender']) \
         .scan()
 
     return list(map(format_user, users))
@@ -61,7 +61,7 @@ def list_users():
 class InviteUserItem(BaseModel):
     displayName: str
     email: str
-    genre: str = 'anonymous'
+    gender: str = 'anonymous'
 
 
 @router.post('/')
@@ -77,7 +77,7 @@ def invite_user(item: InviteUserItem):
     user = User(name=item.displayName,
                 email=item.email,
                 invitation=invitation,
-                genre=item.genre)
+                gender=item.gender)
     user.save(refresh=True)
 
     SendCompleteRegistrationEmailOnUserInvited() \

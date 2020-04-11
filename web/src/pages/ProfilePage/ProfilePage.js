@@ -9,7 +9,7 @@ import { FastField } from 'ui/components/formik';
 import Button, { COLOR } from 'ui/components/Button';
 import { Title, Actions } from 'ui/components/Dialog';
 import AdminTemplate from 'ui/templates/AdminTemplate';
-import GenreAvatarPicker from 'ui/components/GenreAvatarPicker';
+import GenderAvatarPicker from 'ui/components/GenderAvatarPicker';
 
 import { useEditUser } from './useEditUser';
 
@@ -38,7 +38,7 @@ export default function ProfilePage() {
           validationSchema={validationSchema}
           initialValues={{
             password: '',
-            genre: user.genre || '',
+            gender: user.gender || '',
             displayName: user.displayName || '',
           }}
         >
@@ -46,9 +46,9 @@ export default function ProfilePage() {
             <Form noValidate>
               <div className="block mb-4">
                 <div className="block text-base mb-1">Avatar</div>
-                <GenreAvatarPicker
-                  genre={values.genre}
-                  onGenre={genre => setFieldValue('genre', genre)}
+                <GenderAvatarPicker
+                  gender={values.gender}
+                  onGender={gender => setFieldValue('gender', gender)}
                 />
               </div>
 

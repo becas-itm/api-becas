@@ -5,7 +5,7 @@ import { useQuery } from 'react-query';
 import { useToggle } from 'utils/hooks';
 import { Add } from 'ui/components/Icon';
 import Button from 'ui/components/Button';
-import GenreAvatar from 'ui/components/GenreAvatar';
+import GenderAvatar from 'ui/components/GenderAvatar';
 import AdminTemplate from 'ui/templates/AdminTemplate';
 
 import { InviteUserDialog } from './InviteUserDialog';
@@ -41,7 +41,7 @@ export default function UsersPage() {
               className="w-full sm:w-auto mt-4 mr-4 md:mt-8 md:mr-8"
             >
               <div className="p-4 pr-6 flex flex-wrap items-start rounded shadow bg-white">
-                <GenreAvatar alt={user.displayName} genre={user.genre} />
+                <GenderAvatar alt={user.displayName} gender={user.gender} />
                 <div className="pl-3">
                   <h3 className="text-lg font-semibold">{user.displayName}</h3>
                   <div className="text-base text-gray-700 max-w-xs overflow-hidden">

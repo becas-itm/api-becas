@@ -5,7 +5,7 @@ import { useMutation } from 'react-query';
 
 import { put } from 'utils/api';
 import Button from 'ui/components/Button';
-import GenreAvatar from 'ui/components/GenreAvatar';
+import GenderAvatar from 'ui/components/GenderAvatar';
 
 const validationSchema = yup.object().shape({
   password: yup
@@ -45,7 +45,7 @@ export function RegisterCard({ user, token, onRegister }) {
       <h1 className="text-2xl mb-8">Completar registro</h1>
 
       <div className="flex items-start">
-        <GenreAvatar genre={user.genre} className="mr-4" />
+        <GenderAvatar gender={user.gender} className="mr-4" />
         <div>
           <h2 className="text-lg font-semibold">{user.displayName}</h2>
           <p className="text-gray-700">Usuario</p>

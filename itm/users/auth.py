@@ -76,7 +76,7 @@ def sign_in(credentials: Credentials, response: Response):
         'email': user.email,
         'token': access_token.value,
         'expiresIn': access_token.expires_in,
-        'genre': user.genre,
+        'gender': user.gender,
     }
 
 
@@ -99,7 +99,7 @@ def refresh_user_token(response: Response, token: str = Cookie('', alias='X-Refr
         'displayName': user.name,
         'token': token.value,
         'expiresIn': token.expires_in,
-        'genre': user.genre,
+        'gender': user.gender,
     }
 
 
@@ -109,7 +109,7 @@ def register(token: str):
 
     return {
         'displayName': user.name,
-        'genre': user.genre,
+        'gender': user.gender,
     }
 
 
@@ -163,7 +163,7 @@ def reset(token: str):
     user = get_user_or_fail(token)
     return {
         'displayName': user.name,
-        'genre': user.genre,
+        'gender': user.gender,
     }
 
 
