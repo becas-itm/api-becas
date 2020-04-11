@@ -4,6 +4,8 @@ export { ArrowBack } from './ArrowBack';
 
 export { ArrowForward } from './ArrowForward';
 
+export { ArrowRightAlt } from './ArrowRightAlt';
+
 export { ChevronLeft } from './ChevronLeft';
 
 export { ChevronRight } from './ChevronRight';
@@ -17,6 +19,8 @@ export { Event } from './Event';
 export { ExitToApp } from './ExitToApp';
 
 export { FirstPage } from './FirstPage';
+
+export { Github } from './Github';
 
 export { Home } from './Home';
 
