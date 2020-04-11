@@ -1,6 +1,6 @@
 import React from 'react';
+import { useAuth } from 'auth/index';
 import { useToggle } from 'utils/hooks';
-import { useAuth, useUser } from 'auth/index';
 
 import AppLogo from 'ui/components/AppLogo';
 import AppFooter from 'ui/components/AppFooter';
@@ -13,8 +13,7 @@ import { MenuDrawer } from './MenuDrawer';
 import './AdminTemplate.css';
 
 function AdminTemplate({ children, ...restProps }) {
-  const user = useUser();
-  const { signOut } = useAuth();
+  const { user, signOut } = useAuth();
   const [showMenu, toggleMenu] = useToggle();
 
   return (

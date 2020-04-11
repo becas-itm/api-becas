@@ -2,7 +2,7 @@ import React from 'react';
 import * as yup from 'yup';
 import { Formik, Form } from 'formik';
 
-import { useUser } from 'auth/index';
+import { useAuth } from 'auth/index';
 
 import Input from 'ui/components/Input';
 import { FastField } from 'ui/components/formik';
@@ -25,7 +25,7 @@ const validationSchema = yup.object().shape({
 });
 
 export default function ProfilePage() {
-  const user = useUser();
+  const { user } = useAuth();
   const { edit, isLoading } = useEditUser(user.id);
 
   return (
