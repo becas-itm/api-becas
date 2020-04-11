@@ -14,7 +14,7 @@ from .scholarship import (
 
 from .errors import ScholarshipError, IncompleteError, StateError, ExpiredError
 
-from .events import ScholarshipApproved, ScholarshipDenied, PendingEdited
+from .events import ScholarshipApproved, ScholarshipCreated, ScholarshipDenied, PendingEdited
 
 
 __all__ = [
@@ -36,4 +36,5 @@ __all__ = [
     'FundingType',
     'FillStatus',
     'PendingEdited',
+    'ScholarshipCreated',
 ]

@@ -8,6 +8,13 @@ class NotFound(HTTPException):
         super().__init__(self.code, detail, headers)
 
 
+class BadRequest(HTTPException):
+    code = status.HTTP_400_BAD_REQUEST
+
+    def __init__(self, detail=None, headers=None):
+        super().__init__(self.code, detail, headers)
+
+
 class Forbidden(HTTPException):
     code = status.HTTP_403_FORBIDDEN
 
@@ -34,3 +41,4 @@ class TooManyRequests(HTTPException):
 
     def __init__(self, detail=None, headers=None):
         super().__init__(self.code, detail, headers)
+

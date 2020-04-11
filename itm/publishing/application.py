@@ -1,3 +1,6 @@
+from itm.publishing.domain.scholarship import Scholarship
+
+
 class ApproveScholarship:
     def __init__(self, repository, id):
         self.repository = repository
@@ -19,6 +22,14 @@ class DenyScholarship:
         return self.repository \
             .get_by_id(self.id) \
             .deny(self.reason)
+
+
+class CreateScholarship:
+    def __init__(self, fields):
+        self.fields = fields
+
+    def execute(self):
+        return Scholarship.create(self.fields)
 
 
 class EditDraft:

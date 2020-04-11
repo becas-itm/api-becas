@@ -3,7 +3,8 @@ from itm.publishing.domain.scholarship import State, \
     FillStatus, \
     PendingEdited, \
     ScholarshipApproved, \
-    ScholarshipDenied
+    ScholarshipDenied, \
+    ScholarshipCreated
 
 from itm.shared.utils.countries import get_country_name
 
@@ -41,6 +42,15 @@ class PublishScholarshipOnApproved:
             state=State.PUBLISHED.value,
             approval={'approvedAt': event.timestamp},
         )
+
+
+class StoreScholarshipOnCreated:
+    @staticmethod
+    def handle(event: ScholarshipCreated):
+        fields = event.fields.copy()
+        fields['country'] = UpdateDraft._country(fields.pop('country'))
+        fields['createdAt'] = event.timestamp
+        Scholarship.create(fields)
 
 
 class ArchiveScholarshipOnDenied:

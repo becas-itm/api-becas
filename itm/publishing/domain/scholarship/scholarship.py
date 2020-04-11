@@ -3,7 +3,7 @@ import uuid
 import datetime
 
 from .errors import IncompleteError, StateError, ExpiredError
-from .events import ScholarshipApproved, ScholarshipDenied, PendingEdited
+from .events import ScholarshipApproved, ScholarshipDenied, PendingEdited, ScholarshipCreated
 
 
 class Scholarship:
@@ -66,6 +66,33 @@ class Scholarship:
         self.state = State.DENIED
         return ScholarshipDenied.fire(self.id.value, DenialReason(reason).value)
 
+    @classmethod
+    def create(cls, fields: dict):
+        scholarship = cls(
+            Id.generate(),
+            name=Name(fields.get('name')),
+            description=Description(fields.get('description')),
+            state=State.PENDING,
+            deadline=Date.from_string(fields.get('deadline')),
+            academic_level=AcademicLevel(fields.get('academicLevel')),
+            country=Country(fields.get('country')),
+            funding_type=FundingType(fields.get('fundingType')),
+        )
+
+        if scholarship.has_passed:
+            raise ExpiredError
+
+        fields = fields.copy()
+        fields['id'] = scholarship.id.value
+        fields['state'] = scholarship.state.value
+
+        fields['entity'] = {
+            'name': 'itm',
+            'fullName': 'Instituto Tecnológico Metropolitano',
+        }
+
+        return ScholarshipCreated.fire(fields)
+
     def edit_draft(self, fields):
         if self.state != State.PENDING:
             raise StateError(self.id)
@@ -94,7 +121,7 @@ class Scholarship:
 
     @classmethod
     def from_document(cls, doc):
-        return Scholarship(
+        return cls(
             Id.from_string(doc['id'] if 'id' in doc else doc.id),
             name=Name(doc['name']),
             description=Description(doc['description']) if 'description' in doc else None,

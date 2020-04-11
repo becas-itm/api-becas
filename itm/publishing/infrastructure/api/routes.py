@@ -5,16 +5,18 @@ from itm.documents import Scholarship
 
 from itm.publishing.domain.scholarship import State, ScholarshipError
 from itm.publishing.infrastructure.repository import ScholarshipRepository
-from itm.publishing.application import ApproveScholarship, DenyScholarship, EditDraft
+from itm.publishing.application import ApproveScholarship, DenyScholarship, EditDraft, \
+    CreateScholarship
 
 from itm.search.search import SearchBuilder
 from itm.search.service import SearchService
 
 from itm.shared.utils import SimplePaginator
-from itm.shared.http import NotFound, Forbidden
+from itm.shared.http import NotFound, Forbidden, BadRequest
 from itm.shared.domain.errors import EntityNotFoundError
 
-from ..projections import UpdateDraft, PublishScholarshipOnApproved, ArchiveScholarshipOnDenied
+from ..projections import UpdateDraft, PublishScholarshipOnApproved, ArchiveScholarshipOnDenied,\
+     StoreScholarshipOnCreated
 
 router = APIRouter()
 
@@ -102,6 +104,27 @@ def deny(scholarship_id, data: DenyItem):
         raise Forbidden(error.code)
     else:
         ArchiveScholarshipOnDenied.handle(event)
+
+
+class Item(BaseModel):
+    name: str = None
+    description: str = None
+    deadline: str = None
+    academicLevel: str = None
+    fundingType: str = None
+    country: str = None
+
+
+@router.post('/')
+def create(item: Item):
+    command = CreateScholarship(item.dict())
+
+    try:
+        event = command.execute()
+    except ScholarshipError as error:
+        raise BadRequest(error.code)
+    else:
+        StoreScholarshipOnCreated.handle(event)
 
 
 class UpdateItem(BaseModel):
