@@ -17,7 +17,7 @@ const Input = React.forwardRef(function Input(
         ref={ref}
         {...restProps}
         {...focusHandlers(restProps)}
-        className="w-full h-full bg-transparent focus:outline-none"
+        className="w-full h-full bg-transparent focus:outline-none pl-3"
       />
       {endIcon ? <RenderIcon>{endIcon}</RenderIcon> : null}
     </div>
@@ -26,7 +26,7 @@ const Input = React.forwardRef(function Input(
 
 function getStyles({ wide, endIcon, isFocused, className }) {
   return classNames(
-    'relative inline-flex items-center rounded h-10 border pl-3',
+    'relative inline-flex items-center rounded h-10 border',
     {
       'w-full': wide,
       'pr-3': !endIcon,
