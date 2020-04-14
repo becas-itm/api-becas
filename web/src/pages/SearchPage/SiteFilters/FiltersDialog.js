@@ -1,6 +1,6 @@
 import React from 'react';
 import propTypes from 'prop-types';
-import Dialog, { CloseBtn, Title, KIND } from 'ui/components/Dialog';
+import Dialog, { CloseBtn, Title } from 'ui/components/Dialog';
 
 function FiltersDialog({ isOpen, onDismiss, children }) {
   return (
@@ -8,7 +8,7 @@ function FiltersDialog({ isOpen, onDismiss, children }) {
       isOpen={isOpen}
       onDismiss={onDismiss}
       aria-labelledby="filter-search-title"
-      kind={KIND.full}
+      className="w-full max-w-sm p-8"
     >
       <div className="relative w-full max-w-sm mx-auto">
         <CloseBtn onClick={onDismiss} className="right-0 top-0">

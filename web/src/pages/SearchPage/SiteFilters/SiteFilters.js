@@ -4,7 +4,8 @@ import { checkboxGroup } from 'utils/forms';
 
 import { Checkbox } from 'ui/components/Checkbox';
 import Button, { COLOR } from 'ui/components/Button';
-import CountryCombobox from 'ui/components/CountryCombobox';
+import { ComboboxInput, ComboboxPopover } from 'ui/components/Combobox';
+import Combobox, { CountryComboboxMenu } from 'ui/components/CountryCombobox';
 
 import LanguageFilter from './LanguageFilter';
 
@@ -101,11 +102,18 @@ export default function SiteFilters({ filters, onSubmit, onReset }) {
       <h4 className="text-sm font-semibold color-gray-500 uppercase pb-1">
         País
       </h4>
-      <CountryCombobox
-        value={form.values.country}
-        onSelect={country => form.setFieldValue('country', country)}
-        onChange={event => form.setFieldValue('country', event.target.value)}
-      />
+      <Combobox
+        inputValue={form.values.country}
+        onSelect={selected =>
+          form.setFieldValue('country', selected?.name || '')
+        }
+        onInputValueChange={value => form.setFieldValue('country', value)}
+      >
+        <ComboboxInput placeholder="Todos" />
+        <ComboboxPopover>
+          <CountryComboboxMenu />
+        </ComboboxPopover>
+      </Combobox>
 
       <div className="mt-8">
         <Button wide type="submit">

@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@popperjs/core": "^2.3.1",
-    "@reach/combobox": "^0.10.0",
     "@reach/dialog": "^0.10.0",
     "@reach/listbox": "^0.10.0",
     "@storybook/addon-knobs": "^5.3.18",
