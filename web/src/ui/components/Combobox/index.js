@@ -1,4 +1,4 @@
-export { default } from './Combobox';
+export { default, useCombobox } from './Combobox';
 
 export { ComboboxInput } from './ComboboxInput';
 

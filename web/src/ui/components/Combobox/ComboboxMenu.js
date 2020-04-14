@@ -1,7 +1,7 @@
 import React from 'react';
 import { useCombobox } from './Combobox';
 
-export function ComboboxMenu({ items, itemToKey, RenderComboboxItem }) {
+export function ComboboxMenu({ items, itemToKey, filter, RenderComboboxItem }) {
   const {
     isOpen,
     getItemProps,
@@ -11,9 +11,11 @@ export function ComboboxMenu({ items, itemToKey, RenderComboboxItem }) {
   } = useCombobox();
 
   function renderItems() {
-    const filtered = items.filter(
-      item => !inputValue || itemToString(item).includes(inputValue),
-    );
+    const filtered = filter
+      ? items.filter(
+          item => !inputValue || itemToString(item).includes(inputValue),
+        )
+      : items;
 
     if (filtered.length === 0) {
       return (
@@ -43,5 +45,6 @@ function ComboboxItem({ item, ...restProps }) {
 }
 
 ComboboxMenu.defaultProps = {
+  filter: true,
   RenderComboboxItem: ComboboxItem,
 };
