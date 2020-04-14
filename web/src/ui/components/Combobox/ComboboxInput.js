@@ -8,12 +8,14 @@ import { usePopover } from './PopoverProvider';
 export function ComboboxInput(props) {
   const {
     isOpen,
+    inputValue,
     selectedItem,
     getInputProps,
     clearSelection,
     getToggleButtonProps,
   } = useCombobox();
   const { setReferenceElement } = usePopover();
+
   return (
     <div>
       <Input
@@ -21,8 +23,14 @@ export function ComboboxInput(props) {
         {...props}
         {...getInputProps({ ref: setReferenceElement })}
         endIcon={
-          selectedItem ? (
-            <button onClick={clearSelection}>
+          selectedItem || inputValue ? (
+            <button
+              onClick={event => {
+                event.preventDefault();
+                event.stopPropagation();
+                clearSelection();
+              }}
+            >
               <Close />
             </button>
           ) : (
