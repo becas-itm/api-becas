@@ -13,7 +13,7 @@ export function IcetexDialogDetails({ id }) {
     <>
       <div className="flex justify-center mt-2">
         <Button onClick={toggleDetails} outline>
-          Ver detalles
+          Ver pasos
         </Button>
       </div>
       <Dialog

@@ -18,7 +18,7 @@ export function ScholarshipDetails({ entityName, id, url }) {
         rel="noopener noreferrer"
       >
         Ver detalles
-        <OpenInNew auto className="inline-block ml-1 w-3 h-3" />
+        <OpenInNew auto className="inline-block ml-2 w-5 h-5" />
       </Button>
     </div>
   );
