@@ -77,7 +77,7 @@ export default function HomePage() {
             <div className="pHome__writeUs">
               ¿Conoces alguna beca?{' '}
               <Link to="#" className="underline py-4">
-                Escríbenos
+                ¡Compártela!
               </Link>
             </div>
           </div>
