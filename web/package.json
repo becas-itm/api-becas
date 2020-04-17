@@ -47,7 +47,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "build:styles": "tailwindcss build src/tailwind.css -o src/styles.css",
+    "build:styles": "tailwindcss build src/ui/styles/tailwind.css -o src/ui/styles/styles.css",
     "build:icons": "node src/ui/components/Icon/buildIcons",
     "cypress:open": "cypress open",
     "storybook": "start-storybook -p 9009 -s public",
