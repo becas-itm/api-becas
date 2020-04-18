@@ -32,7 +32,7 @@ function LoginCard({ onSubmit, isLoading = false }) {
         className="w-full max-w-sm pt-6 px-8 pb-8 bg-white rounded shadow"
       >
         <header className="flex flex-col items-center mb-6">
-          <AppLogo responsive={false} children={null} />
+          <AppLogo children={null} />
           <h1 className="block text-center text-xl">Iniciar sesión — Becas</h1>
         </header>
 

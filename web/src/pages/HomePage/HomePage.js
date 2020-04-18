@@ -15,7 +15,7 @@ export default function HomePage() {
   return (
     <div className="pHome">
       <header className="pHome__header pHome__container">
-        <AppLogo responsive={false} />
+        <AppLogo />
         <div>
           <nav className="pHome__menuLinks">
             <Link
