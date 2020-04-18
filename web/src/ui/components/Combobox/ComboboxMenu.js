@@ -19,7 +19,7 @@ export function ComboboxMenu({ items, itemToKey, filter, RenderComboboxItem }) {
 
     if (filtered.length === 0) {
       return (
-        <div className="text-center italic text-gray-700">Sin resultados</div>
+        <div className="text-center italic text-medium">Sin resultados</div>
       );
     }
 

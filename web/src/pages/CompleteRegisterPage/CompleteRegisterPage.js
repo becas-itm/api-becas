@@ -41,7 +41,7 @@ export default function CompleteRegisterPage() {
           {!isFetching && error && (
             <div>
               <h1 className="text-2xl mb-4">Enlace caducado</h1>
-              <p className="text-gray-700">
+              <p>
                 Comuníquese con el administrador para la creación de un nuevo
                 usuario.
               </p>
@@ -51,9 +51,7 @@ export default function CompleteRegisterPage() {
           {registered && (
             <div>
               <h1 className="text-2xl mb-4">Registro completado</h1>
-              <p className="text-gray-700 mb-2">
-                Ahora puedes ingresar al sistema.
-              </p>
+              <p className="mb-2">Ahora puedes ingresar al sistema.</p>
               <LinkButton to="/login">Iniciar sesión</LinkButton>
             </div>
           )}

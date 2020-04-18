@@ -29,7 +29,7 @@ export function ResetForm({ user, onReset, isLoading }) {
 
         <div>
           <h2 className="text-lg font-semibold">{user.displayName}</h2>
-          <p className="text-gray-700">Usuario</p>
+          <p>Usuario</p>
         </div>
       </div>
 

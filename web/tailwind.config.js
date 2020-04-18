@@ -83,7 +83,7 @@ module.exports = {
       textColor: {
         current: 'currentColor',
         active: 'rgba(0, 0, 0, 0.87)',
-        medium: 'rgba(0, 0, 0, 0.6)',
+        medium: 'rgba(0, 0, 0, 0.7)',
         disabled: 'rgba(0, 0, 0, 0.38)',
       },
       inset: {

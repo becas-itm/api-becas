@@ -24,7 +24,7 @@ export default function SearchResults({ results, onPage, onResetFilters }) {
 
   return (
     <div className="w-full">
-      <h2 className="text-base text-gray-700 mb-4 px-4">
+      <h2 className="text-base mb-4 px-4">
         <span>Resultados de búsqueda</span>
         <span> — Página {pagination.currentPage}</span>
       </h2>

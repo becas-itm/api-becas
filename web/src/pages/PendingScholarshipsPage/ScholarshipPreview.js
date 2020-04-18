@@ -28,9 +28,7 @@ export function ScholarshipPreview({ id, name, deadline, entity, fillStatus }) {
           className="hidden md:block md:mr-8 absolute top-0 right-full mr-4"
         />
         <header>
-          <div className="max-w-md mx-auto text-gray-700 mb-1">
-            {entity.fullName}
-          </div>
+          <div className="max-w-md mx-auto mb-1">{entity.fullName}</div>
           {deadline && <div>{formatDeadline(deadline)}</div>}
           <h1 className="text-xl font-semibold mt-1">{name}</h1>
         </header>

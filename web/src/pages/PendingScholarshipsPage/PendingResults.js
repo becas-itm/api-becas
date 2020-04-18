@@ -13,7 +13,7 @@ export function PendingResults({ scholarships, pagination, onPage }) {
         <h1 className="text-base sm:text-2xl">Convocatorias pendientes</h1>
       </div>
 
-      <h2 className="text-base text-gray-700 my-4 px-4">
+      <h2 className="text-base my-4 px-4">
         <span>Resultados de búsqueda</span>
         <span> — Página {pagination.currentPage}</span>
       </h2>

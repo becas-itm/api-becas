@@ -3,11 +3,11 @@ import propTypes from 'prop-types';
 import classNames from 'classnames';
 
 export const COLOR = {
-  blue: 'text-primary bg-indigo-100 border-indigo-200',
-  green: 'text-green-800 bg-green-100 border-green-200',
-  yellow: 'text-yellow-900 bg-yellow-100 border-yellow-300',
-  red: 'text-red-800 bg-red-100 border-red-200',
-  gray: 'text-gray-800 bg-gray-200',
+  blue: 'text-primary bg-blue-50 border-blue-200',
+  green: 'text-green-600 bg-green-50 border-green-200',
+  yellow: 'text-yellow-600 bg-yellow-100 border-yellow-300',
+  red: 'text-red-500 bg-red-50 border-red-100',
+  gray: 'text-gray-600 bg-gray-100 border-gray-400',
 };
 
 function Pill({ color, className, ...restProps }) {

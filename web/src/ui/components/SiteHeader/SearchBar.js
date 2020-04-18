@@ -47,7 +47,7 @@ function SearchBar({ initialTerm, onSearch, focusOnMount }) {
   return (
     <form onSubmit={handleFormSubmit} className="relative flex-grow">
       <div className="absolute left-0 ml-4 inset-y-0 flex items-center pointer-events-none">
-        <Search className="text-gray-600" />
+        <Search className="text-medium" />
       </div>
       <input
         value={term}

@@ -44,7 +44,7 @@ export default function UsersPage() {
                 <GenderAvatar alt={user.displayName} gender={user.gender} />
                 <div className="pl-3">
                   <h3 className="text-lg font-semibold">{user.displayName}</h3>
-                  <div className="text-base text-gray-700 max-w-xs overflow-hidden">
+                  <div className="text-base text-medium max-w-xs overflow-hidden">
                     {user.email}
                   </div>
                 </div>

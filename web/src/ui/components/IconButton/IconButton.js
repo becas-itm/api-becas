@@ -5,8 +5,7 @@ import classNames from 'classnames';
 export const SHAPE = {
   rounded: 'rounded-full',
   square: 'rounded-md',
-  simple:
-    'text-gray-600 hover:text-gray-700 focus:text-gray-700 active:text-gray-600',
+  simple: 'text-medium hover:text-active focus:text-active active:text-medium',
 };
 
 function IconButton({
@@ -20,7 +19,7 @@ function IconButton({
   const classes = classNames(
     'inline-flex focus:outline-none select-none duration-100 ease-in-out',
     {
-      'hover:bg-gray-200 focus:bg-gray-200 text-gray-600 focus:text-gray-600 active:text-gray-700':
+      'hover:bg-gray-200 focus:bg-gray-200 text-medium focus:text-medium active:text-medium':
         shape !== SHAPE.simple,
     },
     large ? 'p-3' : 'p-2',

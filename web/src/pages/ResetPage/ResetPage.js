@@ -27,7 +27,7 @@ export default function ResetPage() {
       {!isFetching && error && (
         <div>
           <h1 className="text-2xl mb-4">Enlace caducado</h1>
-          <p className="text-gray-700">
+          <p>
             Comuníquese con el administrador para la creación de un nuevo
             usuario.
           </p>

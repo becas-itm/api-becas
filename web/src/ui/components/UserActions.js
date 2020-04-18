@@ -12,10 +12,10 @@ export default function UserActions({ user, onLogout }) {
       <button
         onClick={onLogout}
         type="button"
-        className="ml-2 px-2 flex items-center py-1 rounded cursor-pointer text-gray-800 hover:bg-gray-200"
+        className="ml-2 px-2 flex items-center py-1 rounded cursor-pointer hover:bg-gray-200"
       >
         Salir
-        <ExitToApp className="ml-1 text-gray-700" />
+        <ExitToApp className="ml-1" />
       </button>
     </div>
   );

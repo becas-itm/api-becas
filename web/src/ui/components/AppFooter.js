@@ -6,13 +6,13 @@ export function AppFooter() {
     <footer className="py-4 border-t text-sm bg-gray-200">
       <ul className="mx-auto flex justify-center flex-wrap">
         <li>© 2020 ITM</li>
-        <li className="text-gray-600">・</li>
+        <li className="text-medium">・</li>
         <li>
           <Link to="/terminos" className="hover:underline">
             Términos
           </Link>
         </li>
-        <li className="text-gray-600">・</li>
+        <li className="text-medium">・</li>
         <li>Privacidad</li>
       </ul>
     </footer>

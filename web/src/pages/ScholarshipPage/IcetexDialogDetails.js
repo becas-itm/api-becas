@@ -24,11 +24,11 @@ export function IcetexDialogDetails({ id }) {
         className="w-full max-w-md"
       >
         <Title id="scholarship-instructions">Detalle de convocatoria</Title>
-        <p className="pb-2 text-sm">
+        <p className="pb-2">
           Realiza los siguientes pasos para obtener más información acerca de la
           convocatoria:
         </p>
-        <ol className="list-decimal list-inside px-2 text-sm text-gray-700">
+        <ol className="list-decimal list-inside px-2">
           <li>
             Ingresa el portal de becas del{' '}
             <a

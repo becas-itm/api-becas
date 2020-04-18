@@ -23,7 +23,7 @@ export const withEndIcon = () => (
 export const customEndIcon = () => (
   <Input
     endIcon={
-      <div className="text-gray-600">
+      <div className="text-medium">
         <Search />
       </div>
     }

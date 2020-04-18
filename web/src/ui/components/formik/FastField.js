@@ -14,7 +14,7 @@ export function FastField({ label, name, children }) {
             {meta.touched && meta.error && (
               <div
                 data-testid={`${field.name}-validation}`}
-                className="pl-3 mt-1 font-semibold text-sm text-red-700"
+                className="pl-3 mt-1 font-semibold text-sm"
               >
                 {meta.error}
               </div>

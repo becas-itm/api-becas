@@ -38,7 +38,7 @@ export function MenuDrawer({ user, onDismiss, onLogout }) {
 
         <Link to="/admin/perfil" className="MenuDrawer-user flex items-center">
           <GenderAvatar gender={user.gender} className="mr-3" />
-          <h3 className="text-lg text-gray-700">{user.displayName}</h3>
+          <h3 className="text-lg">{user.displayName}</h3>
         </Link>
       </header>
 

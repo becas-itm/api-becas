@@ -48,7 +48,7 @@ export function RegisterCard({ user, token, onRegister }) {
         <GenderAvatar gender={user.gender} className="mr-4" />
         <div>
           <h2 className="text-lg font-semibold">{user.displayName}</h2>
-          <p className="text-gray-700">Usuario</p>
+          <p>Usuario</p>
         </div>
       </div>
 
@@ -66,7 +66,7 @@ export function RegisterCard({ user, token, onRegister }) {
             placeholder="Contraseña"
           />
           {errors.password && touched.password ? (
-            <div className="pl-3 mt-1 font-semibold text-sm text-red-700">
+            <div className="pl-3 mt-1 font-semibold text-sm">
               {errors.password}
             </div>
           ) : null}

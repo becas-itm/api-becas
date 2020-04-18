@@ -32,7 +32,7 @@ export default function ScholarshipPreview({
         <header>
           {deadline && (
             <>
-              <Event className="mr-2 text-gray-500" />
+              <Event className="mr-2 text-disabled" />
               <span>{formatDeadline(deadline)}</span>
             </>
           )}

@@ -53,32 +53,32 @@ function ScholarshipPage() {
           <h1 className="text-xl sm:text-2xl font-semibold mb-2">
             {data.name}
           </h1>
-          <div className="text-sm text-gray-600">Descripción</div>
+          <div className="text-sm text-medium">Descripción</div>
           <p className="text-base">{data.description}</p>
 
           <div className="pl-8 mt-6">
             {data.deadline && (
               <div className="flex">
-                <Event className="text-gray-500 mr-2" />
+                <Event className="text-disabled mr-2" />
                 <div>
-                  <div className="text-sm text-gray-600">Abierta hasta</div>
+                  <div className="text-sm text-medium">Abierta hasta</div>
                   <div>{formatDeadline(data.deadline)}</div>
                 </div>
               </div>
             )}
 
             <div className="flex mt-4">
-              <School className="text-gray-500 mr-2" />
+              <School className="text-disabled mr-2" />
               <div>
-                <div className="text-sm text-gray-600">Tipo de Beca</div>
+                <div className="text-sm text-medium">Tipo de Beca</div>
                 <div>{getAcademicLevel(data.academicLevel)}</div>
               </div>
             </div>
 
             <div className="flex mt-4">
-              <Money className="text-gray-500 mr-2" />
+              <Money className="text-disabled mr-2" />
               <div>
-                <div className="text-sm text-gray-600">Financiamiento</div>
+                <div className="text-sm text-medium">Financiamiento</div>
                 <div>{getFundingType(data.fundingType)}</div>
               </div>
             </div>
@@ -90,17 +90,17 @@ function ScholarshipPage() {
                 className="shadow-xs rounded-full mr-2 object-cover"
               />
               <div>
-                <div className="text-sm text-gray-600">País</div>
+                <div className="text-sm text-medium">País</div>
                 <div>{data.country.name}</div>
               </div>
             </div>
 
             <div className="flex mt-4 -ml-8">
-              <div className="text-gray-500 mr-4">
+              <div className="text-disabled mr-4">
                 <EntityAvatar name={data.entity.name} />
               </div>
               <div>
-                <div className="text-sm text-gray-600">Publicada por</div>
+                <div className="text-sm text-medium">Publicada por</div>
                 <div>{data.entity.fullName}</div>
               </div>
             </div>
