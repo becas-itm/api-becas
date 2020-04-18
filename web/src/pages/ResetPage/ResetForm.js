@@ -24,7 +24,7 @@ export function ResetForm({ user, onReset, isLoading }) {
         <GenderAvatar
           size={48}
           gender={user.gender}
-          className="shadow-xs mr-4 flex-shrink-0"
+          className="shadow-outline mr-4 flex-shrink-0"
         />
 
         <div>

@@ -19,7 +19,7 @@ function EditableCountryField() {
         <CountryFlag
           code={country.code || ''}
           style={{ width: 24, height: 24 }}
-          className="shadow-xs rounded-full mr-3 object-cover"
+          className="shadow-outline rounded-full mr-3 object-cover"
         />
       )}
       name="País"
@@ -32,10 +32,7 @@ function EditableCountryField() {
           }
         }}
       >
-        <ComboboxInput
-          placeholder="Seleccionar"
-          className="placeholder-black"
-        />
+        <ComboboxInput placeholder="Buscar" className="placeholder-black" />
         <ComboboxPopover>
           <CountryComboboxMenu />
         </ComboboxPopover>
@@ -57,7 +54,7 @@ export function CountryField({ value, isEditing }) {
         <CountryFlag
           code={code}
           style={{ width: 24, height: 24 }}
-          className="shadow-xs rounded-full mr-2 object-cover"
+          className="shadow-outline rounded-full mr-2 object-cover"
         />
       )}
       name="País"

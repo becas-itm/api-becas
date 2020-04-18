@@ -15,7 +15,7 @@ function AvatarRadio({ gender }) {
       tabIndex={-1}
       role="radio"
       aria-checked={false}
-      className="GenderAvatarPicker__radio rounded-full border-4 border-gray-300 bg-white focus:outline-none cursor-pointer"
+      className="GenderAvatarPicker__radio rounded-full border-4 border-gray-200 bg-white focus:outline-none cursor-pointer"
     >
       <GenderAvatar gender={gender} size={SIZE.regular} />
     </div>

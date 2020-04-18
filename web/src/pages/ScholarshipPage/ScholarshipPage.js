@@ -87,7 +87,7 @@ function ScholarshipPage() {
               <CountryFlag
                 code={data.country.code}
                 style={{ width: 24, height: 24 }}
-                className="shadow-xs rounded-full mr-2 object-cover"
+                className="shadow-outline rounded-full mr-2 object-cover"
               />
               <div>
                 <div className="text-sm text-medium">País</div>

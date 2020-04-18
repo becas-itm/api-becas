@@ -4,8 +4,8 @@ import classNames from 'classnames';
 
 export const COLOR = {
   blue: 'text-primary bg-blue-50 border-blue-200',
-  green: 'text-green-600 bg-green-50 border-green-200',
-  yellow: 'text-yellow-600 bg-yellow-100 border-yellow-300',
+  green: 'text-green-600 bg-green-50 border-green-100',
+  yellow: 'text-yellow-600 bg-yellow-100 border-yellow-200',
   red: 'text-red-500 bg-red-50 border-red-100',
   gray: 'text-gray-600 bg-gray-100 border-gray-400',
 };

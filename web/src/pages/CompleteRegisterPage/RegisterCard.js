@@ -62,7 +62,7 @@ export function RegisterCard({ user, token, onRegister }) {
             disabled={isLoading}
             name="password"
             type="password"
-            className="block w-full px-3 py-2 rounded bg-gray-200 border border-transparent focus:border-gray-300 focus:bg-white"
+            className="block w-full px-3 py-2 rounded bg-gray-100 border border-transparent focus:border-gray-300 focus:bg-white"
             placeholder="Contraseña"
           />
           {errors.password && touched.password ? (

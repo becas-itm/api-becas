@@ -26,12 +26,12 @@ const Input = React.forwardRef(function Input(
 
 function getStyles({ wide, endIcon, isFocused, className }) {
   return classNames(
-    'relative inline-flex items-center rounded h-10 border',
+    'relative inline-flex items-center rounded-sm h-10 border',
     {
       'w-full': wide,
       'pr-3': !endIcon,
-      'bg-white border-primary': isFocused,
-      'bg-gray-200 border-transparent': !isFocused,
+      'bg-gray-50 border-primary': isFocused,
+      'bg-gray-100 border-transparent': !isFocused,
     },
     className,
   );

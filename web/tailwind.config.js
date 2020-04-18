@@ -55,19 +55,20 @@ module.exports = {
       white: '#FFFFFF',
       error: '#B00020',
       primary: '#0B77D8',
+      transparent: 'transparent',
     },
     borderColor: theme => ({
       ...theme('colors'),
       default: 'rgba(0, 0, 0, 0.12)',
     }),
-    boxShadow: theme => ({
-      outline: `0 0 1px 1px ${theme('colors.blue.200')}`,
+    boxShadow: {
+      outline: '0 0 1px 1px rgba(0, 0, 0, 0.12)',
       sm: '0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)',
       default: '0px 5px 10px rgba(0, 0, 0, 0.12)',
       lg: '0px 10px 20px rgba(0, 0, 0, 0.25)',
       modal:
         '0 24px 38px 3px rgba(0, 0, 0, 0.14), 0 9px 46px 8px rgba(0, 0, 0, 0.12), 0 11px 15px -7px rgba(0, 0, 0, 0.20)',
-    }),
+    },
     fontWeight: {
       normal: 400,
       semibold: 600,
@@ -88,9 +89,6 @@ module.exports = {
       },
       inset: {
         full: '100%',
-      },
-      backgroundColor: {
-        transparent: 'transparent',
       },
     },
   },

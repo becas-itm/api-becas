@@ -16,7 +16,7 @@ export function DeadlineField({ value, isEditing }) {
             <input
               {...field}
               type="date"
-              className="w-full px-3 py-2 rounded bg-gray-200"
+              className="w-full px-3 py-2 rounded bg-gray-100"
             />
           )}
         />

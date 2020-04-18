@@ -48,10 +48,8 @@ export default function ScholarshipPreview({
           <ArrowForward className="ScholarshipPreview__linkBtnIcon ml-2" />
         </LinkButton>
       </div>
-      <footer className="px-4 sm:rounded-b bg-gray-200">
-        <div className="max-w-md mx-auto py-3 bg-gray-200">
-          {entity.fullName}
-        </div>
+      <footer className="px-4 sm:rounded-b bg-gray-100">
+        <div className="max-w-md mx-auto py-3">{entity.fullName}</div>
       </footer>
     </article>
   );

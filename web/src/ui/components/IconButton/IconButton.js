@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 export const SHAPE = {
   rounded: 'rounded-full',
-  square: 'rounded-md',
+  square: 'rounded-sm',
   simple: 'text-medium hover:text-active focus:text-active active:text-medium',
 };
 
