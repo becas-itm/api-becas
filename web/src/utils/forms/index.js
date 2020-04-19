@@ -1,1 +1,0 @@
-export { checkboxGroup } from './checkboxGroup';
