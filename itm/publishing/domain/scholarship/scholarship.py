@@ -80,6 +80,7 @@ class Scholarship:
             academic_level=AcademicLevel(fields.get('academicLevel')),
             country=Country(fields.get('country')),
             funding_type=FundingType(fields.get('fundingType')),
+            language=Language(fields.get('language')),
         )
 
         if scholarship.has_passed:

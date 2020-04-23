@@ -114,6 +114,7 @@ class Item(BaseModel):
     academicLevel: str = None
     fundingType: str = None
     country: str = None
+    language: str = None
 
 
 @router.post('/')
