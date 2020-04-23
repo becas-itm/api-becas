@@ -84,7 +84,7 @@ class Scholarship:
         )
 
         if scholarship.has_passed:
-            raise ExpiredError
+            raise ExpiredError(scholarship.id)
 
         fields = fields.copy()
         fields['id'] = scholarship.id.value
