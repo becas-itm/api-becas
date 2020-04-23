@@ -52,6 +52,7 @@ class StoreScholarshipOnCreated:
         fields['fillStatus'] = UpdateDraft._fill_status(event.is_complete)
         fields['createdAt'] = event.timestamp
         Scholarship.create(fields)
+        return fields['id']
 
 
 class ArchiveScholarshipOnDenied:

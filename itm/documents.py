@@ -81,6 +81,7 @@ class Scholarship(Document):
 
     @staticmethod
     def create(item):
+        item = item.copy()
         item_id = item.pop('id')
         scholarship = Scholarship(meta={'id': item_id}, **item)
         scholarship.save()

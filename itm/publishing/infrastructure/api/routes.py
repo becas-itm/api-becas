@@ -126,7 +126,8 @@ def create(item: Item):
     except ScholarshipError as error:
         raise BadRequest(error.code)
     else:
-        StoreScholarshipOnCreated.handle(event)
+        scholarship_id = StoreScholarshipOnCreated.handle(event)
+        return {'id': scholarship_id}
 
 
 class UpdateItem(BaseModel):
