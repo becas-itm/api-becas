@@ -18,6 +18,7 @@ class ScholarshipRepository:
                 'academicLevel',
                 'country.code',
                 'fundingType',
+                'language',
             ],
         )
 

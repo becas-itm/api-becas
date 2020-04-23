@@ -136,6 +136,7 @@ class UpdateItem(BaseModel):
     academicLevel: str = None
     fundingType: str = None
     country: str = None
+    language: str = None
 
 
 @router.put('/{scholarship_id}/', status_code=status.HTTP_204_NO_CONTENT)

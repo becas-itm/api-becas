@@ -119,6 +119,9 @@ class Scholarship:
         if 'fundingType' in fields:
             self.funding_type = FundingType(fields['fundingType'])
 
+        if 'language' in fields:
+            self.language = Language(fields['language'])
+
         return PendingEdited.fire(scholarship_id=self.id.value,
                                   is_complete=self.is_complete,
                                   fields=fields)
@@ -134,6 +137,7 @@ class Scholarship:
             academic_level=AcademicLevel(doc['academicLevel']) if 'academicLevel' in doc else None,
             country=Country(doc['country']['code']) if 'country' in doc else None,
             funding_type=FundingType(doc['fundingType']) if 'fundingType' in doc else None,
+            language=Language(doc['language']) if 'language' in doc else None,
         )
 
 
