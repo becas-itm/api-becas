@@ -53,6 +53,7 @@ def pending_detail(scholarship_id):
             'sourceDetails.url',
             'sourceDetails.id',
             'fillStatus',
+            'language',
         ],
     )
 
