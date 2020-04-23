@@ -49,6 +49,7 @@ class StoreScholarshipOnCreated:
     def handle(event: ScholarshipCreated):
         fields = event.fields.copy()
         fields['country'] = UpdateDraft._country(fields.pop('country'))
+        fields['fillStatus'] = UpdateDraft._fill_status(event.is_complete)
         fields['createdAt'] = event.timestamp
         Scholarship.create(fields)
 

@@ -35,10 +35,11 @@ class PendingEdited:
 
 
 class ScholarshipCreated:
-    def __init__(self, fields, timestamp):
+    def __init__(self, fields, is_complete, timestamp):
         self.fields = fields
+        self.is_complete = is_complete
         self.timestamp = timestamp
 
     @classmethod
-    def fire(cls, fields):
-        return cls(fields, datetime.utcnow())
+    def fire(cls, fields, is_complete):
+        return cls(fields, is_complete, datetime.utcnow())

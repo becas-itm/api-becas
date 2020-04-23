@@ -95,7 +95,7 @@ class Scholarship:
             'fullName': 'Instituto Tecnológico Metropolitano',
         }
 
-        return ScholarshipCreated.fire(fields)
+        return ScholarshipCreated.fire(fields, scholarship.is_complete)
 
     def edit_draft(self, fields):
         if self.state != State.PENDING:
