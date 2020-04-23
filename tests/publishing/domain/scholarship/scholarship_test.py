@@ -15,13 +15,15 @@ from itm.publishing.domain.scholarship import (
     AcademicLevel,
     Country,
     FundingType,
+    Language,
 )
 
 
 def get_scholarship(id=None, name='foo', description='bar',
                     state=State.PENDING, deadline='9999-01-01',
                     academic_level=AcademicLevel.UNDERGRADUATE,
-                    country='COL', funding_type=FundingType.COMPLETE):
+                    country='COL', funding_type=FundingType.COMPLETE,
+                    language='es'):
     return Scholarship(
         id=Id.from_string(id) if id else Id.generate(),
         name=Name(name),
@@ -31,11 +33,13 @@ def get_scholarship(id=None, name='foo', description='bar',
         academic_level=academic_level,
         country=Country(country) if country else None,
         funding_type=funding_type,
+        language=Language(language) if language else None,
     )
 
 
 class TestApproveScholarship:
-    @pytest.mark.parametrize('field', ['description', 'academic_level', 'country', 'funding_type'])
+    @pytest.mark.parametrize('field', ['description', 'academic_level', 'country', 'funding_type',
+                                       'language'])
     def test_missing_field_should_throw(self, field):
         scholarship = get_scholarship(**{field: None})
         with pytest.raises(IncompleteError):

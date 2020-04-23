@@ -17,6 +17,7 @@ class Scholarship:
         academic_level=None,
         country=None,
         funding_type=None,
+        language=None,
     ):
         self.id = id
         self.name = name
@@ -26,6 +27,7 @@ class Scholarship:
         self.academic_level = academic_level
         self.country = country
         self.funding_type = funding_type
+        self.language = language
 
     def approve(self):
         self._check_for_approval()
@@ -44,7 +46,8 @@ class Scholarship:
 
     @property
     def is_complete(self):
-        fields = [self.description, self.academic_level, self.country, self.funding_type]
+        fields = [self.description, self.academic_level,
+                  self.country, self.funding_type, self.language]
         for field in fields:
             if field is None:
                 return False
@@ -247,3 +250,7 @@ class FillStatus(str, enum.Enum):
     COMPLETE = 'COMPLETE'
 
     INCOMPLETE = 'INCOMPLETE'
+
+
+class Language(StringValueObject):
+    MAX_CHARACTERS = 2
