@@ -41,4 +41,3 @@ class TooManyRequests(HTTPException):
 
     def __init__(self, detail=None, headers=None):
         super().__init__(self.code, detail, headers)
-

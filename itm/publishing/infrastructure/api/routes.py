@@ -16,7 +16,7 @@ from itm.shared.http import NotFound, Forbidden, BadRequest
 from itm.shared.domain.errors import EntityNotFoundError
 
 from ..projections import UpdateDraft, PublishScholarshipOnApproved, ArchiveScholarshipOnDenied,\
-     StoreScholarshipOnCreated
+    StoreScholarshipOnCreated
 
 router = APIRouter()
 
