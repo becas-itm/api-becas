@@ -6,7 +6,7 @@ from pytest_elasticsearch import factories
 
 from elasticsearch_dsl.connections import add_connection
 
-from main import app
+from app import app
 
 from itm.auth.token import TokenService
 
