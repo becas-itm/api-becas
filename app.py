@@ -1,5 +1,3 @@
-import os
-
 from fastapi import FastAPI, Depends
 
 from itm.shared.utils.auth import verify_token
