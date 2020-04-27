@@ -109,16 +109,17 @@ def deny(scholarship_id, data: DenyItem):
 
 class Item(BaseModel):
     name: str = None
-    description: str = None
-    deadline: str = None
-    academicLevel: str = None
-    fundingType: str = None
+    description: str = ''
+    deadline: str = ''
+    academicLevel: str = ''
+    fundingType: str = ''
     country: str = None
-    language: str = None
+    language: str = ''
 
 
 @router.post('/')
 def create(item: Item):
+
     command = CreateScholarship(item.dict())
 
     try:
