@@ -1,15 +1,6 @@
 import pytest
 
-from fastapi.testclient import TestClient
-
-from main import app
-
 from itm.documents import Scholarship
-
-
-@pytest.fixture(scope='module')
-def api():
-    return TestClient(app)
 
 
 @pytest.fixture(autouse=True)
@@ -19,7 +10,7 @@ def scholarships_index():
 
 class TestSuccessfullRequest:
     @pytest.fixture(autouse=True)
-    def response(self, api: app):
+    def response(self, api):
         return api.post('/api/publishing/scholarships/', json={
             'name': 'foo',
             'description': 'bar',
