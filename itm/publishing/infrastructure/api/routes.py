@@ -6,7 +6,7 @@ from itm.documents import Scholarship
 from itm.publishing.domain.scholarship import State, ScholarshipError
 from itm.publishing.infrastructure.repository import ScholarshipRepository
 from itm.publishing.application import ApproveScholarship, DenyScholarship, EditDraft, \
-    CreateScholarship
+    CreateScholarship, CreateScholarshipRequest
 
 from itm.search.search import SearchBuilder
 from itm.search.service import SearchService
@@ -107,20 +107,9 @@ def deny(scholarship_id, data: DenyItem):
         ArchiveScholarshipOnDenied.handle(event)
 
 
-class Item(BaseModel):
-    name: str = None
-    description: str = ''
-    deadline: str = ''
-    academicLevel: str = ''
-    fundingType: str = ''
-    country: str = None
-    language: str = ''
-
-
 @router.post('/')
-def create(item: Item):
-
-    command = CreateScholarship(item.dict())
+def create(item: CreateScholarshipRequest):
+    command = CreateScholarship(item)
 
     try:
         event = command.execute()
