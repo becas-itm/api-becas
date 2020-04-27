@@ -1,3 +1,4 @@
+from pydantic import BaseModel
 from itm.publishing.domain.scholarship import Scholarship
 
 
@@ -22,6 +23,16 @@ class DenyScholarship:
         return self.repository \
             .get_by_id(self.id) \
             .deny(self.reason)
+
+
+class CreateScholarshipRequest(BaseModel):
+    name: str = None
+    description: str = None
+    deadline: str = None
+    academicLevel: str = None
+    fundingType: str = None
+    country: str = None
+    language: str = None
 
 
 class CreateScholarship:
