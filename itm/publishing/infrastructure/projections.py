@@ -48,6 +48,10 @@ class StoreScholarshipOnCreated:
     @staticmethod
     def handle(event: ScholarshipCreated):
         fields = event.fields.copy()
+        fields['entity'] = {
+            'name': 'itm',
+            'fullName': 'Instituto Tecnológico Metropolitano',
+        }
         fields['country'] = UpdateDraft._country(fields.pop('country'))
         fields['fillStatus'] = UpdateDraft._fill_status(event.is_complete)
         fields['createdAt'] = event.timestamp

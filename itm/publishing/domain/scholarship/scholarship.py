@@ -70,30 +70,47 @@ class Scholarship:
         return ScholarshipDenied.fire(self.id.value, DenialReason(reason).value)
 
     @classmethod
-    def create(cls, fields: dict):
+    def create(cls, data):
         scholarship = cls(
             Id.generate(),
-            name=Name(fields.get('name')),
-            description=Description(fields.get('description')),
+            name=Name(data.name) if data.name else None,
+            description=Description(data.description) if data.description else None,
             state=State.PENDING,
-            deadline=Date.from_string(fields.get('deadline')),
-            academic_level=AcademicLevel(fields.get('academicLevel')),
-            country=Country(fields.get('country')),
-            funding_type=FundingType(fields.get('fundingType')),
-            language=Language(fields.get('language')),
+            deadline=Date.from_string(data.deadline) if data.deadline else None,
+            academic_level=AcademicLevel(data.academicLevel) if data.academicLevel else None,
+            country=Country(data.country) if data.country else None,
+            funding_type=FundingType(data.fundingType) if data.fundingType else None,
+            language=Language(data.language) if data.language else None,
         )
 
         if scholarship.has_passed:
             raise ExpiredError(scholarship.id)
 
-        fields = fields.copy()
-        fields['id'] = scholarship.id.value
-        fields['state'] = scholarship.state.value
-
-        fields['entity'] = {
-            'name': 'itm',
-            'fullName': 'Instituto Tecnológico Metropolitano',
+        fields = {
+            'id': scholarship.id.value,
+            'state': scholarship.state.value,
         }
+
+        if scholarship.name:
+            fields['name'] = scholarship.name.value
+
+        if scholarship.description:
+            fields['description'] = scholarship.description.value
+
+        if scholarship.deadline:
+            fields['deadline'] = scholarship.deadline.value
+
+        if scholarship.academic_level:
+            fields['academicLevel'] = scholarship.academic_level.value
+
+        if scholarship.funding_type:
+            fields['fundingType'] = scholarship.funding_type.value
+
+        if scholarship.country:
+            fields['country'] = scholarship.country.value
+
+        if scholarship.language:
+            fields['language'] = scholarship.language.value
 
         return ScholarshipCreated.fire(fields, scholarship.is_complete)
 
