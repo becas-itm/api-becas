@@ -12,7 +12,7 @@ class TokenService:
     def encode(payload: dict, expiration: dict):
         payload = payload.copy()
         payload['exp'] = datetime.datetime.utcnow() + datetime.timedelta(**expiration)
-        encoded = jwt.encode(payload, os.getenv('APP_SECRET', 'secret'))
+        encoded = jwt.encode(payload, os.getenv('APP_SECRET', 'secret'), algorithm='HS256')
         return encoded.decode('utf8')
 
 
