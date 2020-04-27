@@ -66,7 +66,8 @@ class ResetPasswordTemplate(BaseTemplate):
         data.title = 'Restablecimiento de contraseña'
         data.body = (
             'Visita el siguiente enlace para restablecer la contraseña de Convocatorias ITM.'
-            ' Si no solicitaste el restablecimiento de tu contraseña, puedes ignorar este correo electrónico.'
+            ' Si no solicitaste el restablecimiento de tu contraseña, puedes ignorar este'
+            ' correo electrónico.'
         )
 
         data.button_link = self.build_link()
