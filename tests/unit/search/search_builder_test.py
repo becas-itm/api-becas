@@ -1,7 +1,7 @@
 import pytest
 
 from itm.publishing.domain.scholarship import AcademicLevel
-from itm.search.search import SearchBuilder, AcademicLevelFilter, SourceField, SizeParam, SkipParam
+from itm.search.search import SearchBuilder, AcademicLevelFilter, SourceField
 
 
 @pytest.fixture
@@ -47,3 +47,37 @@ class TestAcademicLevelFilter:
 
     def test_build_should_return_values(self, levels):
         assert levels.build() == {levels.name: levels.values}
+
+
+class TestSourceField:
+    @pytest.fixture()
+    def fields(self):
+        return SourceField()
+
+    def test_field_name(self, fields):
+        assert fields.name == '_source'
+
+    def test_single_field_is_list(self, fields):
+        fields.add('foo')
+        assert fields.fields == ['foo']
+
+    def test_list_fields(self, fields):
+        fields.add('bar', 'foo')
+        assert fields.fields == ['bar', 'foo']
+
+    def test_list_fields_are_sorted(self, fields):
+        fields.add('z', 'a')
+        assert fields.fields == ['a', 'z']
+
+    def test_empty_list_should_do_nothing(self, fields):
+        fields.add()
+        assert fields.fields == []
+
+    def test_repeated_fields(self, fields):
+        fields.add('foo', 'foo')
+        assert fields.fields == ['foo']
+
+    def test_repeated_fields_after_multiple_calls(self, fields):
+        fields.add('foo')
+        fields.add('foo', 'bar')
+        assert fields.fields == ['bar', 'foo']

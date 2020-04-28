@@ -101,3 +101,20 @@ class AcademicLevelFilter:
 
     def build(self):
         return {self.name: self.values}
+
+
+class SourceField:
+    name = '_source'
+
+    def __init__(self):
+        self.all_fields = set()
+
+    def add(self, *fields):
+        if not fields:
+            return
+
+        self.all_fields = self.all_fields.union(fields)
+
+    @property
+    def fields(self):
+        return sorted(self.all_fields)
