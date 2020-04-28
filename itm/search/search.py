@@ -81,3 +81,23 @@ class SearchBuilder:
             self.body['query']['bool'][bool_type] = []
 
         self.body['query']['bool'][bool_type].append(query)
+
+
+class AcademicLevelFilter:
+    name = 'academicLevel'
+
+    def __init__(self):
+        self.values = []
+
+    def add(self, *levels):
+        if self.should_append_both_level(levels):
+            levels = [*levels, AcademicLevel.BOTH.value]
+
+        self.values += levels
+
+    def should_append_both_level(self, levels=[]):
+        return AcademicLevel.UNDERGRADUATE.value in levels \
+            or AcademicLevel.POSTGRADUATE.value in levels
+
+    def build(self):
+        return {self.name: self.values}
