@@ -40,6 +40,11 @@ class TestAcademicLevelFilter:
         levels.add()
         assert levels.values == []
 
+    @pytest.mark.parametrize('level', list(AcademicLevel))
+    def test_works_with_academic_levels(self, levels, level):
+        levels.add(level)
+        assert level.value in levels.values
+
     @pytest.mark.parametrize('level', [AcademicLevel.UNDERGRADUATE, AcademicLevel.POSTGRADUATE])
     def test_add_appends_both_level_when_undergraduate_or_postgraduate(self, levels, level):
         levels.add(level.value)

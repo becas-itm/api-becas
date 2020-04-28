@@ -90,14 +90,20 @@ class AcademicLevelFilter:
         self.values = []
 
     def add(self, *levels):
-        if self.should_append_both_level(levels):
-            levels = [*levels, AcademicLevel.BOTH.value]
+        for level in levels:
+            if isinstance(level, AcademicLevel):
+                level = level.value
 
-        self.values += levels
+            self.values.append(level)
 
-    def should_append_both_level(self, levels=[]):
-        return AcademicLevel.UNDERGRADUATE.value in levels \
-            or AcademicLevel.POSTGRADUATE.value in levels
+            if self.should_append_both_level(level):
+                self.values.append(AcademicLevel.BOTH.value)
+
+    def should_append_both_level(self, level):
+        return level in [
+            AcademicLevel.UNDERGRADUATE.value,
+            AcademicLevel.POSTGRADUATE.value,
+        ] and AcademicLevel.BOTH.value not in self.values
 
     def build(self):
         return {self.name: self.values}
