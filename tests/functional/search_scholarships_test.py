@@ -8,65 +8,82 @@ def scholarships_index():
     Scholarship.init()
 
 
-def test_endpoint_status(api):
-    response = api.get('/api/search/scholarships')
-    assert response.status_code == 200
+class TestEmptySearchResults:
+    @pytest.fixture(autouse=True)
+    def response(self, api):
+        return api.get('/api/search/scholarships/')
+
+    def test_status_code_should_be_200(self, response):
+        assert response.status_code == 200
+
+    def test_pagination(self, response):
+        body = response.json()
+
+        assert 'currentPage' in body
+        assert isinstance(body['currentPage'], int)
+
+        assert 'nextPage' in body
+        assert 'prevPage' in body
+
+    def test_results_should_be_empty(self, response):
+        result = response.json()
+        assert 'results' in result
+        assert isinstance(result['results'], list)
 
 
-def test_result_structure(api):
-    response = api.get('/api/search/scholarships')
-    body = response.json()
+class TestSearchResults:
+    def test_scholarship_response(self, api):
+        Scholarship.create({
+            'id': 'id-test',
+            'name': 'name-test',
+            'description': 'description-test',
+            'deadline': '2099-01-01',
+            'state': 'PUBLISHED',
+            'entity': {
+                'name': 'entity-name-test',
+                'fullName': 'entity-fullName-test',
+            },
+            'createdAt': '2020-01-01',
+        })
+        response = api.get('/api/search/scholarships/')
+        result = response.json()
+        scholarship = result['results'][0]
 
-    # Asserting first level of request
+        assert isinstance(scholarship, dict)
 
-    # Current page would be an integer
-    assert 'currentPage' in body
-    assert isinstance(body['currentPage'], int)
+        assert 'id' in scholarship
+        assert scholarship['id'] == 'id-test'
 
-    assert 'nextPage' in body
-    assert 'prevPage' in body
+        assert 'name' in scholarship
+        assert scholarship['name'] == 'name-test'
 
-    # results should be a list
-    assert "results" in body
-    assert isinstance(body['results'], list)
+        assert 'description' in scholarship
+        assert scholarship['description'] == 'description-test'
 
-# # TODO: Populate
-# def test_search_result(api):
-#     response = api.get("/api/search/scholarships")
-#     body = response.json()
+        assert 'deadline' in scholarship
+        assert scholarship['deadline'] == '2099-01-01T00:00:00'
 
-#     # result should be a dict
-#     result = body['results'][0]
-#     assert isinstance(result, dict)
+        assert isinstance(scholarship.get('entity'), dict)
+        assert {
+            'name': 'entity-name-test',
+            'fullName': 'entity-fullName-test',
+        }.items() <= scholarship['entity'].items()
 
-#     # deadline should be a str with iso format
-#     assert 'deadline' in result
-#     assert isinstance(result['deadline'], str)
-#     date = Date.from_string(result['deadline'])
-#     assert isinstance(date, Date)
+    def test_pending_scholarships_are_not_listed(self, api):
+        pending_state = 'PENDING'
+        Scholarship.create({
+            'id': 'id-test',
+            'name': 'name-test',
+            'description': 'description-test',
+            'deadline': '2099-01-01',
+            'state': pending_state,
+            'entity': {
+                'name': 'entity-name-test',
+                'fullName': 'entity-fullName-test',
+            },
+            'createdAt': '2020-01-01',
+        })
 
-#     # description should be a string
-#     assert 'description' in result
-#     assert isinstance(result['description'], str)
-
-#     # id should be a string
-#     assert 'id' in result
-#     assert isinstance(result['id'], str)
-
-#     # id should be a string
-#     assert 'name' in result
-#     assert isinstance(result['name'], str)
-
-#     # entity should be a dict
-#     assert 'entity' in result
-#     assert isinstance(result['entity'], dict)
-
-#     # Asserting entity structure
-#     entity = result['entity']
-
-#     # id should be a string
-#     assert 'fullName' in entity
-#     assert isinstance(entity['fullName'], str)
-
-#     assert 'name' in entity
-#     assert isinstance(result['name'], str)
+        response = api.get('/api/search/scholarships/')
+        result = response.json()
+        assert result['results'] == []

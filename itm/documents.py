@@ -84,7 +84,7 @@ class Scholarship(Document):
         item = item.copy()
         item_id = item.pop('id')
         scholarship = Scholarship(meta={'id': item_id}, **item)
-        scholarship.save()
+        scholarship.save(refresh=True)
 
 
 class RawScholarship(Document):
