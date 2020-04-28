@@ -35,8 +35,7 @@ def index(page: int = Query(1, ge=1),
         .select(['name', 'description', 'deadline', 'entity.name', 'entity.fullName'])
 
     if len(academicLevel) > 0:
-        academicLevel = academicLevel[:3]
-        builder.with_academic_level(list(map(lambda level: level.value, academicLevel)))
+        builder.with_academic_level(academicLevel)
 
     if len(fundingType) > 0:
         fundingType = fundingType[:3]
