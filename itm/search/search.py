@@ -34,15 +34,10 @@ class SearchBuilder:
         self.body['from'] = value
         return self
 
-    def with_academic_level(self, level):
-        if type(level) is str:
-            level = [level]
-
-        if AcademicLevel.UNDERGRADUATE.value in level or AcademicLevel.POSTGRADUATE.value in level:
-            level = level.copy()
-            level.append(AcademicLevel.BOTH.value)
-
-        self._must({'terms': {'academicLevel': level}})
+    def with_academic_level(self, levels):
+        filter = AcademicLevelFilter()
+        filter.add(*levels)
+        self._must({'terms': filter.build()})
         return self
 
     def with_funding_type(self, type):
