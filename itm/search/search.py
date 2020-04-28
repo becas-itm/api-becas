@@ -1,4 +1,4 @@
-from itm.publishing.domain.scholarship import AcademicLevel
+from itm.publishing.domain.scholarship import AcademicLevel, FundingType
 
 
 class SearchBuilder:
@@ -40,8 +40,13 @@ class SearchBuilder:
         self._must({'terms': filter.build()})
         return self
 
-    def with_funding_type(self, type):
-        self._must({'terms': {'fundingType': type}})
+    def with_funding_type(self, types):
+        funding_types = []
+        for funding in types:
+            if isinstance(funding, FundingType):
+                funding = funding.value
+            funding_types.append(funding)
+        self._must({'terms': {'fundingType': funding_types}})
         return self
 
     def with_country(self, country):
