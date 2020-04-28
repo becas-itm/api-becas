@@ -38,8 +38,7 @@ def index(page: int = Query(1, ge=1),
         builder.with_academic_level(academicLevel)
 
     if len(fundingType) > 0:
-        fundingType = fundingType[:3]
-        builder.with_funding_type(list(map(lambda type: type.value, fundingType)))
+        builder.with_funding_type(fundingType)
 
     return paginator.paginate(SearchService.execute(builder))
 
