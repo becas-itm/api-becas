@@ -1,7 +1,7 @@
 import pytest
 
 from itm.publishing.domain.scholarship import AcademicLevel
-from itm.search.search import SearchBuilder, AcademicLevelFilter, SourceField
+from itm.search.search import SearchBuilder, AcademicLevelFilter, SourceField, SizeParam, SkipParam
 
 
 @pytest.fixture
@@ -81,3 +81,53 @@ class TestSourceField:
         fields.add('foo')
         fields.add('foo', 'bar')
         assert fields.fields == ['bar', 'foo']
+
+
+class TestSizeParam:
+    @pytest.fixture
+    def size(self):
+        return SizeParam()
+
+    def test_default_value_should_be_10(self, size):
+        assert size.value == 10
+
+    def test_value_should_be_an_integer(self, size):
+        with pytest.raises(TypeError):
+            size.change_to('50')
+
+    @pytest.mark.parametrize('value', [0, -1])
+    def test_value_should_be_positive(self, size, value):
+        with pytest.raises(ValueError):
+            size.change_to(value)
+
+    def test_change_to_changes_value(self, size):
+        size.change_to(20)
+        assert size.value == 20
+
+    def test_field_name(self, size):
+        assert size.name == 'size'
+
+
+class TestSkipParam:
+    @pytest.fixture
+    def skip(self):
+        return SkipParam()
+
+    def test_default_value_should_be_0(self, skip):
+        assert skip.value == 0
+
+    def test_value_should_be_an_integer(self, skip):
+        with pytest.raises(TypeError):
+            skip.change_to('50')
+
+    @pytest.mark.parametrize('value', [-1])
+    def test_value_should_not_be_negative(self, skip, value):
+        with pytest.raises(ValueError):
+            skip.change_to(value)
+
+    def test_change_to_changes_value(self, skip):
+        skip.change_to(20)
+        assert skip.value == 20
+
+    def test_field_name(self, skip):
+        assert skip.name == 'from'

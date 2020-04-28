@@ -118,3 +118,39 @@ class SourceField:
     @property
     def fields(self):
         return sorted(self.all_fields)
+
+
+class SizeParam:
+    name = 'size'
+
+    DEFAULT_VALUE = 10
+
+    def __init__(self):
+        self.value = SizeParam.DEFAULT_VALUE
+
+    def change_to(self, value):
+        if type(value) is not int:
+            raise TypeError('Invalid size value')
+
+        if value <= 0:
+            raise ValueError('Invalid size value')
+
+        self.value = value
+
+
+class SkipParam:
+    name = 'from'
+
+    DEFAULT_VALUE = 0
+
+    def __init__(self):
+        self.value = SkipParam.DEFAULT_VALUE
+
+    def change_to(self, value):
+        if type(value) is not int:
+            raise TypeError('Invalid skip value')
+
+        if value < 0:
+            raise ValueError('Invalid skip value')
+
+        self.value = value
