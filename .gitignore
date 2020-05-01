@@ -116,3 +116,5 @@ db.sqlite3
 # IDEs
 .vscode/
 .idea/
+
+scraper/cache/scholarship_items.cache
