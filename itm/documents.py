@@ -74,6 +74,8 @@ class Scholarship(Document):
 
     fillStatus = Keyword()
 
+    archivedAt = Date()
+
     def serialize(self):
         doc = self.to_dict()
         doc.update({'id': self.id})
