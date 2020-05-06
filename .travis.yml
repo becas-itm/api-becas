@@ -22,4 +22,4 @@ install:
 script:
   - flake8 etl itm scraper tests main.py app.py
   - pytest tests/unit
-  - pytest tests/functional
+  - pytest tests/integration
