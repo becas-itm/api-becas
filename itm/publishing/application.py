@@ -53,3 +53,14 @@ class EditDraft:
         return self.repository \
             .get_by_id(self.id) \
             .edit_draft(self.fields)
+
+
+class ArchiveScholarship:
+    def __init__(self, repository, id):
+        self.repository = repository
+        self.id = id
+
+    def execute(self):
+        return self.repository \
+            .get_by_id_for_archive(self.id) \
+            .archive()

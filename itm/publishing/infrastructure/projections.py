@@ -72,3 +72,15 @@ class ArchiveScholarshipOnDenied:
                 'deniedAt': event.timestamp,
             },
         )
+
+
+class UpdateScholarshipOnArchived:
+    @staticmethod
+    def handle(event: ScholarshipApproved):
+        scholarship = Scholarship.get(event.scholarship_id)
+
+        scholarship.update(
+            refresh=True,
+            state=State.ARCHIVED.value,
+            archive={'archivedAt': event.timestamp},
+        )
