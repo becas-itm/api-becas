@@ -29,7 +29,6 @@ class Scholarship(Document):
     academicLevel = Keyword()
 
     entity = Object(
-        required=True,
         properties={
             'name': Keyword(required=True),
             'fullName': Text(required=True),
