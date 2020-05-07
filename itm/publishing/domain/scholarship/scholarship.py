@@ -166,6 +166,8 @@ class State(str, enum.Enum):
 
     DENIED = 'DENIED'
 
+    ARCHIVED = 'ARCHIVED'
+
 
 class Id:
     UUID_VERSION = 4

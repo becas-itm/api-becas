@@ -11,3 +11,7 @@ def test_published_value():
 
 def test_denied_value():
     assert State.DENIED.value == 'DENIED'
+
+
+def test_archived_value():
+    assert State.ARCHIVED.value == 'ARCHIVED'
