@@ -6,6 +6,8 @@ from itm.publishing.domain.scholarship import State, \
     ScholarshipDenied, \
     ScholarshipCreated
 
+from itm.publishing.domain.archive import ScholarshipArchived
+
 from itm.shared.utils.countries import get_country_name
 
 
@@ -76,7 +78,7 @@ class ArchiveScholarshipOnDenied:
 
 class UpdateScholarshipOnArchived:
     @staticmethod
-    def handle(event: ScholarshipApproved):
+    def handle(event: ScholarshipArchived):
         scholarship = Scholarship.get(event.scholarship_id)
 
         scholarship.update(
