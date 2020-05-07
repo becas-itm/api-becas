@@ -74,7 +74,11 @@ class Scholarship(Document):
 
     fillStatus = Keyword()
 
-    archivedAt = Date()
+    archive = Object(
+        properties={
+            'archivedAt': Date(required=True),
+        },
+    )
 
     def serialize(self):
         doc = self.to_dict()
