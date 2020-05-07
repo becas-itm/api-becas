@@ -22,14 +22,23 @@ router = APIRouter()
 
 
 @router.get('/')
-def list_pendings(page: int = Query(1, ge=1)):
+def search(page: int = Query(1, ge=1), state: str = State.PENDING.value):
     paginator = SimplePaginator(page)
 
     builder = SearchBuilder() \
         .size(paginator.per_page) \
         .skip(paginator.skip) \
-        .with_state(State.PENDING.value) \
-        .select(['name', 'deadline', 'entity.name', 'entity.fullName', 'fillStatus'])
+        .with_state(state) \
+        .select([
+            'name',
+            'deadline',
+            'entity.name',
+            'entity.fullName',
+            'fillStatus',
+            'archive.archivedAt',
+            'denial.deniedAt',
+            'denial.reason',
+        ])
 
     return paginator.paginate(SearchService.execute(builder))
 
