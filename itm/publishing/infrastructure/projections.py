@@ -86,3 +86,19 @@ class UpdateScholarshipOnArchived:
             state=State.ARCHIVED.value,
             archive={'archivedAt': event.timestamp},
         )
+
+
+class UpdateScholarshipOnRestored:
+    @staticmethod
+    def handle(event: ScholarshipArchived):
+        scholarship = Scholarship.get(event.scholarship_id)
+
+        scholarship.update(
+            refresh=True,
+            state=State.PENDING.value,
+            archive={'archivedAt': None},
+            denial={
+                'reason': None,
+                'deniedAt': None,
+            },
+        )

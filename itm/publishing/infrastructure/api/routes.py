@@ -6,7 +6,7 @@ from itm.documents import Scholarship
 from itm.publishing.domain.scholarship import State, ScholarshipError
 from itm.publishing.infrastructure.repository import ScholarshipRepository
 from itm.publishing.application import ApproveScholarship, DenyScholarship, EditDraft, \
-    CreateScholarship, CreateScholarshipRequest, ArchiveScholarship
+    CreateScholarship, CreateScholarshipRequest, ArchiveScholarship, RestoreScholarship
 
 from itm.search.search import SearchBuilder
 from itm.search.service import SearchService
@@ -16,7 +16,7 @@ from itm.shared.http import NotFound, Forbidden, BadRequest
 from itm.shared.domain.errors import EntityNotFoundError
 
 from ..projections import UpdateDraft, PublishScholarshipOnApproved, ArchiveScholarshipOnDenied,\
-    StoreScholarshipOnCreated, UpdateScholarshipOnArchived
+    StoreScholarshipOnCreated, UpdateScholarshipOnArchived, UpdateScholarshipOnRestored
 
 router = APIRouter()
 
@@ -181,3 +181,20 @@ def archive(scholarship_id):
         raise Forbidden(error.code)
     else:
         UpdateScholarshipOnArchived.handle(event)
+
+
+@router.post('/{scholarship_id}/restore/', status_code=status.HTTP_204_NO_CONTENT)
+def restore(scholarship_id):
+    command = RestoreScholarship(
+        ScholarshipRepository(Scholarship),
+        scholarship_id,
+    )
+
+    try:
+        event = command.execute()
+    except EntityNotFoundError:
+        raise NotFound
+    except ScholarshipError as error:
+        raise Forbidden(error.code)
+    else:
+        UpdateScholarshipOnRestored.handle(event)

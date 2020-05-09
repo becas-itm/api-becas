@@ -1,6 +1,6 @@
 from ..scholarship import State, StateError
 
-from .events import ScholarshipArchived
+from .events import ScholarshipArchived, ScholarshipRestored
 
 
 class Scholarship:
@@ -13,3 +13,9 @@ class Scholarship:
             raise StateError(self.id)
 
         return ScholarshipArchived.fire(self.id.value)
+
+    def restore(self):
+        if self.state == State.PUBLISHED or self.state == State.PENDING:
+            raise StateError(self.id)
+
+        return ScholarshipRestored.fire(self.id.value)

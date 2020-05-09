@@ -2,7 +2,7 @@ from ..scholarship import Id
 
 from .scholarship import State, StateError, Scholarship
 
-from .events import ScholarshipArchived
+from .events import ScholarshipArchived, ScholarshipRestored
 
 
 __all__ = [
@@ -11,4 +11,5 @@ __all__ = [
     'StateError',
     'Scholarship',
     'ScholarshipArchived',
+    'ScholarshipRestored',
 ]

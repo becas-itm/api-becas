@@ -64,3 +64,14 @@ class ArchiveScholarship:
         return self.repository \
             .get_by_id_for_archive(self.id) \
             .archive()
+
+
+class RestoreScholarship:
+    def __init__(self, repository, id):
+        self.repository = repository
+        self.id = id
+
+    def execute(self):
+        return self.repository \
+            .get_by_id_for_archive(self.id) \
+            .restore()

@@ -9,3 +9,12 @@ class ScholarshipArchived:
     @classmethod
     def fire(cls, scholarship_id):
         return cls(scholarship_id, datetime.utcnow())
+
+
+class ScholarshipRestored:
+    def __init__(self, scholarship_id):
+        self.scholarship_id = scholarship_id
+
+    @classmethod
+    def fire(cls, scholarship_id):
+        return cls(scholarship_id)
