@@ -63,16 +63,15 @@ def pending_detail(scholarship_id):
             'sourceDetails.id',
             'fillStatus',
             'language',
+            'approval.approvedAt',
+            'denial.deniedAt',
+            'denial.reason',
+            'archive.archivedAt',
         ],
     )
 
     if not scholarship:
         raise NotFound
-
-    if scholarship['state'] != State.PENDING.value:
-        raise Forbidden
-    else:
-        del scholarship['state']
 
     return scholarship.serialize()
 
