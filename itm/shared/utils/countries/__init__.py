@@ -6,7 +6,7 @@ BASE_PATH = os.path.dirname(os.path.abspath(__file__))
 
 
 def load_file(filename):
-    with open(os.path.join(BASE_PATH, filename), 'r') as file:
+    with open(os.path.join(BASE_PATH, filename), encoding='utf8') as file:
         return json.loads(file.read())
 
 

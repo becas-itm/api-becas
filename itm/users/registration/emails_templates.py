@@ -26,7 +26,7 @@ class BaseTemplate:
 
     def read_template(self):
         filename = os.path.join(os.path.dirname(os.path.abspath(__file__)), self.TEMPLATE_NAME)
-        with open(filename) as file:
+        with open(filename, encoding='utf8') as file:
             return file.read()
 
     def build_data(self):
