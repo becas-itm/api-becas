@@ -1,9 +1,7 @@
-from itm.entity.domain.service import EntityService
-
-
 class CreateEntity:
-    def __init__(self, fields):
+    def __init__(self, entity_service, fields):
+        self.entity_service = entity_service
         self.fields = fields
 
     def execute(self):
-        return EntityService.create(self.fields)
+        return self.entity_service.create(self.fields.name, self.fields.website)

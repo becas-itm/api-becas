@@ -3,7 +3,10 @@ from fastapi import APIRouter
 
 from itm.entity.application import CreateEntity
 from itm.shared.http import BadRequest
-from itm.entity.domain.errors import EntityError
+
+from itm.documents import Entity
+from itm.entity.domain.service import EntityService
+from itm.entity.domain.entity.errors import EntityError
 
 router = APIRouter()
 
@@ -15,7 +18,7 @@ class CreateEntityRequest(BaseModel):
 
 @router.post('/')
 def create(item: CreateEntityRequest):
-    command = CreateEntity(item)
+    command = CreateEntity(EntityService(Entity), item)
 
     try:
         entity = command.execute()

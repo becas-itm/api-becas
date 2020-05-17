@@ -1,5 +1,7 @@
 import os
 
+from datetime import datetime
+
 from elasticsearch_dsl.connections import create_connection
 from elasticsearch_dsl import Document, Text, Date, Object, Keyword
 
@@ -102,6 +104,26 @@ class Entity(Document):
 
     name = Text(required=True)
 
+    createdAt = Date()
+
+    updatedAt = Date()
+
+    @classmethod
+    def create(cls, item):
+        item = item.copy()
+
+        item['createdAt'] = datetime.utcnow()
+        item['updatedAt'] = item['createdAt']
+
+        entity = cls(meta={'id': item['code']}, **item)
+        entity.save(refresh=True)
+        return entity
+
+    @classmethod
+    def exists(cls, code):
+        entity = cls.get(id=code, ignore=404, _source=['code'])
+        return bool(entity)
+
 
 class RawScholarship(Document):
     class Index:
@@ -196,6 +218,7 @@ def init_indexes():
     Scholarship.init()
     RawScholarship.init()
     User.init()
+    Entity.init()
 
 
 if __name__ == '__main__':
