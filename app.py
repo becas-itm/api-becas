@@ -6,7 +6,7 @@ from itm.search.routes import router as search_router
 from itm.users.auth import router as auth_router
 from itm.users.routes import router as users_router
 from itm.publishing.infrastructure.api.routes import router as publishing_router
-from itm.entity.infrastructure.api import routers as entity_router
+from itm.entity.infrastructure.api.routes import router as entity_router
 
 app = FastAPI()
 
