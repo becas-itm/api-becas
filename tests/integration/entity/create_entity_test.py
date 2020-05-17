@@ -31,3 +31,24 @@ def test_create_duplicate_entity_should_throw(api):
 
     response = api.post('/api/entities/', json=entity)
     assert response.status_code == 400
+
+
+def test_list_all_entities(api):
+    def init_entities():
+        entities = [{
+            'name': 'foo',
+            'code': 'foo',
+            'website': 'http://foo.com',
+        }, {
+            'name': 'bar',
+            'code': 'bar',
+            'website': 'http://foo.com',
+        }]
+
+        for entity in entities:
+            Entity.create(entity)
+
+    init_entities()
+    response = api.get('/api/entities/')
+
+    assert len(response.json()) == 2
