@@ -1,13 +1,13 @@
-from pydantic import BaseModel
 from fastapi import APIRouter
+from pydantic import BaseModel
 
-from itm.documents import Entity
-from itm.entity.application import CreateEntity
 from itm.shared.http import BadRequest
+from itm.entity.application import CreateEntity
 
 from itm.documents import Entity
 from itm.entity.domain.service import EntityService
 from itm.entity.domain.entity.errors import EntityError
+
 
 router = APIRouter()
 
