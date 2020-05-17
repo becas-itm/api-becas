@@ -92,6 +92,17 @@ class Scholarship(Document):
         scholarship.save(refresh=True)
 
 
+class Entity(Document):
+    class Index:
+        name = 'entities'
+
+    website = Text(required=True)
+
+    code = Keyword(required=True)
+
+    name = Text(required=True)
+
+
 class RawScholarship(Document):
     class Index:
         name = 'raw_scholarships'
