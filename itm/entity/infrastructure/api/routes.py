@@ -14,11 +14,18 @@ router = APIRouter()
 
 @router.get('/')
 def list_entities():
+    def format_entity(entity):
+        return {
+            'name': entity.name,
+            'code': entity.code,
+            'website': entity.website,
+        }
+
     entities = Entity.search() \
         .query() \
         .source(['name', 'code', 'website']) \
         .scan()
-    return entities
+    return list(map(format_entity, entities))
 
 
 class CreateEntityRequest(BaseModel):
