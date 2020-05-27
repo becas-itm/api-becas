@@ -61,6 +61,7 @@ def pending_detail(scholarship_id):
             'country.code',
             'sourceDetails.url',
             'sourceDetails.id',
+            'sourceDetails.steps',
             'fillStatus',
             'language',
             'approval.approvedAt',
@@ -136,6 +137,7 @@ class UpdateItem(BaseModel):
     fundingType: str = None
     country: str = None
     language: str = None
+    steps: str = None
 
 
 @router.put('/{scholarship_id}/', status_code=status.HTTP_204_NO_CONTENT)

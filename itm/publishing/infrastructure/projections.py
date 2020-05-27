@@ -20,6 +20,12 @@ class UpdateDraft:
         fields['fillStatus'] = UpdateDraft._fill_status(event.is_complete)
         fields['country'] = UpdateDraft._country(fields.pop('country'))
 
+        if 'steps' in fields:
+            if 'sourceDetails' in fields:
+                fields['sourceDetails']['steps'] = fields.pop('steps')
+            else:
+                fields['sourceDetails'] = {'steps': fields.pop('steps')}
+
         scholarship.update(refresh=True, **fields)
 
     @staticmethod

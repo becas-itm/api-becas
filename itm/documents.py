@@ -68,6 +68,7 @@ class Scholarship(Document):
         properties={
             'id': Text(),
             'url': Keyword(),
+            'steps': Text(),
         },
     )
 

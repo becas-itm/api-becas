@@ -33,6 +33,7 @@ class CreateScholarshipRequest(BaseModel):
     fundingType: str = None
     country: str = None
     language: str = None
+    steps: str = None
 
 
 class CreateScholarship:

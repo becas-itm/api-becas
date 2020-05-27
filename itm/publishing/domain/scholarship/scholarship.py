@@ -114,6 +114,9 @@ class Scholarship:
         if scholarship.language:
             fields['language'] = scholarship.language.value
 
+        if data.steps:
+            fields['sourceDetails'] = {'steps': data.steps}
+
         return ScholarshipCreated.fire(fields, scholarship.is_complete)
 
     def edit_draft(self, fields):
