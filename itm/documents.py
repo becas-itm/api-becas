@@ -67,7 +67,7 @@ class Scholarship(Document):
     sourceDetails = Object(
         properties={
             'id': Text(),
-            'url': Keyword(required=True),
+            'url': Keyword(),
         },
     )
 
