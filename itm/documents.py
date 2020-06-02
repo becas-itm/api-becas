@@ -121,6 +121,17 @@ class Entity(Document):
         return entity
 
     @classmethod
+    def update_entity(cls, item):
+        item = item.copy()
+
+        item['createdAt'] = datetime.utcnow()
+        item['updatedAt'] = item['createdAt']
+
+        entity = cls(meta={'id': item['code']}, **item)
+        entity.save(refresh=True)
+        return entity
+
+    @classmethod
     def exists(cls, code):
         entity = cls.get(id=code, ignore=404, _source=['code'])
         return bool(entity)

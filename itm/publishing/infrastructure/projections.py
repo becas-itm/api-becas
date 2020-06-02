@@ -1,3 +1,5 @@
+from elasticsearch_dsl import UpdateByQuery
+
 from itm.documents import Scholarship
 from itm.publishing.domain.scholarship import State, \
     FillStatus, \
@@ -6,8 +8,8 @@ from itm.publishing.domain.scholarship import State, \
     ScholarshipDenied, \
     ScholarshipCreated
 
-from itm.publishing.domain.archive import ScholarshipArchived
-
+from itm.publishing.domain.archive import ScholarshipArchived, ScholarshipRestored
+from itm.entity.domain.entity import EntityUpdated
 from itm.shared.utils.countries import get_country_name
 
 
@@ -96,7 +98,7 @@ class UpdateScholarshipOnArchived:
 
 class UpdateScholarshipOnRestored:
     @staticmethod
-    def handle(event: ScholarshipArchived):
+    def handle(event: ScholarshipRestored):
         scholarship = Scholarship.get(event.scholarship_id)
 
         scholarship.update(
@@ -108,3 +110,13 @@ class UpdateScholarshipOnRestored:
                 'deniedAt': None,
             },
         )
+
+
+class UpdateScholarshipsOnEntityEdited:
+    @staticmethod
+    def handle(event: EntityUpdated):
+        UpdateByQuery(index=Scholarship.Index.name) \
+            .query("match", **{"entity.name": event.old_code}) \
+            .script(source=f"ctx._source.entity.name = '{event.code}'; \
+                    ctx._source.entity.fullName = '{event.name}'", lang="painless") \
+            .execute()

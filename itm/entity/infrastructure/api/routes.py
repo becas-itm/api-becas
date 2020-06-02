@@ -1,13 +1,15 @@
-from fastapi import APIRouter
 from pydantic import BaseModel
+from fastapi import APIRouter
 
-from itm.shared.http import BadRequest
-from itm.entity.application import CreateEntity
-
+from itm.entity.application import CreateEntity, UpdateEntity
+from itm.shared.http import BadRequest, NotFound
+from itm.shared.domain.errors import EntityNotFoundError
+from itm.publishing.infrastructure.projections import UpdateScholarshipsOnEntityEdited
 from itm.documents import Entity
 from itm.entity.domain.service import EntityService
 from itm.entity.domain.entity.errors import EntityError
 
+from ..projections import UpdateEntityOnEdit
 
 router = APIRouter()
 
@@ -28,13 +30,13 @@ def list_entities():
     return list(map(format_entity, entities))
 
 
-class CreateEntityRequest(BaseModel):
+class EntityRequest(BaseModel):
     name: str = None
     website: str = None
 
 
 @router.post('/')
-def create(item: CreateEntityRequest):
+def create(item: EntityRequest):
     command = CreateEntity(EntityService(Entity), item)
 
     try:
@@ -43,3 +45,27 @@ def create(item: CreateEntityRequest):
         raise BadRequest(error.code)
     else:
         return entity
+
+
+class EditEntityRequest(BaseModel):
+    name: str = None
+    website: str = None
+    entity_code: str = ''
+
+
+@router.put('/{entity_code}/')
+def edit_entity(entity_code, item: EditEntityRequest):
+    item.entity_code = entity_code
+    command = UpdateEntity(EntityService(Entity), item)
+
+    try:
+        event = command.execute()
+    except EntityError as error:
+        raise BadRequest(error.code)
+    except EntityNotFoundError:
+        raise NotFound
+    else:
+        new_entity = UpdateEntityOnEdit.handle(event)
+        UpdateScholarshipsOnEntityEdited.handle(event)
+
+        return new_entity
