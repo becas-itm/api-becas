@@ -138,6 +138,7 @@ class UpdateItem(BaseModel):
     country: str = None
     language: str = None
     steps: str = None
+    entity: str = None
 
 
 @router.put('/{scholarship_id}/', status_code=status.HTTP_204_NO_CONTENT)

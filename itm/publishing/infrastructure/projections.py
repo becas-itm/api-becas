@@ -1,6 +1,6 @@
 from elasticsearch_dsl import UpdateByQuery
 
-from itm.documents import Scholarship
+from itm.documents import Scholarship, Entity
 from itm.publishing.domain.scholarship import State, \
     FillStatus, \
     PendingEdited, \
@@ -28,6 +28,9 @@ class UpdateDraft:
             else:
                 fields['sourceDetails'] = {'steps': fields.pop('steps')}
 
+        if 'entity' in fields:
+            fields['entity'] = UpdateDraft._entity(fields.pop('entity'))
+
         scholarship.update(refresh=True, **fields)
 
     @staticmethod
@@ -40,6 +43,11 @@ class UpdateDraft:
             'code': code,
             'name': get_country_name(code),
         }
+
+    @staticmethod
+    def _entity(code):
+        entity = Entity.get(code, _source=['name'])
+        return {'code': code, 'fullName': entity.name}
 
 
 class PublishScholarshipOnApproved:
