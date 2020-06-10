@@ -32,8 +32,8 @@ class Scholarship(Document):
 
     entity = Object(
         properties={
-            'name': Keyword(required=True),
-            'fullName': Text(required=True),
+            'code': Keyword(required=True),
+            'name': Text(required=True),
         },
     )
 

@@ -47,7 +47,7 @@ class UpdateDraft:
     @staticmethod
     def _entity(code):
         entity = Entity.get(code, _source=['name'])
-        return {'code': code, 'fullName': entity.name}
+        return {'code': code, 'name': entity.name}
 
 
 class PublishScholarshipOnApproved:
@@ -66,15 +66,20 @@ class StoreScholarshipOnCreated:
     @staticmethod
     def handle(event: ScholarshipCreated):
         fields = event.fields.copy()
-        fields['entity'] = {
-            'name': 'itm',
-            'fullName': 'Instituto Tecnológico Metropolitano',
-        }
+
+        if 'entity' in fields:
+            fields['entity'] = UpdateDraft._entity(fields['entity'])
+
         fields['country'] = UpdateDraft._country(fields.pop('country'))
         fields['fillStatus'] = UpdateDraft._fill_status(event.is_complete)
         fields['createdAt'] = event.timestamp
         Scholarship.create(fields)
         return fields['id']
+
+    @staticmethod
+    def _entity(code):
+        entity = Entity.get(code, _source=['name'])
+        return {'code': code, 'name': entity.name}
 
 
 class ArchiveScholarshipOnDenied:
@@ -125,6 +130,6 @@ class UpdateScholarshipsOnEntityEdited:
     def handle(event: EntityUpdated):
         UpdateByQuery(index=Scholarship.Index.name) \
             .query("match", **{"entity.name": event.old_code}) \
-            .script(source=f"ctx._source.entity.name = '{event.code}'; \
-                    ctx._source.entity.fullName = '{event.name}'", lang="painless") \
+            .script(source=f"ctx._source.entity.code = '{event.code}'; \
+                    ctx._source.entity.name = '{event.name}'", lang="painless") \
             .execute()

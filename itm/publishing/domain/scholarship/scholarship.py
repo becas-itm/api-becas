@@ -114,15 +114,15 @@ class Scholarship:
         if scholarship.language:
             fields['language'] = scholarship.language.value
 
+        if data.entity:
+            fields['entity'] = data.entity
+
         if data.steps:
             fields['sourceDetails'] = {'steps': data.steps}
 
         return ScholarshipCreated.fire(fields, scholarship.is_complete)
 
     def edit_draft(self, fields):
-        if self.state != State.PENDING:
-            raise StateError(self.id)
-
         if 'name' in fields:
             self.name = Name(fields['name'])
 

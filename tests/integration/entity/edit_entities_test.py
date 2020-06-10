@@ -10,28 +10,6 @@ def prepare_data(api):
     Entity.init()
     Scholarship.init()
 
-    Scholarship.create({
-        'id': 'foo',
-        'name': 'foo',
-        'createdAt': '2020-01-01',
-        'state': State.ARCHIVED.value,
-        'entity': {
-            'name': 'foo',
-            'fullName': 'Foo',
-        },
-    })
-
-    Scholarship.create({
-        'id': 'bar',
-        'name': 'bar',
-        'createdAt': '2020-01-01',
-        'state': State.ARCHIVED.value,
-        'entity': {
-            'name': 'bar',
-            'fullName': 'Bar',
-        },
-    })
-
     api.post('/api/entities/', json={
         'name': 'Foo',
         'code': 'foo',
@@ -44,6 +22,28 @@ def prepare_data(api):
         'website': 'http://bar.com',
     })
 
+    Scholarship.create({
+        'id': 'foo',
+        'name': 'foo',
+        'createdAt': '2020-01-01',
+        'state': State.ARCHIVED.value,
+        'entity': {
+            'code': 'foo',
+            'name': 'Foo',
+        },
+    })
+
+    Scholarship.create({
+        'id': 'bar',
+        'name': 'bar',
+        'createdAt': '2020-01-01',
+        'state': State.ARCHIVED.value,
+        'entity': {
+            'code': 'bar',
+            'name': 'Bar',
+        },
+    })
+
 
 def test_entity_cant_be_edited(api):
     edited_entity = {
@@ -52,7 +52,7 @@ def test_entity_cant_be_edited(api):
     }
 
     foo_scholarship = Scholarship.get('foo')
-    assert foo_scholarship.entity.name == 'foo'
+    assert foo_scholarship.entity.name == 'Foo'
 
     response = api.put('/api/entities/foo/', json=edited_entity)
     assert response.status_code == 200
@@ -60,7 +60,7 @@ def test_entity_cant_be_edited(api):
     assert Scholarship.get('foo').entity.name == 'newfoo'
 
     # Other entities should not change
-    assert Scholarship.get('bar').entity.name == 'bar'
+    assert Scholarship.get('bar').entity.name == 'Bar'
 
 
 def test_entity_cant_repeat(api):

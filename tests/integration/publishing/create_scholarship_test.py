@@ -1,6 +1,6 @@
 import pytest
 
-from itm.documents import Scholarship
+from itm.documents import Scholarship, Entity
 
 
 @pytest.fixture(autouse=True)
@@ -11,6 +11,12 @@ def scholarships_index():
 class TestSuccessfullRequest:
     @pytest.fixture(autouse=True)
     def response(self, api):
+        Entity.create({
+            'name': 'Foo',
+            'code': 'foo',
+            'website': 'http://foo.com',
+        })
+
         return api.post('/api/publishing/scholarships/', json={
             'name': 'foo',
             'description': 'bar',
@@ -19,6 +25,7 @@ class TestSuccessfullRequest:
             'fundingType': 'PARTIAL',
             'country': 'COL',
             'language': 'es',
+            'entity': 'foo',
         })
 
     def test_status_code_should_be_200(self, response):

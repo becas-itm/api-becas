@@ -34,6 +34,7 @@ class CreateScholarshipRequest(BaseModel):
     country: str = None
     language: str = None
     steps: str = None
+    entity: str = None
 
 
 class CreateScholarship:
