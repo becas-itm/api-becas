@@ -1,8 +1,12 @@
-import pytest
-import os
 from datetime import datetime, timedelta
+
+import pytest
+
 from itm.documents import Scholarship
 from itm.publishing.domain.archive import State
+
+from itm.publishing.infrastructure.console.archive_scholarship \
+    import main as run_archive_scholarships
 
 YESTERDAY = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0) - timedelta(1)
 TODAY = datetime.utcnow().replace(hour=0, minute=0, second=0, microsecond=0)
@@ -14,10 +18,6 @@ def scholarships_index():
     Scholarship.init()
 
 
-def call_archive_scholarship_script():
-    os.system('python itm/publishing/infrastructure/console/archive_scholarship.py')
-
-
 def test_archive_scholarship():
     Scholarship.create({
         'id': 'foo',
@@ -27,7 +27,7 @@ def test_archive_scholarship():
         'deadline': YESTERDAY,
     })
 
-    call_archive_scholarship_script()
+    run_archive_scholarships()
     scholarship = Scholarship.get('foo')
 
     assert scholarship.state == State.ARCHIVED.value
@@ -42,7 +42,7 @@ def test_today_scholarship_deadline_is_available():
         'deadline': TODAY,
     })
 
-    call_archive_scholarship_script()
+    run_archive_scholarships()
 
     scholarship = Scholarship.get('foo')
 
@@ -74,7 +74,7 @@ def test_archive_only_expired_scholarships():
         'deadline': TOMORROW,
     })
 
-    call_archive_scholarship_script()
+    run_archive_scholarships()
 
     expired_scholarship = Scholarship.get('foo')
     expired_scholarship2 = Scholarship.get('bar')

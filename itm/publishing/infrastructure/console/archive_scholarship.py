@@ -14,9 +14,11 @@ def get_expired_scholarship_ids():
     return [item.meta.id for item in expired_scholarship]
 
 
+def main():
+    for id in get_expired_scholarship_ids():
+        archive_scholarship(id)
+
+
 if __name__ == '__main__':
     connect_db()
-    ids = get_expired_scholarship_ids()
-
-    for id in ids:
-        archive_scholarship(id)
+    main()
