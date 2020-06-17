@@ -10,7 +10,7 @@ def archive_scholarship(id):
 
 def get_expired_scholarship_ids():
     expired_scholarship = Scholarship.search().filter(
-        'range',  **{'deadline': {'lt': 'now+1d/d', 'format': 'strict_date_optional_time'}})
+        'range',  **{'deadline': {'lt': 'now/d', 'format': 'strict_date_optional_time'}})
     return [item.meta.id for item in expired_scholarship]
 
 
