@@ -58,8 +58,6 @@ def sign_in(credentials: Credentials, response: Response):
         raise UnprocessableEntity('Use unverified')
 
     if not HashService.compare(credentials.password, user.password):
-        print('credentials', credentials.password)
-        print('current pwd', user.password)
         raise UnprocessableEntity('Wrong credentials')
 
     refresh_token = RefreshToken.generate(user)

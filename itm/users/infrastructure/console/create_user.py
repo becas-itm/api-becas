@@ -30,5 +30,3 @@ if __name__ == '__main__':
     connect_db()
 
     create_user(user)
-
-    print('User created successfully')
