@@ -20,6 +20,6 @@ install:
   - pip install -r dev_requirements.txt
 
 script:
-  - flake8 etl itm scraper tests main.py app.py
+  - flake8 itm tests main.py app.py
   - pytest tests/unit
   - pytest tests/integration
