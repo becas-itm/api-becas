@@ -41,7 +41,7 @@ class TestSearchResults:
             'state': 'PUBLISHED',
             'entity': {
                 'code': 'entity-code-test',
-                'name': 'entity-name-test',
+                'fullName': 'entity-name-test',
             },
             'createdAt': '2020-01-01',
         })
@@ -66,7 +66,7 @@ class TestSearchResults:
         assert isinstance(scholarship.get('entity'), dict)
         assert {
             'code': 'entity-code-test',
-            'name': 'entity-name-test',
+            'fullName': 'entity-name-test',
         }.items() <= scholarship['entity'].items()
 
     def test_pending_scholarships_are_not_listed(self, api):
